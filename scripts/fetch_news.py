@@ -5,10 +5,9 @@ Morning Digest — Daily Fintech & PM News Fetcher
 
 import feedparser
 import datetime
-import os
 import html
 import re
-import sys
+import os
 
 # ── Timezone: UAE (UTC+4) ─────────────────────────────
 UAE_OFFSET = datetime.timezone(datetime.timedelta(hours=4))
@@ -20,17 +19,14 @@ SOURCES = {
     "fintech": {
         "label": "Fintech & Neobanks",
         "icon": "🏦",
-        "color": "#4F46E5",
         "feeds": [
-            ("TechCrunch Fintech", "https://techcrunch.com/category/fintech/feed/"),
+            ("TechCrunch", "https://techcrunch.com/category/fintech/feed/"),
             ("Finextra", "https://www.finextra.com/rss/headlines.aspx"),
-            ("Tearsheet", "https://tearsheet.co/feed/"),
         ]
     },
     "investing": {
         "label": "Investing & Wealth",
         "icon": "📈",
-        "color": "#059669",
         "feeds": [
             ("Reuters", "https://feeds.reuters.com/reuters/businessNews"),
             ("CNBC", "https://www.cnbc.com/id/10000664/device/rss/rss.html"),
@@ -40,7 +36,7 @@ SOURCES = {
 
 ITEMS_PER_SECTION = 4
 
-# ── Helpers ───────────────────────────────────────────
+# ── Clean text ────────────────────────────────────────
 def clean(text):
     if not text:
         return ""
@@ -48,7 +44,7 @@ def clean(text):
     text = html.unescape(text)
     return re.sub(r'\s+', ' ', text).strip()[:200]
 
-# ── Fetch ─────────────────────────────────────────────
+# ── Fetch news ────────────────────────────────────────
 def fetch_section(section):
     items = []
 
@@ -83,7 +79,7 @@ def fetch_section(section):
 
     return items
 
-# ── HTML Builder ──────────────────────────────────────
+# ── Build HTML ────────────────────────────────────────
 def build_html(all_data):
     sections_html = ""
 
@@ -120,7 +116,7 @@ def build_html(all_data):
     <title>Morning Digest</title>
     <style>
         body {{
-            font-family: Arial, sans-serif;
+            font-family: Arial;
             background: #0f1117;
             color: white;
             padding: 20px;
@@ -149,9 +145,9 @@ def build_html(all_data):
 </html>
 """
 
-# ── Main ──────────────────────────────────────────────
+# ── MAIN ──────────────────────────────────────────────
 if __name__ == "__main__":
-    print("Fetching news...")
+    print("🚀 Script started")
 
     all_data = {}
     for key, section in SOURCES.items():
@@ -160,11 +156,11 @@ if __name__ == "__main__":
 
     html_content = build_html(all_data)
 
-    # ✅ Save to ROOT index.html
-    base_dir = os.path.dirname(__file__)
-    output_path = os.path.join(base_dir, "..", "index.html")
+    # ✅ FORCE WRITE TO ROOT index.html
+    output_path = "index.html"
 
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(html_content)
 
-    print("✅ Updated index.html")
+    print("✅ File written successfully")
+    print("📁 Path:", os.path.abspath(output_path))
