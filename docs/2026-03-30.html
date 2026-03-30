@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Morning Digest — Monday, 30 March 2026</title>
+  <style>
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --border: #2a2d3a;
+      --text: #e2e8f0;
+      --muted: #8892a4;
+      --radius: 12px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; min-height: 100vh; }
+
+    /* Top bar */
+    .topbar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+    .logo { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.3px; }
+    .logo span { color: #60a5fa; }
+    .date-badge { background: #1e3a5f; color: #60a5fa; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 500; }
+    .refresh-time { color: var(--muted); font-size: 0.75rem; }
+
+    /* Nav */
+    .nav { background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 24px; display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+    .nav::-webkit-scrollbar { display: none; }
+    .nav-link { padding: 12px 16px; text-decoration: none; color: var(--muted); font-size: 0.85rem; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.2s; }
+    .nav-link:hover { color: var(--text); border-bottom-color: var(--accent); }
+
+    /* Main */
+    .main { max-width: 1200px; margin: 0 auto; padding: 32px 24px; }
+
+    /* Hero */
+    .hero { text-align: center; padding: 32px 0 40px; }
+    .hero h1 { font-size: 2rem; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 8px; }
+    .hero p { color: var(--muted); font-size: 0.95rem; }
+
+    /* Section */
+    .section { margin-bottom: 48px; }
+    .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+    .section-icon { font-size: 1.4rem; }
+    .section-header h2 { font-size: 1.15rem; font-weight: 700; }
+    .count-badge { padding: 2px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; margin-left: auto; }
+
+    /* Cards */
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; transition: border-color 0.2s, transform 0.2s; }
+    .card:hover { border-color: #3a3d4a; transform: translateY(-2px); }
+    .card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+    .source-tag { padding: 2px 8px; border-radius: 6px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; }
+    .time-tag { color: var(--muted); font-size: 0.72rem; margin-left: auto; }
+    .card-title { display: block; color: var(--text); text-decoration: none; font-size: 0.92rem; font-weight: 600; line-height: 1.4; margin-bottom: 8px; }
+    .card-title:hover { color: #60a5fa; }
+    .card-summary { color: var(--muted); font-size: 0.8rem; line-height: 1.5; }
+    .empty { color: var(--muted); font-style: italic; font-size: 0.85rem; }
+
+    /* Footer */
+    .footer { text-align: center; padding: 32px 24px; color: var(--muted); font-size: 0.8rem; border-top: 1px solid var(--border); }
+    .footer a { color: #60a5fa; text-decoration: none; }
+
+    @media (max-width: 640px) {
+      .hero h1 { font-size: 1.4rem; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .topbar { flex-wrap: wrap; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo">🌅 Morning <span>Digest</span></div>
+  <span class="date-badge">Monday, 30 March 2026</span>
+  <span class="refresh-time">Updated 22:36 UAE</span>
+</div>
+
+<nav class="nav"><a href="#fintech" class="nav-link" style="--accent:#4F46E5">🏦 Fintech & Neobanks</a><a href="#investing" class="nav-link" style="--accent:#059669">📈 Investing & Wealth</a><a href="#india" class="nav-link" style="--accent:#D97706">🇮🇳 India Markets</a><a href="#mena" class="nav-link" style="--accent:#7C3AED">🌍 MENA / UAE Market</a><a href="#product" class="nav-link" style="--accent:#DB2777">🧠 Product Management</a><a href="#innovation" class="nav-link" style="--accent:#0891B2">💡 Tech & Innovation</a></nav>
+
+<main class="main">
+  <div class="hero">
+    <h1>Your Daily Briefing</h1>
+    <p>Fintech · Investing · India Markets · MENA · Product · Innovation</p>
+  </div>
+  
+      <section class="section" id="fintech">
+        <div class="section-header">
+          <span class="section-icon">🏦</span>
+          <h2 style="color:#4F46E5">Fintech & Neobanks</h2>
+          <span class="count-badge" style="background:#4F46E520;color:#4F46E5">4 articles</span>
+        </div>
+        <div class="cards-grid">
+        <div class="card">
+          <div class="card-header">
+            <span class="source-tag" style="background:#4F46E520;color:#4F46E5">TechCrunch Fintech</span>
+            <span class='time-tag'>25 Mar</span>
+          </div>
+          <a class="card-title" href="https://techcrunch.com/2026/03/25/a16z-backed-glimpse-raises-new-funds-accelerates-dispute-tracking-automation-for-cpg-brands/" target="_blank" rel="noopener">After pivoting, Y Combinator grad Glimpse raises $35M led by a16z</a>
+          <p class="card-summary">Glimpse announced on Wednesday a $35 million Series A led by Andreessen Horowitz, with participation from 8VC and YC.</p>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <span class="source-tag" style="background:#4F46E520;color:#4F46E5">TechCrunch Fintech</span>
+            <span class='time-tag'>24 Mar</span>
+          </div>
+          <a class="card-title" href="https://techcrunch.com/2026/03/24/doss-raises-55m-for-ai-inventory-management-that-plugs-into-erp/" target="_blank" rel="noopener">Doss raises $55M for AI inventory management that plugs into ERP</a>
+          <p class="card-summary">Doss&#x27;s AI-powered inventory management system integrates with existing ERP systems. The Series B round was co-led by Madrona and Premji Invest.</p>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <span class="source-tag" style="background:#4F46E520;color:#4F46E5">Finextra</span>
+            <span class='time-tag'>4h ago</span>
+          </div>
+          <a class="card-title" href="https://www.finextra.com/newsarticle/47509/nium-launches-dual-network-stablecoin-card-issuance-platform?utm_medium=rssfinextra&amp;utm_source=finextrafeed" target="_blank" rel="noopener">Nium launches dual-network stablecoin card issuance platform</a>
+          <p class="card-summary">B2B cross-border payments infrastructure provider Nium has launched a duel-network stablecoin card issuance platform, enabling businesses to spend digital dollars at hundreds of millions of merchant locations worldwide.</p>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <span class="source-tag" style="background:#4F46E520;color:#4F46E5">Finextra</span>
+            <span class='time-tag'>7h ago</span>
+          </div>
+          <a class="card-title" href="https://www.finextra.com/newsarticle/47514/wise-launches-uk-current-accounts?utm_medium=rssfinextra&amp;utm_source=finextrafeed" target="_blank" rel="noopener">Wise launches UK current accounts</a>
+          <p class="card-summary">Money transfer outfit Wise is launching current accounts for its three million active UK customers and business clients.</p>
+        </div></div>
+      </section>
+      <section class="section" id="investing">
+        <div class="section-header">
+          <span class="section-icon">📈</span>
+          <h2 style="color:#059669">Investing & Wealth</h2>
+          <span class="count-badge" style="background:#05966920;color:#059669">4 articles</span>
+        </div>
+        <div class="cards-grid">
+        <div class="card">
+          <div class="card-header">
+            <span class="source-tag" style="background:#05966920;color:#059669">CNBC Finance</span>
+            <span class='time-tag'>0h ago</span>
+          </div>
+          <a class="card-title" href="https://www.cnbc.com/2026/03/30/powell-sees-inflation-outlook-in-check-no-wider-crisis-yet-in-private-credit.html" target="_blank" rel="noopener">Powell sees inflation outlook in check, no need to hike rates because of oil shock</a>
+          <p class="card-summary">Federal Reserve Chair Jerome Powell spoke Monday at Harvard University.</p>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <span class="source-tag" style="background:#05966920;color:#059669">CNBC Finance</span>
+            <span class='time-tag'>2h ago</span>
+          </div>
+          <a class="card-title" href="https://www.cnbc.com/2026/03/30/bill-ackman-says-its-one-of-the-best-times-in-a-long-time-to-buy-quality-stocks.html" target="_blank" rel="noopener">Bill Ackman says it’s one of the best times in a long time to buy quality stocks</a>
+          <p class="card-summary">Ackman&#x27;s bullish stance comes at a time when markets have been rattled by rising energy prices and sticky inflation concerns.</p>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <span class="source-tag" style="background:#05966920;color:#059669">Seeking Alpha</span>
+            <span class='time-tag'>0h ago</span>
+          </div>
+          <a class="card-title" href="https://seekingalpha.com/article/4886991-china-merchants-bank-co-ltd-cihky-q4-2025-earnings-call-transcript?source=feed_all_articles" target="_blank" rel="noopener">China Merchants Bank Co., Ltd. (CIHKY) Q4 2025 Earnings Call Transcript</a>
+          <p class="card-summary"></p>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <span class="source-tag" style="background:#05966920;color:#059669">Seeking Alpha</span>
+            <span class='time-tag'>0h ago</span>
+          </div>
+          <a class="card-title" href="https://seekingalpha.com/article/4887176-argan-surges-38-percent-post-earnings-3-best-stocks-with-similar-growth-potential?source=feed_all_articles" target="_blank" rel="noopener">Argan Surges 38% Post-Earnings: 3 Best Stocks With Similar Growth Potential</a>
+          <p class="card-summary"></p>
+        </div></div>
+      </section>
+      <section class="section" id="india">
+        <div class="section-header">
+          <span class="section-icon">🇮🇳</span>
+          <h2 style="color:#D97706">India Markets</h2>
+          <span class="count-badge" style="background:#D9770620;color:#D97706">4 articles</span>
+        </div>
+        <div class="cards-grid">
+        <div class="card">
+          <div class="card-header">
+            <span class="source-tag" style="background:#D9770620;color:#D97706">Moneycontrol</span>
+            <span class='time-tag'>23 Apr</span>
+          </div>
+          <a class="card-title" href="https://www.moneycontrol.com/news/business/icici-prudential-life-insurance-to-focusgrowing-absolute-vnb-amid-slumpfy24_17532041.html" target="_blank" rel="noopener">ICICI Prudential Life Insurance to focus on growing absolute VNB amid slump in FY24</a>
+          <p class="card-summary">In its Q4FY24 results, the company#39;s VNB fell 19.45 percent to Rs 2,227 crore for FY24</p>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <span class="source-tag" style="background:#D9770620;color:#D97706">Moneycontrol</span>
+            <span class='time-tag'>23 Apr</span>
+          </div>
+          <a class="card-title" href="https://www.moneycontrol.com/news/business/tata-elxsi-q4-net-profit-revenue-decline-qoq-firm-declares-dividendrs-70-per-share_17532061.html" target="_blank" rel="noopener">Tata Elxsi Q4 net profit, revenue decline QoQ; firm declares dividend of Rs 70 per share</a>
+          <p class="card-summary">The net profit was down 4.6 percent quarter-on-quarter compared to the October to December period of FY24 and 2.32 percent against the March quarter of FY23</p>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <span class="source-tag" style="background:#D9770620;color:#D97706">LiveMint Markets</span>
+            <span class='time-tag'>0h ago</span>
+          </div>
+          <a class="card-title" href="https://www.livemint.com/market/rbi-defers-circular-on-capital-market-exposures-to-july-11774891448466.html" target="_blank" rel="noopener">RBI defers circular on capital market exposures to July</a>
+          <p class="card-summary">According to RBI, it had in February issued the final guidelines after due consideration of the feedback received as part of public consultation.</p>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <span class="source-tag" style="background:#D9770620;color:#D97706">LiveMint Markets</span>
+            <span class='time-tag'>1h ago</span>
+          </div>
+          <a class="card-title" href="https://www.livemint.com/market/stock-market-news/nvidia-sell-off-extends-to-third-day-stock-down-21-from-recent-peak-amid-market-jitters-11774890734652.html" target="_blank" rel="noopener">Nvidia sell-off extends to third day; stock down 21% from recent peak amid market jitters</a>
+          <p class="card-summary">Nvidia shares fell 1% to $166.21, marking a 6% decline in March and 21% drop from November 2025 high. Concerns over AI revenue sustainability and broader tech sell-off amid geopolitical tensions weigh on the sector, with Nasdaq 100 entering correction territory.</p>
+        </div></div>
+      </section>
+      <section class="section" id="mena">
+        <div class="section-header">
+          <span class="section-icon">🌍</span>
+          <h2 style="color:#7C3AED">MENA / UAE Market</h2>
+          <span class="count-badge" style="background:#7C3AED20;color:#7C3AED">0 articles</span>
+        </div>
+        <div class="cards-grid"><p class="empty">No articles available right now.</p></div>
+      </section>
+      <section class="section" id="product">
+        <div class="section-header">
+          <span class="section-icon">🧠</span>
+          <h2 style="color:#DB2777">Product Management</h2>
+          <span class="count-badge" style="background:#DB277720;color:#DB2777">4 articles</span>
+        </div>
+        <div class="cards-grid">
+        <div class="card">
+          <div class="card-header">
+            <span class="source-tag" style="background:#DB277720;color:#DB2777">Product Hunt</span>
+            <span class='time-tag'>25 Feb</span>
+          </div>
+          <a class="card-title" href="https://www.producthunt.com/products/ncompass-tech" target="_blank" rel="noopener">nCompass AI Assistant</a>
+          <p class="card-summary">Enabling everyone to write GPU kernels Discussion | Link</p>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <span class="source-tag" style="background:#DB277720;color:#DB2777">Product Hunt</span>
+            <span class='time-tag'>26 Mar</span>
+          </div>
+          <a class="card-title" href="https://www.producthunt.com/products/ollang-mcp-skills-sdk-api" target="_blank" rel="noopener">Ollang DX</a>
+          <p class="card-summary">The AI Language Execution Layer for Enterprise Discussion | Link</p>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <span class="source-tag" style="background:#DB277720;color:#DB2777">Lenny&#x27;s Newsletter</span>
+            <span class='time-tag'>3h ago</span>
+          </div>
+          <a class="card-title" href="https://www.lennysnewsletter.com/p/this-week-on-how-i-ai-how-stripe" target="_blank" rel="noopener">🎙️ This week on How I AI: How Stripe built “minions”—AI coding agents that ship 1,300 PRs per week + How to turn Claude Code into your personal life operating system</a>
+          <p class="card-summary">Your weekly listens from How I AI, part of the Lenny’s Podcast Network</p>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <span class="source-tag" style="background:#DB277720;color:#DB2777">Lenny&#x27;s Newsletter</span>
+            <span class='time-tag'>6h ago</span>
+          </div>
+          <a class="card-title" href="https://www.lennysnewsletter.com/p/how-to-turn-claude-code-into-your" target="_blank" rel="noopener">How to turn Claude Code into your personal life operating system | Hilary Gridley</a>
+          <p class="card-summary">Watch now | 🎙️ How a new mom and entrepreneur uses Claude Code to automate life admin—all without complex setup</p>
+        </div></div>
+      </section>
+      <section class="section" id="innovation">
+        <div class="section-header">
+          <span class="section-icon">💡</span>
+          <h2 style="color:#0891B2">Tech & Innovation</h2>
+          <span class="count-badge" style="background:#0891B220;color:#0891B2">4 articles</span>
+        </div>
+        <div class="cards-grid">
+        <div class="card">
+          <div class="card-header">
+            <span class="source-tag" style="background:#0891B220;color:#0891B2">The Verge</span>
+            <span class='time-tag'>0h ago</span>
+          </div>
+          <a class="card-title" href="https://www.theverge.com/gadgets/903373/beats-powerbeats-fit-pro-2-earbuds-amazon-big-spring-sale-2026-deal" target="_blank" rel="noopener">Beats’ gym-friendly Powerbeats Fit are $30 off for Amazon’s Big Spring Sale</a>
+          <p class="card-summary">For iPhone owners, the AirPods Pro 3 are a fantastic all-around set of wireless earbuds, even for working out. Their value is especially tough to beat at $199.99; however, even with five sizes of silicone tips, they aren’t the best fit for some people, or for some kinds of workou…</p>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <span class="source-tag" style="background:#0891B220;color:#0891B2">The Verge</span>
+            <span class='time-tag'>1h ago</span>
+          </div>
+          <a class="card-title" href="https://www.theverge.com/tech/903509/apple-iphone-google-android-video-calls-rcs-universal-profile-4-0" target="_blank" rel="noopener">A new RCS update could connect iPhone and Android video calls, someday</a>
+          <p class="card-summary">iPhone and Android users might be able to make interoperable video calls through their messaging apps - eventually. Last week, the GSM Association (GSMA) announced that the finalized RCS Universal Profile 4.0 standard will let users turn 1-to-1 or group RCS chats into video calls…</p>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <span class="source-tag" style="background:#0891B220;color:#0891B2">Stratechery</span>
+            <span class='time-tag'>8h ago</span>
+          </div>
+          <a class="card-title" href="https://stratechery.com/2026/spring-break/" target="_blank" rel="noopener">Spring Break</a>
+          <p class="card-summary">Stratechery is on a bit of a disjointed Spring Break, as my usual week off will be spread out: I will return to my usual posting schedule on Tuesday, March 31. All other Stratechery Plus content, including my podcasts, will stay on schedule.</p>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <span class="source-tag" style="background:#0891B220;color:#0891B2">Stratechery</span>
+            <span class='time-tag'>27 Mar</span>
+          </div>
+          <a class="card-title" href="https://stratechery.com/2026/so-long-to-sora/" target="_blank" rel="noopener">2026.13: So Long to Sora</a>
+          <p class="card-summary">The best Stratechery content from the week of March 23, 2026, including saying RIP to Sora, the 2026 Bullseye list, and Arm&#x27;s big shift.</p>
+        </div></div>
+      </section>
+</main>
+
+<footer class="footer">
+  Auto-updated daily at 08:00 UAE time via GitHub Actions &nbsp;·&nbsp;
+  <a href="https://github.com" target="_blank">View on GitHub</a> &nbsp;·&nbsp;
+  Built for Shruti @ Wio Securities
+</footer>
+
+</body>
+</html>
