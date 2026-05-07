@@ -1,303 +1,557 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Morning Digest — Monday, 30 March 2026</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Digest — Thursday, 07 May 2026</title>
   <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #0f1117;
-      --surface: #1a1d27;
-      --border: #2a2d3a;
-      --text: #e2e8f0;
-      --muted: #8892a4;
+      --bg: #F8FAFC;
+      --surface: #FFFFFF;
+      --border: #E2E8F0;
+      --text-primary: #0F172A;
+      --text-secondary: #475569;
+      --text-muted: #94A3B8;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-hover: 0 6px 20px rgba(0,0,0,0.10), 0 2px 6px rgba(0,0,0,0.06);
       --radius: 12px;
+      --section-color: #64748B;
+      --section-color-bg: #F8FAFC;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; min-height: 100vh; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
 
-    /* Top bar */
-    .topbar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
-    .logo { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.3px; }
-    .logo span { color: #60a5fa; }
-    .date-badge { background: #1e3a5f; color: #60a5fa; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 500; }
-    .refresh-time { color: var(--muted); font-size: 0.75rem; }
+    /* Header */
+    header {
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .header-sun { font-size: 28px; line-height: 1; }
+    .header-title { font-size: 19px; font-weight: 700; color: #0F172A; letter-spacing: -0.4px; }
+    .header-date { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }
 
-    /* Nav */
-    .nav { background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 24px; display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
-    .nav::-webkit-scrollbar { display: none; }
-    .nav-link { padding: 12px 16px; text-decoration: none; color: var(--muted); font-size: 0.85rem; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.2s; }
-    .nav-link:hover { color: var(--text); border-bottom-color: var(--accent); }
+    /* Navigation */
+    nav {
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      position: sticky;
+      top: 65px;
+      z-index: 99;
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .nav-inner::-webkit-scrollbar { display: none; }
+    .nav-inner a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 13px 14px;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .nav-inner a:hover {
+      color: #0F172A;
+      border-bottom-color: #CBD5E1;
+    }
 
     /* Main */
-    .main { max-width: 1200px; margin: 0 auto; padding: 32px 24px; }
-
-    /* Hero */
-    .hero { text-align: center; padding: 32px 0 40px; }
-    .hero h1 { font-size: 2rem; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 8px; }
-    .hero p { color: var(--muted); font-size: 0.95rem; }
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 36px 24px 56px;
+    }
 
     /* Section */
-    .section { margin-bottom: 48px; }
-    .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
-    .section-icon { font-size: 1.4rem; }
-    .section-header h2 { font-size: 1.15rem; font-weight: 700; }
-    .count-badge { padding: 2px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; margin-left: auto; }
+    .section-block {
+      margin-bottom: 52px;
+      scroll-margin-top: 140px;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 14px;
+      margin-bottom: 24px;
+      border-bottom: 2px solid var(--section-color);
+    }
+    .section-icon { font-size: 24px; }
+    .section-title { font-size: 20px; font-weight: 700; color: #0F172A; letter-spacing: -0.3px; }
+    .section-count {
+      margin-left: auto;
+      font-size: 11px;
+      color: var(--text-muted);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+
+    /* Subsections */
+    .subsection { margin-bottom: 28px; }
+    .subsection-title {
+      font-size: 10.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
 
     /* Cards */
-    .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
-    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; transition: border-color 0.2s, transform 0.2s; }
-    .card:hover { border-color: #3a3d4a; transform: translateY(-2px); }
-    .card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
-    .source-tag { padding: 2px 8px; border-radius: 6px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; }
-    .time-tag { color: var(--muted); font-size: 0.72rem; margin-left: auto; }
-    .card-title { display: block; color: var(--text); text-decoration: none; font-size: 0.92rem; font-weight: 600; line-height: 1.4; margin-bottom: 8px; }
-    .card-title:hover { color: #60a5fa; }
-    .card-summary { color: var(--muted); font-size: 0.8rem; line-height: 1.5; }
-    .empty { color: var(--muted); font-style: italic; font-size: 0.85rem; }
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+    .card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+    .card-source {
+      display: inline-flex;
+      align-items: center;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      color: var(--section-color);
+      background: var(--section-color-bg);
+      padding: 3px 9px;
+      border-radius: 20px;
+      width: fit-content;
+    }
+    .card-title {
+      font-size: 14.5px;
+      font-weight: 600;
+      color: #0F172A;
+      text-decoration: none;
+      line-height: 1.45;
+      display: block;
+    }
+    .card-title:hover { color: var(--section-color); }
+    .card-summary {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      flex: 1;
+    }
+    .card-read-more {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--section-color);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      margin-top: 2px;
+      opacity: 0.85;
+    }
+    .card-read-more:hover { opacity: 1; text-decoration: underline; }
+    .empty-state { color: var(--text-muted); font-size: 14px; padding: 16px 0; }
+
+    /* Vocabulary */
+    .vocab-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--section-color);
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      max-width: 840px;
+      box-shadow: var(--shadow);
+    }
+    .vocab-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--section-color);
+      margin-bottom: 8px;
+    }
+    .vocab-term { font-size: 21px; font-weight: 700; color: #0F172A; margin-bottom: 14px; letter-spacing: -0.4px; }
+    .vocab-definition { font-size: 14.5px; color: var(--text-secondary); line-height: 1.75; }
 
     /* Footer */
-    .footer { text-align: center; padding: 32px 24px; color: var(--muted); font-size: 0.8rem; border-top: 1px solid var(--border); }
-    .footer a { color: #60a5fa; text-decoration: none; }
+    footer {
+      background: #FFFFFF;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 22px 24px;
+      color: var(--text-muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
 
+    /* Responsive */
     @media (max-width: 640px) {
-      .hero h1 { font-size: 1.4rem; }
+      header { padding: 12px 16px; }
+      nav { top: 57px; }
+      main { padding: 24px 16px 40px; }
       .cards-grid { grid-template-columns: 1fr; }
-      .topbar { flex-wrap: wrap; gap: 8px; }
+      .vocab-card { padding: 20px; }
+      .section-title { font-size: 17px; }
     }
   </style>
 </head>
 <body>
 
-<div class="topbar">
-  <div class="logo">🌅 Morning <span>Digest</span></div>
-  <span class="date-badge">Monday, 30 March 2026</span>
-  <span class="refresh-time">Updated 22:36 UAE</span>
-</div>
+  <header>
+    <div class="header-inner">
+      <span class="header-sun">☀️</span>
+      <div>
+        <div class="header-title">Morning Digest</div>
+        <div class="header-date">Thursday, 07 May 2026</div>
+      </div>
+    </div>
+  </header>
 
-<nav class="nav"><a href="#fintech" class="nav-link" style="--accent:#4F46E5">🏦 Fintech & Neobanks</a><a href="#investing" class="nav-link" style="--accent:#059669">📈 Investing & Wealth</a><a href="#india" class="nav-link" style="--accent:#D97706">🇮🇳 India Markets</a><a href="#mena" class="nav-link" style="--accent:#7C3AED">🌍 MENA / UAE Market</a><a href="#product" class="nav-link" style="--accent:#DB2777">🧠 Product Management</a><a href="#innovation" class="nav-link" style="--accent:#0891B2">💡 Tech & Innovation</a></nav>
+  <nav>
+    <div class="nav-inner">
+      <a href="#wealth">💰 Wealth</a>
+      <a href="#trade">📊 Trade</a>
+      <a href="#ai">🤖 AI</a>
+      <a href="#companies">🏢 Companies</a>
+      <a href="#product">🚀 Product</a>
+      <a href="#vocabulary">📚 Vocabulary</a>
+    </div>
+  </nav>
 
-<main class="main">
-  <div class="hero">
-    <h1>Your Daily Briefing</h1>
-    <p>Fintech · Investing · India Markets · MENA · Product · Innovation</p>
-  </div>
-  
-      <section class="section" id="fintech">
+  <main>
+    
+      <section class="section-block" id="wealth" style="--section-color:#10B981; --section-color-bg:#ECFDF5;">
         <div class="section-header">
-          <span class="section-icon">🏦</span>
-          <h2 style="color:#4F46E5">Fintech & Neobanks</h2>
-          <span class="count-badge" style="background:#4F46E520;color:#4F46E5">4 articles</span>
+          <span class="section-icon">💰</span>
+          <h2 class="section-title">Wealth</h2>
+          <span class="section-count">6 articles</span>
+        </div>
+        
+          <div class="subsection">
+            <h3 class="subsection-title">Strategy &amp; Portfolios</h3>
+            <div class="cards-grid">
+            <article class="card">
+              <span class="card-source">LiveMint Markets</span>
+              <a href="https://www.livemint.com/market/stock-market-news/wall-street-s-p-500-nasdaq-hit-record-highs-as-crude-oil-slumps-on-hopes-of-us-iran-peace-deal-11778161449995.html" target="_blank" rel="noopener" class="card-title">Wall Street: S&amp;P 500, Nasdaq hit record highs as crude oil slumps on hopes of US-Iran peace deal</a>
+              <p class="card-summary">As of 10:30 a.m. Eastern Time, the S&amp;amp;P 500 gained 0.1%, the Dow Jones Industrial Average was down 0.4%, and the Nasdaq Composite added 0.5%.</p>
+              <a href="https://www.livemint.com/market/stock-market-news/wall-street-s-p-500-nasdaq-hit-record-highs-as-crude-oil-slumps-on-hopes-of-us-iran-peace-deal-11778161449995.html" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+            </article>
+            <article class="card">
+              <span class="card-source">LiveMint Markets</span>
+              <a href="https://www.livemint.com/market/stock-market-news/smallcap-stock-under-rs-50-hits-5-upper-circuit-after-this-rs-500-crore-acquisition-update-11778159011753.html" target="_blank" rel="noopener" class="card-title">Small-cap stock under ₹50 hits 5% upper circuit after this ₹500 crore acquisition update</a>
+              <p class="card-summary">AVI Polymers&#x27; stock surged to ₹24.25 after announcing a 90% stake acquisition in JVTR Consultants, valued at ₹500 crore. The acquisition aims to diversify into technology services. The stock has rebounded significantly since early April&#x27;s low of ₹10.61.</p>
+              <a href="https://www.livemint.com/market/stock-market-news/smallcap-stock-under-rs-50-hits-5-upper-circuit-after-this-rs-500-crore-acquisition-update-11778159011753.html" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+            </article>
+            <article class="card">
+              <span class="card-source">LiveMint Markets</span>
+              <a href="https://www.livemint.com/market/stock-market-news/us-stock-market-today-s-p-500-nasdaq-futures-edge-higher-after-record-highs-brent-below-98-11778156030386.html" target="_blank" rel="noopener" class="card-title">US stock market today: S&amp;P 500, Nasdaq futures edge higher after record highs; Brent below $98</a>
+              <p class="card-summary">US stock futures showed modest gains on 7 May, following record highs amid hopes of a US-Iran peace deal. Stocks rose with easing tensions and strong earnings, while crude oil prices declined, alleviating inflation fears and prompting speculation about potential Federal Reserve rate cuts.</p>
+              <a href="https://www.livemint.com/market/stock-market-news/us-stock-market-today-s-p-500-nasdaq-futures-edge-higher-after-record-highs-brent-below-98-11778156030386.html" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+            </article>
+          </div>
+          </div>
+          <div class="subsection">
+            <h3 class="subsection-title">Bonds</h3>
+            <div class="cards-grid">
+            <article class="card">
+              <span class="card-source">CNBC Finance</span>
+              <a href="https://www.cnbc.com/2026/05/07/ryan-cohens-mysterious-bank-letter-backing-his-ebay-bid-reveals-a-big-issue.html" target="_blank" rel="noopener" class="card-title">Ryan Cohen&#x27;s mysterious bank letter backing GameStop&#x27;s eBay bid reveals a big issue with deal</a>
+              <p class="card-summary">The combined company would need to maintain an investment-grade credit profile, GameStop&#x27;s mysterious financing letter said.</p>
+              <a href="https://www.cnbc.com/2026/05/07/ryan-cohens-mysterious-bank-letter-backing-his-ebay-bid-reveals-a-big-issue.html" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+            </article>
+            <article class="card">
+              <span class="card-source">CNBC Finance</span>
+              <a href="https://www.cnbc.com/2026/05/07/whirlpool-says-iran-war-causing-recession-level-industry-decline-the-shares-are-down-20percent.html" target="_blank" rel="noopener" class="card-title">Whirlpool says Iran war causing &#x27;recession-level industry decline.&#x27; The shares are down 12%</a>
+              <p class="card-summary">&quot;War in Iran resulted in recession-level industry decline in the U.S. as consumer confidence collapsed in late February and March,&quot; the company said.</p>
+              <a href="https://www.cnbc.com/2026/05/07/whirlpool-says-iran-war-causing-recession-level-industry-decline-the-shares-are-down-20percent.html" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+            </article>
+            <article class="card">
+              <span class="card-source">CNBC Finance</span>
+              <a href="https://www.cnbc.com/2026/05/07/adb-70-billion-plan-southeast-asia-digital-infrastructure-power.html" target="_blank" rel="noopener" class="card-title">Asian Development Bank&#x27;s $70 billion energy and digital infra push puts Southeast Asia center stage</a>
+              <p class="card-summary">Southeast Asia to benefit significantly from Asian Development Bank&#x27;s $70 billion new energy and digital infrastructure plan in Asia and the Pacific by 2035.</p>
+              <a href="https://www.cnbc.com/2026/05/07/adb-70-billion-plan-southeast-asia-digital-infrastructure-power.html" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+            </article>
+          </div>
+          </div>
+          <div class="subsection">
+            <h3 class="subsection-title">UCITS ETFs</h3>
+            <p class="empty-state">No articles available right now.</p>
+          </div>
+      </section>
+      <section class="section-block" id="trade" style="--section-color:#3B82F6; --section-color-bg:#EFF6FF;">
+        <div class="section-header">
+          <span class="section-icon">📊</span>
+          <h2 class="section-title">Trade</h2>
+          <span class="section-count">12 articles</span>
+        </div>
+        
+          <div class="subsection">
+            <h3 class="subsection-title">Stocks &amp; ETFs</h3>
+            <div class="cards-grid">
+            <article class="card">
+              <span class="card-source">ET Markets</span>
+              <a href="https://economictimes.indiatimes.com/markets/stocks/earnings/britannia-q4-results-profit-rises-21-yoy-to-rs-678-crore-co-declares-rs-90-5-dividend/articleshow/130906463.cms" target="_blank" rel="noopener" class="card-title">Britannia Q4 Results: Profit rises 21% YoY to Rs 678 crore; co declares Rs 90.5 dividend</a>
+              <p class="card-summary">Britannia Q4 Results: FMCG company Britannia Industries reported 21% year-on-year (YoY) growth in its consolidated net profit at Rs 678 crore in the fourth quarter, compared with Rs 560 crore in the year-ago quarter.</p>
+              <a href="https://economictimes.indiatimes.com/markets/stocks/earnings/britannia-q4-results-profit-rises-21-yoy-to-rs-678-crore-co-declares-rs-90-5-dividend/articleshow/130906463.cms" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+            </article>
+            <article class="card">
+              <span class="card-source">ET Markets</span>
+              <a href="https://economictimes.indiatimes.com/markets/stocks/news/ahead-of-market-10-things-that-will-decide-stock-market-action-on-friday/articleshow/130906249.cms" target="_blank" rel="noopener" class="card-title">Ahead of Market: 10 things that will decide stock market action on Friday</a>
+              <p class="card-summary">Indian benchmark indices ended slightly lower amid weakness in FMCG, IT and banking stocks, while analysts highlighted improving technical indicators and bullish breakout signals. Positive market breadth, easing volatility and strong investor participation supported optimism despite global market uncertainty and stock-specific selling pressure.</p>
+              <a href="https://economictimes.indiatimes.com/markets/stocks/news/ahead-of-market-10-things-that-will-decide-stock-market-action-on-friday/articleshow/130906249.cms" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+            </article>
+            <article class="card">
+              <span class="card-source">ET Markets</span>
+              <a href="https://economictimes.indiatimes.com/markets/stocks/news/market-trading-guide-buy-nippon-life-bharat-dynamics-on-friday-for-gains-up-to-14/articleshow/130905884.cms" target="_blank" rel="noopener" class="card-title">Market Trading Guide: Buy Nippon Life, Bharat Dynamics on Friday for gains up to 14%</a>
+              <p class="card-summary">Nifty ended marginally lower despite showing a consolidation breakout and improving technical indicators. Analysts expect bullish momentum to continue with upside potential in the near term. Nippon Life India Asset Management and Bharat Dynamics were highlighted as attractive trading opportunities based on strong chart patterns.</p>
+              <a href="https://economictimes.indiatimes.com/markets/stocks/news/market-trading-guide-buy-nippon-life-bharat-dynamics-on-friday-for-gains-up-to-14/articleshow/130905884.cms" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+            </article>
+          </div>
+          </div>
+          <div class="subsection">
+            <h3 class="subsection-title">Crypto</h3>
+            <div class="cards-grid">
+            <article class="card">
+              <span class="card-source">Cointelegraph</span>
+              <a href="https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&amp;utm_medium=rss&amp;utm_campaign=rss_partner_inbound" target="_blank" rel="noopener" class="card-title">Here’s what happened in crypto today</a>
+              <p class="card-summary">Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, NFTs, Web3 and crypto regulation.</p>
+              <a href="https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&amp;utm_medium=rss&amp;utm_campaign=rss_partner_inbound" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+            </article>
+            <article class="card">
+              <span class="card-source">Cointelegraph</span>
+              <a href="https://cointelegraph.com/press-releases/panther-protocol-deploys-privacy-infrastructure-on-polygon?utm_source=rss_feed&amp;utm_medium=rss&amp;utm_campaign=rss_partner_inbound" target="_blank" rel="noopener" class="card-title">Panther Protocol deploys privacy infrastructure on Polygon</a>
+              <p class="card-summary">After years of research, engineering, and community collaboration, Panther Protocol Foundation announced that Panther Protocol is now live on Polygon.</p>
+              <a href="https://cointelegraph.com/press-releases/panther-protocol-deploys-privacy-infrastructure-on-polygon?utm_source=rss_feed&amp;utm_medium=rss&amp;utm_campaign=rss_partner_inbound" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+            </article>
+            <article class="card">
+              <span class="card-source">Cointelegraph</span>
+              <a href="https://cointelegraph.com/news/germany-signals-2027-crypto-tax-overhaul-one-year-holding-perk-under-threat?utm_source=rss_feed&amp;utm_medium=rss&amp;utm_campaign=rss_partner_inbound" target="_blank" rel="noopener" class="card-title">Germany weighs 2027 crypto tax overhaul as one-year holding rule under threat</a>
+              <p class="card-summary">Germany may overhaul its crypto tax rules from 2027, potentially curbing the country’s hallmark one-year tax-free holding rule as it tightens enforcement and seeks extra revenue.</p>
+              <a href="https://cointelegraph.com/news/germany-signals-2027-crypto-tax-overhaul-one-year-holding-perk-under-threat?utm_source=rss_feed&amp;utm_medium=rss&amp;utm_campaign=rss_partner_inbound" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+            </article>
+          </div>
+          </div>
+          <div class="subsection">
+            <h3 class="subsection-title">Margin</h3>
+            <div class="cards-grid">
+            <article class="card">
+              <span class="card-source">Finance Magnates</span>
+              <a href="https://www.financemagnates.com/forex/interactive-brokers-expands-asia-push-with-access-to-skoreas-18t-equity-market/" target="_blank" rel="noopener" class="card-title">Interactive Brokers Expands Asia Push with Access to S.Korea’s $1.8T Equity Market</a>
+              <p class="card-summary">Interactive Brokers has launched access to equities listed on the Korea Exchange, becoming the first major US-based broker to offer direct trading in the Korean stock market through its platform.Singapore Summit: Meet the largest APAC brokers you know (and those you still don&#x27;t!).The move extends the firm’s Asia-Pacific expansion. In recent years, Interactive Brokers added Korean derivatives via the Eurex/KRX link and expanded access to Taiwan’s Taipei Exchange as part of a regional strategy.Global Clients Trade Korean StocksThe latest rollout gives eligible clients access to South Korea’s $1.8 trillion equity market. The company said the market records more than $10…</p>
+              <a href="https://www.financemagnates.com/forex/interactive-brokers-expands-asia-push-with-access-to-skoreas-18t-equity-market/" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+            </article>
+            <article class="card">
+              <span class="card-source">Finance Magnates</span>
+              <a href="https://www.financemagnates.com/forex/regulation/simply-a-bad-idea-bank-of-irelands-mcmunn-breaks-with-fca-on-regulator-growth-duty/" target="_blank" rel="noopener" class="card-title">&quot;Simply a Bad Idea&quot;: Bank of Ireland&#x27;s McMunn Breaks With FCA on Regulator Growth Duty</a>
+              <p class="card-summary">The Central Bank of Ireland&#x27;s deputy governor for financial regulation pushed back hard against calls to give regulators a mandate to promote the competitiveness of the financial sector, calling the idea &quot;simply a bad idea&quot; and warning it risks repeating the policy errors that contributed to Ireland&#x27;s banking crash.Singapore Summit: Meet the largest APAC brokers you know (and those you still don&#x27;t!)Irish Central Bank Rejects Calls for Regulator Competitiveness MandateMary-Elizabeth McMunn, speaking yesterday (Wednesday) at a Banking and Payments Federation Ireland event in Dublin, used the address to set out the regulator&#x27;s position on three issues she said currently dominate…</p>
+              <a href="https://www.financemagnates.com/forex/regulation/simply-a-bad-idea-bank-of-irelands-mcmunn-breaks-with-fca-on-regulator-growth-duty/" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+            </article>
+            <article class="card">
+              <span class="card-source">Finance Magnates</span>
+              <a href="https://www.financemagnates.com/forex/the-finfluencer-illusion-why-reach-doesnt-equal-trust/" target="_blank" rel="noopener" class="card-title">The Finfluencer Illusion: Why Reach Doesn’t Equal Trust</a>
+              <p class="card-summary">Deals with financial influencers, commonly known as finfluencers, have become a common marketing practice in the industry. But how much value do those affiliate or direct deals with these social media personalities bring to firms? Are more followers always better, or is there more nuance to it? I am a content creator in the trading space and a marketing advisor to fintech companies and prop firms. That gives me a view most marketing teams do not have: I know what these creators actually do and what their audiences actually think of them.Singapore Summit: Meet the largest APAC brokers you know…</p>
+              <a href="https://www.financemagnates.com/forex/the-finfluencer-illusion-why-reach-doesnt-equal-trust/" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+            </article>
+          </div>
+          </div>
+          <div class="subsection">
+            <h3 class="subsection-title">CFDs</h3>
+            <div class="cards-grid">
+            <article class="card">
+              <span class="card-source">Finance Magnates</span>
+              <a href="https://www.financemagnates.com/forex/interactive-brokers-expands-asia-push-with-access-to-skoreas-18t-equity-market/" target="_blank" rel="noopener" class="card-title">Interactive Brokers Expands Asia Push with Access to S.Korea’s $1.8T Equity Market</a>
+              <p class="card-summary">Interactive Brokers has launched access to equities listed on the Korea Exchange, becoming the first major US-based broker to offer direct trading in the Korean stock market through its platform.Singapore Summit: Meet the largest APAC brokers you know (and those you still don&#x27;t!).The move extends the firm’s Asia-Pacific expansion. In recent years, Interactive Brokers added Korean derivatives via the Eurex/KRX link and expanded access to Taiwan’s Taipei Exchange as part of a regional strategy.Global Clients Trade Korean StocksThe latest rollout gives eligible clients access to South Korea’s $1.8 trillion equity market. The company said the market records more than $10…</p>
+              <a href="https://www.financemagnates.com/forex/interactive-brokers-expands-asia-push-with-access-to-skoreas-18t-equity-market/" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+            </article>
+            <article class="card">
+              <span class="card-source">Finance Magnates</span>
+              <a href="https://www.financemagnates.com/forex/regulation/simply-a-bad-idea-bank-of-irelands-mcmunn-breaks-with-fca-on-regulator-growth-duty/" target="_blank" rel="noopener" class="card-title">&quot;Simply a Bad Idea&quot;: Bank of Ireland&#x27;s McMunn Breaks With FCA on Regulator Growth Duty</a>
+              <p class="card-summary">The Central Bank of Ireland&#x27;s deputy governor for financial regulation pushed back hard against calls to give regulators a mandate to promote the competitiveness of the financial sector, calling the idea &quot;simply a bad idea&quot; and warning it risks repeating the policy errors that contributed to Ireland&#x27;s banking crash.Singapore Summit: Meet the largest APAC brokers you know (and those you still don&#x27;t!)Irish Central Bank Rejects Calls for Regulator Competitiveness MandateMary-Elizabeth McMunn, speaking yesterday (Wednesday) at a Banking and Payments Federation Ireland event in Dublin, used the address to set out the regulator&#x27;s position on three issues she said currently dominate…</p>
+              <a href="https://www.financemagnates.com/forex/regulation/simply-a-bad-idea-bank-of-irelands-mcmunn-breaks-with-fca-on-regulator-growth-duty/" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+            </article>
+            <article class="card">
+              <span class="card-source">Finance Magnates</span>
+              <a href="https://www.financemagnates.com/forex/the-finfluencer-illusion-why-reach-doesnt-equal-trust/" target="_blank" rel="noopener" class="card-title">The Finfluencer Illusion: Why Reach Doesn’t Equal Trust</a>
+              <p class="card-summary">Deals with financial influencers, commonly known as finfluencers, have become a common marketing practice in the industry. But how much value do those affiliate or direct deals with these social media personalities bring to firms? Are more followers always better, or is there more nuance to it? I am a content creator in the trading space and a marketing advisor to fintech companies and prop firms. That gives me a view most marketing teams do not have: I know what these creators actually do and what their audiences actually think of them.Singapore Summit: Meet the largest APAC brokers you know…</p>
+              <a href="https://www.financemagnates.com/forex/the-finfluencer-illusion-why-reach-doesnt-equal-trust/" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+            </article>
+          </div>
+          </div>
+      </section>
+      <section class="section-block" id="ai" style="--section-color:#8B5CF6; --section-color-bg:#F5F3FF;">
+        <div class="section-header">
+          <span class="section-icon">🤖</span>
+          <h2 class="section-title">AI</h2>
+          <span class="section-count">5 articles</span>
         </div>
         <div class="cards-grid">
-        <div class="card">
-          <div class="card-header">
-            <span class="source-tag" style="background:#4F46E520;color:#4F46E5">TechCrunch Fintech</span>
-            <span class='time-tag'>25 Mar</span>
+            <article class="card">
+              <span class="card-source">TechCrunch AI</span>
+              <a href="https://techcrunch.com/2026/05/07/how-anthropics-mythos-has-rewritten-firefoxs-approach-to-cybersecurity/" target="_blank" rel="noopener" class="card-title">How Anthropic’s Mythos has rewritten Firefox’s approach to cybersecurity</a>
+              <p class="card-summary">Security researchers at Mozilla say Anthropic&#x27;s Mythos has unearthed a wealth of high-severity bugs in Firefox.</p>
+              <a href="https://techcrunch.com/2026/05/07/how-anthropics-mythos-has-rewritten-firefoxs-approach-to-cybersecurity/" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+            </article>
+            <article class="card">
+              <span class="card-source">TechCrunch AI</span>
+              <a href="https://techcrunch.com/2026/05/07/startup-battlefield-200-applications-close-may-27-a-shot-at-vc-access-global-visibility-techcrunch-coverage-and-100k/" target="_blank" rel="noopener" class="card-title">Startup Battlefield 200 applications close May 27: A shot at VC access, global visibility, TechCrunch coverage, and $100K</a>
+              <p class="card-summary">Startup Battlefield 200 applications are open, but only for three more weeks. Apply by May 27 for your shot at VC access, global visibility, TechCrunch coverage, $100K equity-free, and more opportunities for major scaling impact. Pre-Series A founders — and anyone who knows a startup worth backing — this is your reminder: the deadline is approaching fast, and the […]</p>
+              <a href="https://techcrunch.com/2026/05/07/startup-battlefield-200-applications-close-may-27-a-shot-at-vc-access-global-visibility-techcrunch-coverage-and-100k/" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+            </article>
+            <article class="card">
+              <span class="card-source">TechCrunch AI</span>
+              <a href="https://techcrunch.com/2026/05/07/exhibit-at-techcrunch-disrupt-2026-get-in-front-of-10000-decision-makers-before-space-runs-out/" target="_blank" rel="noopener" class="card-title">Exhibit at TechCrunch Disrupt 2026: Get in front of 10,000 decision-makers before space runs out</a>
+              <p class="card-summary">If startup visibility, traction, and real deals matter, you should be on the TechCrunch Disrupt 2026 exhibit floor. Get your 6&#x27; exhibit table before your competitor does.</p>
+              <a href="https://techcrunch.com/2026/05/07/exhibit-at-techcrunch-disrupt-2026-get-in-front-of-10000-decision-makers-before-space-runs-out/" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+            </article>
+            <article class="card">
+              <span class="card-source">MIT Tech Review</span>
+              <a href="https://www.technologyreview.com/2026/05/07/1136956/the-download-ivf-tech-balcony-solar/" target="_blank" rel="noopener" class="card-title">The Download: the tech reshaping IVF and the rise of balcony solar</a>
+              <p class="card-summary">This is today’s edition of The Download, our weekday newsletter that provides a daily dose of what’s going on in the world of technology. What’s next for IVF IVF has brought millions of babies into the world over the last four decades. But the process can still be slow, painful, and expensive—and far from guaranteed…</p>
+              <a href="https://www.technologyreview.com/2026/05/07/1136956/the-download-ivf-tech-balcony-solar/" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+            </article>
+            <article class="card">
+              <span class="card-source">MIT Tech Review</span>
+              <a href="https://www.technologyreview.com/2026/05/07/1136933/balcony-solar-boom/" target="_blank" rel="noopener" class="card-title">The balcony solar boom is coming to the US</a>
+              <p class="card-summary">Dozens of US states are considering legislation to allow people to install plug-in solar systems, often called balcony solar. These small arrays require little to no setup and could help cut emissions and power bills. Balcony solar is already popular in Europe, and proponents say that the systems could make solar power more accessible for…</p>
+              <a href="https://www.technologyreview.com/2026/05/07/1136933/balcony-solar-boom/" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+            </article>
           </div>
-          <a class="card-title" href="https://techcrunch.com/2026/03/25/a16z-backed-glimpse-raises-new-funds-accelerates-dispute-tracking-automation-for-cpg-brands/" target="_blank" rel="noopener">After pivoting, Y Combinator grad Glimpse raises $35M led by a16z</a>
-          <p class="card-summary">Glimpse announced on Wednesday a $35 million Series A led by Andreessen Horowitz, with participation from 8VC and YC.</p>
-        </div>
-        <div class="card">
-          <div class="card-header">
-            <span class="source-tag" style="background:#4F46E520;color:#4F46E5">TechCrunch Fintech</span>
-            <span class='time-tag'>24 Mar</span>
-          </div>
-          <a class="card-title" href="https://techcrunch.com/2026/03/24/doss-raises-55m-for-ai-inventory-management-that-plugs-into-erp/" target="_blank" rel="noopener">Doss raises $55M for AI inventory management that plugs into ERP</a>
-          <p class="card-summary">Doss&#x27;s AI-powered inventory management system integrates with existing ERP systems. The Series B round was co-led by Madrona and Premji Invest.</p>
-        </div>
-        <div class="card">
-          <div class="card-header">
-            <span class="source-tag" style="background:#4F46E520;color:#4F46E5">Finextra</span>
-            <span class='time-tag'>4h ago</span>
-          </div>
-          <a class="card-title" href="https://www.finextra.com/newsarticle/47509/nium-launches-dual-network-stablecoin-card-issuance-platform?utm_medium=rssfinextra&amp;utm_source=finextrafeed" target="_blank" rel="noopener">Nium launches dual-network stablecoin card issuance platform</a>
-          <p class="card-summary">B2B cross-border payments infrastructure provider Nium has launched a duel-network stablecoin card issuance platform, enabling businesses to spend digital dollars at hundreds of millions of merchant locations worldwide.</p>
-        </div>
-        <div class="card">
-          <div class="card-header">
-            <span class="source-tag" style="background:#4F46E520;color:#4F46E5">Finextra</span>
-            <span class='time-tag'>7h ago</span>
-          </div>
-          <a class="card-title" href="https://www.finextra.com/newsarticle/47514/wise-launches-uk-current-accounts?utm_medium=rssfinextra&amp;utm_source=finextrafeed" target="_blank" rel="noopener">Wise launches UK current accounts</a>
-          <p class="card-summary">Money transfer outfit Wise is launching current accounts for its three million active UK customers and business clients.</p>
-        </div></div>
       </section>
-      <section class="section" id="investing">
+      <section class="section-block" id="companies" style="--section-color:#F59E0B; --section-color-bg:#FFFBEB;">
         <div class="section-header">
-          <span class="section-icon">📈</span>
-          <h2 style="color:#059669">Investing & Wealth</h2>
-          <span class="count-badge" style="background:#05966920;color:#059669">4 articles</span>
+          <span class="section-icon">🏢</span>
+          <h2 class="section-title">Companies</h2>
+          <span class="section-count">5 articles</span>
         </div>
         <div class="cards-grid">
-        <div class="card">
-          <div class="card-header">
-            <span class="source-tag" style="background:#05966920;color:#059669">CNBC Finance</span>
-            <span class='time-tag'>0h ago</span>
+            <article class="card">
+              <span class="card-source">TechCrunch</span>
+              <a href="https://techcrunch.com/2026/05/07/how-anthropics-mythos-has-rewritten-firefoxs-approach-to-cybersecurity/" target="_blank" rel="noopener" class="card-title">How Anthropic’s Mythos has rewritten Firefox’s approach to cybersecurity</a>
+              <p class="card-summary">Security researchers at Mozilla say Anthropic&#x27;s Mythos has unearthed a wealth of high-severity bugs in Firefox.</p>
+              <a href="https://techcrunch.com/2026/05/07/how-anthropics-mythos-has-rewritten-firefoxs-approach-to-cybersecurity/" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+            </article>
+            <article class="card">
+              <span class="card-source">TechCrunch</span>
+              <a href="https://techcrunch.com/2026/05/07/googles-9-99-per-month-ai-health-coach-launches-may-19/" target="_blank" rel="noopener" class="card-title">Google’s $9.99-per-month AI health coach launches May 19</a>
+              <p class="card-summary">The Gemini-powered health coach will act as a combination fitness coach, sleep expert, and health and wellness advisor.</p>
+              <a href="https://techcrunch.com/2026/05/07/googles-9-99-per-month-ai-health-coach-launches-may-19/" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+            </article>
+            <article class="card">
+              <span class="card-source">TechCrunch</span>
+              <a href="https://techcrunch.com/2026/05/07/google-unveils-whoop-like-screenless-fitbit-air/" target="_blank" rel="noopener" class="card-title">Google unveils Whoop-like screenless Fitbit Air</a>
+              <p class="card-summary">The device comes with health and fitness tracking like 24/7 heart rate, heart rhythm monitoring with Afib alerts, SpO2, resting heart rate, heart rate variability, sleep stages and duration, and more.</p>
+              <a href="https://techcrunch.com/2026/05/07/google-unveils-whoop-like-screenless-fitbit-air/" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+            </article>
+            <article class="card">
+              <span class="card-source">Crunchbase News</span>
+              <a href="https://news.crunchbase.com/fintech/fazeshift-accounts-receivable-ai-finance-ops-startup-funding/" target="_blank" rel="noopener" class="card-title">Exclusive: Fazeshift Scores $17M As Investors Bet On AI-Powered Finance Ops, Starting With Accounts Receivable</a>
+              <p class="card-summary">Fazeshift, a startup that uses AI agents to automate accounts receivable, has raised $17 million in a Series A round of funding, it tells Crunchbase News exclusively.</p>
+              <a href="https://news.crunchbase.com/fintech/fazeshift-accounts-receivable-ai-finance-ops-startup-funding/" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+            </article>
+            <article class="card">
+              <span class="card-source">Crunchbase News</span>
+              <a href="https://news.crunchbase.com/fintech/amex-ventures-portfolio-strategy-agentic-ai-startups-kevin-tsang/" target="_blank" rel="noopener" class="card-title">From Credit Cards To An AI Concierge: How Amex Ventures Backs Startups Building Autonomous Commerce</a>
+              <p class="card-summary">Crunchbase News interviews Kevin Tsang, managing director of Amex Ventures, about the firm’s investment thesis, the kinds of startups it aims to back, and how it works with founders to build and scale projects with a vision toward becoming a &quot;global agentic concierge.&quot;</p>
+              <a href="https://news.crunchbase.com/fintech/amex-ventures-portfolio-strategy-agentic-ai-startups-kevin-tsang/" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+            </article>
           </div>
-          <a class="card-title" href="https://www.cnbc.com/2026/03/30/powell-sees-inflation-outlook-in-check-no-wider-crisis-yet-in-private-credit.html" target="_blank" rel="noopener">Powell sees inflation outlook in check, no need to hike rates because of oil shock</a>
-          <p class="card-summary">Federal Reserve Chair Jerome Powell spoke Monday at Harvard University.</p>
-        </div>
-        <div class="card">
-          <div class="card-header">
-            <span class="source-tag" style="background:#05966920;color:#059669">CNBC Finance</span>
-            <span class='time-tag'>2h ago</span>
-          </div>
-          <a class="card-title" href="https://www.cnbc.com/2026/03/30/bill-ackman-says-its-one-of-the-best-times-in-a-long-time-to-buy-quality-stocks.html" target="_blank" rel="noopener">Bill Ackman says it’s one of the best times in a long time to buy quality stocks</a>
-          <p class="card-summary">Ackman&#x27;s bullish stance comes at a time when markets have been rattled by rising energy prices and sticky inflation concerns.</p>
-        </div>
-        <div class="card">
-          <div class="card-header">
-            <span class="source-tag" style="background:#05966920;color:#059669">Seeking Alpha</span>
-            <span class='time-tag'>0h ago</span>
-          </div>
-          <a class="card-title" href="https://seekingalpha.com/article/4886991-china-merchants-bank-co-ltd-cihky-q4-2025-earnings-call-transcript?source=feed_all_articles" target="_blank" rel="noopener">China Merchants Bank Co., Ltd. (CIHKY) Q4 2025 Earnings Call Transcript</a>
-          <p class="card-summary"></p>
-        </div>
-        <div class="card">
-          <div class="card-header">
-            <span class="source-tag" style="background:#05966920;color:#059669">Seeking Alpha</span>
-            <span class='time-tag'>0h ago</span>
-          </div>
-          <a class="card-title" href="https://seekingalpha.com/article/4887176-argan-surges-38-percent-post-earnings-3-best-stocks-with-similar-growth-potential?source=feed_all_articles" target="_blank" rel="noopener">Argan Surges 38% Post-Earnings: 3 Best Stocks With Similar Growth Potential</a>
-          <p class="card-summary"></p>
-        </div></div>
       </section>
-      <section class="section" id="india">
+      <section class="section-block" id="product" style="--section-color:#EC4899; --section-color-bg:#FDF2F8;">
         <div class="section-header">
-          <span class="section-icon">🇮🇳</span>
-          <h2 style="color:#D97706">India Markets</h2>
-          <span class="count-badge" style="background:#D9770620;color:#D97706">4 articles</span>
+          <span class="section-icon">🚀</span>
+          <h2 class="section-title">Product</h2>
+          <span class="section-count">5 articles</span>
         </div>
         <div class="cards-grid">
-        <div class="card">
-          <div class="card-header">
-            <span class="source-tag" style="background:#D9770620;color:#D97706">Moneycontrol</span>
-            <span class='time-tag'>23 Apr</span>
+            <article class="card">
+              <span class="card-source">TechCrunch Apps</span>
+              <a href="https://techcrunch.com/2026/05/07/googles-9-99-per-month-ai-health-coach-launches-may-19/" target="_blank" rel="noopener" class="card-title">Google’s $9.99-per-month AI health coach launches May 19</a>
+              <p class="card-summary">The Gemini-powered health coach will act as a combination fitness coach, sleep expert, and health and wellness advisor.</p>
+              <a href="https://techcrunch.com/2026/05/07/googles-9-99-per-month-ai-health-coach-launches-may-19/" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+            </article>
+            <article class="card">
+              <span class="card-source">TechCrunch Apps</span>
+              <a href="https://techcrunch.com/2026/05/07/startup-battlefield-200-applications-close-may-27-a-shot-at-vc-access-global-visibility-techcrunch-coverage-and-100k/" target="_blank" rel="noopener" class="card-title">Startup Battlefield 200 applications close May 27: A shot at VC access, global visibility, TechCrunch coverage, and $100K</a>
+              <p class="card-summary">Startup Battlefield 200 applications are open, but only for three more weeks. Apply by May 27 for your shot at VC access, global visibility, TechCrunch coverage, $100K equity-free, and more opportunities for major scaling impact. Pre-Series A founders — and anyone who knows a startup worth backing — this is your reminder: the deadline is approaching fast, and the […]</p>
+              <a href="https://techcrunch.com/2026/05/07/startup-battlefield-200-applications-close-may-27-a-shot-at-vc-access-global-visibility-techcrunch-coverage-and-100k/" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+            </article>
+            <article class="card">
+              <span class="card-source">TechCrunch Apps</span>
+              <a href="https://techcrunch.com/2026/05/07/exhibit-at-techcrunch-disrupt-2026-get-in-front-of-10000-decision-makers-before-space-runs-out/" target="_blank" rel="noopener" class="card-title">Exhibit at TechCrunch Disrupt 2026: Get in front of 10,000 decision-makers before space runs out</a>
+              <p class="card-summary">If startup visibility, traction, and real deals matter, you should be on the TechCrunch Disrupt 2026 exhibit floor. Get your 6&#x27; exhibit table before your competitor does.</p>
+              <a href="https://techcrunch.com/2026/05/07/exhibit-at-techcrunch-disrupt-2026-get-in-front-of-10000-decision-makers-before-space-runs-out/" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+            </article>
+            <article class="card">
+              <span class="card-source">Product Hunt</span>
+              <a href="https://www.producthunt.com/products/lovie-the-ai-native-formation-mcp" target="_blank" rel="noopener" class="card-title">Lovie Formation - Incorporation MCP</a>
+              <p class="card-summary">Incorporate your next company easily. Discussion | Link</p>
+              <a href="https://www.producthunt.com/products/lovie-the-ai-native-formation-mcp" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+            </article>
+            <article class="card">
+              <span class="card-source">Product Hunt</span>
+              <a href="https://www.producthunt.com/products/memory-tags" target="_blank" rel="noopener" class="card-title">Memory Tags</a>
+              <p class="card-summary">Scan text to make flashcards and improve your memory Discussion | Link</p>
+              <a href="https://www.producthunt.com/products/memory-tags" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+            </article>
           </div>
-          <a class="card-title" href="https://www.moneycontrol.com/news/business/icici-prudential-life-insurance-to-focusgrowing-absolute-vnb-amid-slumpfy24_17532041.html" target="_blank" rel="noopener">ICICI Prudential Life Insurance to focus on growing absolute VNB amid slump in FY24</a>
-          <p class="card-summary">In its Q4FY24 results, the company#39;s VNB fell 19.45 percent to Rs 2,227 crore for FY24</p>
-        </div>
-        <div class="card">
-          <div class="card-header">
-            <span class="source-tag" style="background:#D9770620;color:#D97706">Moneycontrol</span>
-            <span class='time-tag'>23 Apr</span>
-          </div>
-          <a class="card-title" href="https://www.moneycontrol.com/news/business/tata-elxsi-q4-net-profit-revenue-decline-qoq-firm-declares-dividendrs-70-per-share_17532061.html" target="_blank" rel="noopener">Tata Elxsi Q4 net profit, revenue decline QoQ; firm declares dividend of Rs 70 per share</a>
-          <p class="card-summary">The net profit was down 4.6 percent quarter-on-quarter compared to the October to December period of FY24 and 2.32 percent against the March quarter of FY23</p>
-        </div>
-        <div class="card">
-          <div class="card-header">
-            <span class="source-tag" style="background:#D9770620;color:#D97706">LiveMint Markets</span>
-            <span class='time-tag'>0h ago</span>
-          </div>
-          <a class="card-title" href="https://www.livemint.com/market/rbi-defers-circular-on-capital-market-exposures-to-july-11774891448466.html" target="_blank" rel="noopener">RBI defers circular on capital market exposures to July</a>
-          <p class="card-summary">According to RBI, it had in February issued the final guidelines after due consideration of the feedback received as part of public consultation.</p>
-        </div>
-        <div class="card">
-          <div class="card-header">
-            <span class="source-tag" style="background:#D9770620;color:#D97706">LiveMint Markets</span>
-            <span class='time-tag'>1h ago</span>
-          </div>
-          <a class="card-title" href="https://www.livemint.com/market/stock-market-news/nvidia-sell-off-extends-to-third-day-stock-down-21-from-recent-peak-amid-market-jitters-11774890734652.html" target="_blank" rel="noopener">Nvidia sell-off extends to third day; stock down 21% from recent peak amid market jitters</a>
-          <p class="card-summary">Nvidia shares fell 1% to $166.21, marking a 6% decline in March and 21% drop from November 2025 high. Concerns over AI revenue sustainability and broader tech sell-off amid geopolitical tensions weigh on the sector, with Nasdaq 100 entering correction territory.</p>
-        </div></div>
       </section>
-      <section class="section" id="mena">
+      <section class="section-block" id="vocabulary" style="--section-color:#6366F1; --section-color-bg:#EEF2FF;">
         <div class="section-header">
-          <span class="section-icon">🌍</span>
-          <h2 style="color:#7C3AED">MENA / UAE Market</h2>
-          <span class="count-badge" style="background:#7C3AED20;color:#7C3AED">0 articles</span>
+          <span class="section-icon">📚</span>
+          <h2 class="section-title">Vocabulary</h2>
+          <span class="section-count">Term of the Day</span>
         </div>
-        <div class="cards-grid"><p class="empty">No articles available right now.</p></div>
+        <div class="vocab-card">
+          <p class="vocab-label">Term of the Day</p>
+          <h3 class="vocab-term">Yield Curve</h3>
+          <p class="vocab-definition">A chart plotting interest rates on government bonds across different maturities at a point in time. A normal curve slopes upward — long rates exceed short rates. An inverted yield curve, where short-term rates are higher than long-term rates, has historically predicted recessions and is closely watched by macro investors and central banks alike.</p>
+        </div>
       </section>
-      <section class="section" id="product">
-        <div class="section-header">
-          <span class="section-icon">🧠</span>
-          <h2 style="color:#DB2777">Product Management</h2>
-          <span class="count-badge" style="background:#DB277720;color:#DB2777">4 articles</span>
-        </div>
-        <div class="cards-grid">
-        <div class="card">
-          <div class="card-header">
-            <span class="source-tag" style="background:#DB277720;color:#DB2777">Product Hunt</span>
-            <span class='time-tag'>25 Feb</span>
-          </div>
-          <a class="card-title" href="https://www.producthunt.com/products/ncompass-tech" target="_blank" rel="noopener">nCompass AI Assistant</a>
-          <p class="card-summary">Enabling everyone to write GPU kernels Discussion | Link</p>
-        </div>
-        <div class="card">
-          <div class="card-header">
-            <span class="source-tag" style="background:#DB277720;color:#DB2777">Product Hunt</span>
-            <span class='time-tag'>26 Mar</span>
-          </div>
-          <a class="card-title" href="https://www.producthunt.com/products/ollang-mcp-skills-sdk-api" target="_blank" rel="noopener">Ollang DX</a>
-          <p class="card-summary">The AI Language Execution Layer for Enterprise Discussion | Link</p>
-        </div>
-        <div class="card">
-          <div class="card-header">
-            <span class="source-tag" style="background:#DB277720;color:#DB2777">Lenny&#x27;s Newsletter</span>
-            <span class='time-tag'>3h ago</span>
-          </div>
-          <a class="card-title" href="https://www.lennysnewsletter.com/p/this-week-on-how-i-ai-how-stripe" target="_blank" rel="noopener">🎙️ This week on How I AI: How Stripe built “minions”—AI coding agents that ship 1,300 PRs per week + How to turn Claude Code into your personal life operating system</a>
-          <p class="card-summary">Your weekly listens from How I AI, part of the Lenny’s Podcast Network</p>
-        </div>
-        <div class="card">
-          <div class="card-header">
-            <span class="source-tag" style="background:#DB277720;color:#DB2777">Lenny&#x27;s Newsletter</span>
-            <span class='time-tag'>6h ago</span>
-          </div>
-          <a class="card-title" href="https://www.lennysnewsletter.com/p/how-to-turn-claude-code-into-your" target="_blank" rel="noopener">How to turn Claude Code into your personal life operating system | Hilary Gridley</a>
-          <p class="card-summary">Watch now | 🎙️ How a new mom and entrepreneur uses Claude Code to automate life admin—all without complex setup</p>
-        </div></div>
-      </section>
-      <section class="section" id="innovation">
-        <div class="section-header">
-          <span class="section-icon">💡</span>
-          <h2 style="color:#0891B2">Tech & Innovation</h2>
-          <span class="count-badge" style="background:#0891B220;color:#0891B2">4 articles</span>
-        </div>
-        <div class="cards-grid">
-        <div class="card">
-          <div class="card-header">
-            <span class="source-tag" style="background:#0891B220;color:#0891B2">The Verge</span>
-            <span class='time-tag'>0h ago</span>
-          </div>
-          <a class="card-title" href="https://www.theverge.com/gadgets/903373/beats-powerbeats-fit-pro-2-earbuds-amazon-big-spring-sale-2026-deal" target="_blank" rel="noopener">Beats’ gym-friendly Powerbeats Fit are $30 off for Amazon’s Big Spring Sale</a>
-          <p class="card-summary">For iPhone owners, the AirPods Pro 3 are a fantastic all-around set of wireless earbuds, even for working out. Their value is especially tough to beat at $199.99; however, even with five sizes of silicone tips, they aren’t the best fit for some people, or for some kinds of workou…</p>
-        </div>
-        <div class="card">
-          <div class="card-header">
-            <span class="source-tag" style="background:#0891B220;color:#0891B2">The Verge</span>
-            <span class='time-tag'>1h ago</span>
-          </div>
-          <a class="card-title" href="https://www.theverge.com/tech/903509/apple-iphone-google-android-video-calls-rcs-universal-profile-4-0" target="_blank" rel="noopener">A new RCS update could connect iPhone and Android video calls, someday</a>
-          <p class="card-summary">iPhone and Android users might be able to make interoperable video calls through their messaging apps - eventually. Last week, the GSM Association (GSMA) announced that the finalized RCS Universal Profile 4.0 standard will let users turn 1-to-1 or group RCS chats into video calls…</p>
-        </div>
-        <div class="card">
-          <div class="card-header">
-            <span class="source-tag" style="background:#0891B220;color:#0891B2">Stratechery</span>
-            <span class='time-tag'>8h ago</span>
-          </div>
-          <a class="card-title" href="https://stratechery.com/2026/spring-break/" target="_blank" rel="noopener">Spring Break</a>
-          <p class="card-summary">Stratechery is on a bit of a disjointed Spring Break, as my usual week off will be spread out: I will return to my usual posting schedule on Tuesday, March 31. All other Stratechery Plus content, including my podcasts, will stay on schedule.</p>
-        </div>
-        <div class="card">
-          <div class="card-header">
-            <span class="source-tag" style="background:#0891B220;color:#0891B2">Stratechery</span>
-            <span class='time-tag'>27 Mar</span>
-          </div>
-          <a class="card-title" href="https://stratechery.com/2026/so-long-to-sora/" target="_blank" rel="noopener">2026.13: So Long to Sora</a>
-          <p class="card-summary">The best Stratechery content from the week of March 23, 2026, including saying RIP to Sora, the 2026 Bullseye list, and Arm&#x27;s big shift.</p>
-        </div></div>
-      </section>
-</main>
+  </main>
 
-<footer class="footer">
-  Auto-updated daily at 08:00 UAE time via GitHub Actions &nbsp;·&nbsp;
-  <a href="https://github.com" target="_blank">View on GitHub</a> &nbsp;·&nbsp;
-  Built for Shruti @ Wio Securities
-</footer>
+  <footer>
+    <p>Auto-generated daily at 8:00 AM IST</p>
+    <p style="margin-top:4px;">Sources: Economic Times · LiveMint · Bloomberg · TechCrunch · Crunchbase · FintechNews.ae · Arabian Business · Reuters · CNBC · CoinDesk · Cointelegraph &amp; more</p>
+  </footer>
 
 </body>
 </html>
