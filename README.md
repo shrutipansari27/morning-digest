@@ -2,7 +2,7 @@
 
 Daily fintech, investing, India markets, MENA, and product management news — auto-published to GitHub Pages every morning at **08:00 UAE time**.
 
-## Quick Setup (first time only)
+## Quick Setup (first time only) #hello
 
 ```bash
 cd morning-digest
