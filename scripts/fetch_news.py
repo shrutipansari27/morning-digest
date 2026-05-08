@@ -264,7 +264,6 @@ def build_section_html(key, section, data):
     return f"""
       <section class="section-block" id="{key}" {style}>
         <div class="section-header">
-          <span class="section-icon">{section['icon']}</span>
           <h2 class="section-title">{html.escape(section['label'])}</h2>
           <span class="section-count">{total} articles</span>
         </div>
@@ -276,7 +275,6 @@ def build_vocab_html(term, definition):
     return f"""
       <section class="section-block" id="vocabulary" style="--section-color:#6366F1; --section-color-bg:#EEF2FF;">
         <div class="section-header">
-          <span class="section-icon">📚</span>
           <h2 class="section-title">Vocabulary</h2>
           <span class="section-count">Term of the Day</span>
         </div>
@@ -295,9 +293,9 @@ def build_full_html(all_data, vocab_term, vocab_definition):
     for key, section in SOURCES.items():
         data = all_data.get(key, {} if section["has_subsections"] else [])
         sections_html += build_section_html(key, section, data)
-        nav_links += f'<a href="#{key}">{section["icon"]} {html.escape(section["label"])}</a>\n      '
+        nav_links += f'<a href="#{key}">{html.escape(section["label"])}</a>\n      '
 
-    nav_links += '<a href="#vocabulary">📚 Vocabulary</a>'
+    nav_links += '<a href="#vocabulary">Vocabulary</a>'
     sections_html += build_vocab_html(vocab_term, vocab_definition)
 
     return f"""<!DOCTYPE html>
@@ -347,7 +345,20 @@ def build_full_html(all_data, vocab_term, vocab_definition):
       align-items: center;
       gap: 14px;
     }}
-    .header-sun {{ font-size: 28px; line-height: 1; }}
+    .header-logo {{
+      width: 34px;
+      height: 34px;
+      background: #0F172A;
+      color: #FFFFFF;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      flex-shrink: 0;
+    }}
     .header-title {{ font-size: 19px; font-weight: 700; color: #0F172A; letter-spacing: -0.4px; }}
     .header-date {{ font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }}
 
@@ -357,7 +368,7 @@ def build_full_html(all_data, vocab_term, vocab_definition):
       border-bottom: 1px solid var(--border);
       padding: 0 24px;
       position: sticky;
-      top: 65px;
+      top: 85px;
       z-index: 99;
     }}
     .nav-inner {{
@@ -404,10 +415,9 @@ def build_full_html(all_data, vocab_term, vocab_definition):
       gap: 10px;
       padding-bottom: 14px;
       margin-bottom: 24px;
-      border-bottom: 2px solid var(--section-color);
+      border-bottom: 1px solid var(--border);
     }}
-    .section-icon {{ font-size: 24px; }}
-    .section-title {{ font-size: 20px; font-weight: 700; color: #0F172A; letter-spacing: -0.3px; }}
+    .section-title {{ font-size: 18px; font-weight: 700; color: #0F172A; letter-spacing: -0.3px; padding-left: 12px; border-left: 3px solid var(--section-color); }}
     .section-count {{
       margin-left: auto;
       font-size: 11px;
@@ -415,7 +425,7 @@ def build_full_html(all_data, vocab_term, vocab_definition):
       background: var(--bg);
       border: 1px solid var(--border);
       padding: 3px 10px;
-      border-radius: 20px;
+      border-radius: 4px;
       font-weight: 500;
     }}
 
@@ -454,14 +464,12 @@ def build_full_html(all_data, vocab_term, vocab_definition):
     .card-source {{
       display: inline-flex;
       align-items: center;
-      font-size: 10px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.7px;
-      color: var(--section-color);
-      background: var(--section-color-bg);
-      padding: 3px 9px;
-      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      padding: 2px 8px;
+      border-radius: 4px;
       width: fit-content;
     }}
     .card-title {{
@@ -528,7 +536,7 @@ def build_full_html(all_data, vocab_term, vocab_definition):
     /* Responsive */
     @media (max-width: 640px) {{
       header {{ padding: 12px 16px; }}
-      nav {{ top: 57px; }}
+      nav {{ top: 77px; }}
       main {{ padding: 24px 16px 40px; }}
       .cards-grid {{ grid-template-columns: 1fr; }}
       .vocab-card {{ padding: 20px; }}
@@ -540,7 +548,7 @@ def build_full_html(all_data, vocab_term, vocab_definition):
 
   <header>
     <div class="header-inner">
-      <span class="header-sun">☀️</span>
+      <div class="header-logo">MD</div>
       <div>
         <div class="header-title">Morning Digest</div>
         <div class="header-date">{html.escape(today_str)}</div>
