@@ -56,29 +56,31 @@ SOURCES = {
         "color_bg": "#ECFDF5",
         "has_subsections": True,
         "subsections": {
-            "strategy_portfolios": {
-                "label": "Strategy & Portfolios",
+            "wealth_management": {
+                "label": "Wealth Management",
                 "feeds": [
+                    ("ET Wealth", "https://economictimes.indiatimes.com/wealth/rssfeeds/837555174.cms"),
                     ("Reuters Business", "https://feeds.reuters.com/reuters/businessNews"),
                     ("LiveMint Markets", "https://www.livemint.com/rss/markets"),
-                    ("ET Wealth", "https://economictimes.indiatimes.com/wealth/rssfeeds/837555174.cms"),
                     ("Bloomberg Markets", "https://feeds.bloomberg.com/markets/news.rss"),
                 ],
             },
-            "bonds": {
-                "label": "Bonds",
+            "fintech_uae": {
+                "label": "Fintech & UAE Market",
                 "feeds": [
-                    ("CNBC Finance", "https://www.cnbc.com/id/10000664/device/rss/rss.html"),
-                    ("ET Markets", "https://economictimes.indiatimes.com/markets/bonds/rssfeeds/1652862.cms"),
-                    ("Reuters Finance", "https://feeds.reuters.com/reuters/financials"),
+                    ("FintechNews UAE", "https://fintechnews.ae/feed/"),
+                    ("Arabian Business", "https://www.arabianbusiness.com/rss/"),
+                    ("Gulf Business", "https://gulfbusiness.com/feed/"),
+                    ("Khaleej Times", "https://www.khaleejtimes.com/feed"),
                 ],
             },
-            "ucits_etfs": {
-                "label": "UCITS ETFs",
+            "funds_etfs": {
+                "label": "Funds & ETFs",
                 "feeds": [
                     ("ETF Stream", "https://www.etfstream.com/feed/"),
                     ("Citywire", "https://citywire.com/rss"),
-                    ("Reuters Business", "https://feeds.reuters.com/reuters/businessNews"),
+                    ("CNBC Finance", "https://www.cnbc.com/id/10000664/device/rss/rss.html"),
+                    ("ET Markets", "https://economictimes.indiatimes.com/markets/bonds/rssfeeds/1652862.cms"),
                 ],
             },
         },
@@ -90,31 +92,33 @@ SOURCES = {
         "color_bg": "#EFF6FF",
         "has_subsections": True,
         "subsections": {
-            "stocks_etfs": {
-                "label": "Stocks & ETFs",
+            "global_indices": {
+                "label": "Global Indices (India · US · HKEX · LSE)",
                 "feeds": [
                     ("ET Markets", "https://economictimes.indiatimes.com/markets/stocks/rssfeeds/2146842.cms"),
                     ("LiveMint Markets", "https://www.livemint.com/rss/markets"),
-                    ("CNBC Finance", "https://www.cnbc.com/id/10000664/device/rss/rss.html"),
+                    ("CNBC Markets", "https://www.cnbc.com/id/10000664/device/rss/rss.html"),
+                    ("Reuters Finance", "https://feeds.reuters.com/reuters/financials"),
+                ],
+            },
+            "commodities": {
+                "label": "Commodities & Precious Metals (Spot Gold/Silver LBMA)",
+                "feeds": [
+                    ("Metals Focus", "https://www.metalsfocus.com/rss"),
+                    ("Investing.com Gold", "https://www.investing.com/rss/news_301.rss"),
+                    ("MarketWatch", "https://feeds.marketwatch.com/marketwatch/marketpulse/"),
                 ],
             },
             "crypto": {
                 "label": "Crypto",
                 "feeds": [
-                    ("CoinDesk", "https://www.coindesk.com/arc/outboundfeeds/rss/"),
-                    ("Cointelegraph", "https://cointelegraph.com/rss"),
+                    ("Finance Magnates", "https://www.financemagnates.com/cryptocurrency/feed/"),
+                    ("Decrypt", "https://decrypt.co/feed"),
                     ("ET Crypto", "https://economictimes.indiatimes.com/tech/cryptocurrency/rssfeeds/103567081.cms"),
                 ],
             },
-            "margin": {
-                "label": "Margin",
-                "feeds": [
-                    ("Finance Magnates", "https://www.financemagnates.com/feed/"),
-                    ("Reuters Finance", "https://feeds.reuters.com/reuters/financials"),
-                ],
-            },
-            "cfds": {
-                "label": "CFDs",
+            "cfds_margin": {
+                "label": "CFDs & Margin",
                 "feeds": [
                     ("Finance Magnates", "https://www.financemagnates.com/feed/"),
                     ("FXStreet", "https://www.fxstreet.com/rss/news"),
@@ -186,6 +190,7 @@ def clean(text, max_words=None):
         return ""
     text = re.sub(r"<[^>]+>", "", text)
     text = html.unescape(text)
+    text = text.replace("\xa0", " ")  # &nbsp; -> regular space
     text = re.sub(r"\s+", " ", text).strip()
     if max_words:
         words = text.split()
@@ -206,11 +211,19 @@ def fetch_feeds(feeds, max_items):
             )
             for entry in feed.entries[:3]:
                 title = clean(entry.get("title", ""))
-                summary = clean(get_entry_summary(entry), max_words=100)
+                raw_summary = get_entry_summary(entry)
+                preview = clean(raw_summary, max_words=50)
+                full_summary = clean(raw_summary, max_words=200)
                 link = entry.get("link", "#")
                 if title:
                     items.append(
-                        {"title": title, "summary": summary, "link": link, "source": source_name}
+                        {
+                            "title": title,
+                            "summary": preview,
+                            "full_summary": full_summary,
+                            "link": link,
+                            "source": source_name,
+                        }
                     )
                 if len(items) >= max_items:
                     break
@@ -231,12 +244,19 @@ def build_cards(items):
             else ""
         )
         safe_link = html.escape(item["link"])
+        safe_title = html.escape(item["title"])
+        safe_source = html.escape(item["source"])
+        safe_full = html.escape(item.get("full_summary", item.get("summary", "")))
         cards += f"""
-            <article class="card">
-              <span class="card-source">{html.escape(item['source'])}</span>
-              <a href="{safe_link}" target="_blank" rel="noopener" class="card-title">{html.escape(item['title'])}</a>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="{safe_title}"
+              data-source="{safe_source}"
+              data-summary="{safe_full}"
+              data-link="{safe_link}">
+              <span class="card-source">{safe_source}</span>
+              <span class="card-title">{safe_title}</span>
               {summary_html}
-              <a href="{safe_link}" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+              <span class="card-read-more">Read more →</span>
             </article>"""
     return f'<div class="cards-grid">{cards}\n          </div>'
 
@@ -368,7 +388,7 @@ def build_full_html(all_data, vocab_term, vocab_definition):
       border-bottom: 1px solid var(--border);
       padding: 0 24px;
       position: sticky;
-      top: 85px;
+      top: 69px;
       z-index: 99;
     }}
     .nav-inner {{
@@ -407,7 +427,7 @@ def build_full_html(all_data, vocab_term, vocab_definition):
     /* Section */
     .section-block {{
       margin-bottom: 52px;
-      scroll-margin-top: 140px;
+      scroll-margin-top: 120px;
     }}
     .section-header {{
       display: flex;
@@ -456,6 +476,7 @@ def build_full_html(all_data, vocab_term, vocab_definition):
       flex-direction: column;
       gap: 9px;
       transition: box-shadow 0.2s ease, transform 0.2s ease;
+      cursor: pointer;
     }}
     .card:hover {{
       box-shadow: var(--shadow-hover);
@@ -476,11 +497,10 @@ def build_full_html(all_data, vocab_term, vocab_definition):
       font-size: 14.5px;
       font-weight: 600;
       color: #0F172A;
-      text-decoration: none;
       line-height: 1.45;
       display: block;
     }}
-    .card-title:hover {{ color: var(--section-color); }}
+    .card:hover .card-title {{ color: var(--section-color); }}
     .card-summary {{
       font-size: 13px;
       color: var(--text-secondary);
@@ -491,14 +511,13 @@ def build_full_html(all_data, vocab_term, vocab_definition):
       font-size: 12px;
       font-weight: 500;
       color: var(--section-color);
-      text-decoration: none;
       display: inline-flex;
       align-items: center;
       gap: 2px;
       margin-top: 2px;
       opacity: 0.85;
     }}
-    .card-read-more:hover {{ opacity: 1; text-decoration: underline; }}
+    .card:hover .card-read-more {{ opacity: 1; }}
     .empty-state {{ color: var(--text-muted); font-size: 14px; padding: 16px 0; }}
 
     /* Vocabulary */
@@ -533,14 +552,99 @@ def build_full_html(all_data, vocab_term, vocab_definition):
       line-height: 1.6;
     }}
 
+    /* Article Modal */
+    .modal-overlay {{
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      backdrop-filter: blur(2px);
+    }}
+    .modal-overlay.active {{ display: flex; }}
+    .modal-content {{
+      background: #FFFFFF;
+      border-radius: 16px;
+      padding: 40px 44px 36px;
+      max-width: 700px;
+      width: 100%;
+      max-height: 82vh;
+      overflow-y: auto;
+      position: relative;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.22), 0 4px 16px rgba(0,0,0,0.10);
+    }}
+    .modal-close {{
+      position: absolute;
+      top: 18px;
+      right: 22px;
+      background: none;
+      border: none;
+      font-size: 22px;
+      cursor: pointer;
+      color: var(--text-muted);
+      line-height: 1;
+      padding: 4px;
+      border-radius: 4px;
+      transition: color 0.15s;
+    }}
+    .modal-close:hover {{ color: #0F172A; }}
+    .modal-source {{
+      display: inline-flex;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      padding: 2px 10px;
+      border-radius: 4px;
+      margin-bottom: 16px;
+    }}
+    .modal-title {{
+      font-size: 20px;
+      font-weight: 700;
+      color: #0F172A;
+      line-height: 1.45;
+      margin-bottom: 20px;
+      letter-spacing: -0.3px;
+    }}
+    .modal-divider {{
+      height: 1px;
+      background: var(--border);
+      margin-bottom: 20px;
+    }}
+    .modal-summary {{
+      font-size: 14.5px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }}
+    .modal-link {{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #0F172A;
+      color: #FFFFFF;
+      padding: 11px 22px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      transition: background 0.15s;
+    }}
+    .modal-link:hover {{ background: #1E293B; }}
+
     /* Responsive */
     @media (max-width: 640px) {{
       header {{ padding: 12px 16px; }}
-      nav {{ top: 77px; }}
+      nav {{ top: 61px; }}
       main {{ padding: 24px 16px 40px; }}
       .cards-grid {{ grid-template-columns: 1fr; }}
       .vocab-card {{ padding: 20px; }}
       .section-title {{ font-size: 17px; }}
+      .modal-content {{ padding: 28px 20px 24px; }}
+      .modal-title {{ font-size: 17px; }}
     }}
   </style>
 </head>
@@ -568,8 +672,48 @@ def build_full_html(all_data, vocab_term, vocab_definition):
 
   <footer>
     <p>Auto-generated daily at 8:00 AM IST</p>
-    <p style="margin-top:4px;">Sources: Economic Times · LiveMint · Bloomberg · TechCrunch · Crunchbase · FintechNews.ae · Arabian Business · Reuters · CNBC · CoinDesk · Cointelegraph &amp; more</p>
+    <p style="margin-top:4px;">Sources: Economic Times · LiveMint · Bloomberg · TechCrunch · Crunchbase · FintechNews.ae · Arabian Business · Reuters · CNBC · CoinDesk · Cointelegraph · Kitco · BullionVault &amp; more</p>
   </footer>
+
+  <!-- Article Modal -->
+  <div id="article-modal" class="modal-overlay" onclick="handleOverlayClick(event)">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeArticleModal()" aria-label="Close">&times;</button>
+      <span class="modal-source" id="modal-source"></span>
+      <h2 class="modal-title" id="modal-title"></h2>
+      <div class="modal-divider"></div>
+      <p class="modal-summary" id="modal-summary"></p>
+      <a class="modal-link" id="modal-link" href="#" target="_blank" rel="noopener noreferrer">
+        Read Full Article &rarr;
+      </a>
+    </div>
+  </div>
+
+  <script>
+    function openArticle(card) {{
+      document.getElementById('modal-source').textContent = card.dataset.source;
+      document.getElementById('modal-title').textContent = card.dataset.title;
+      document.getElementById('modal-summary').textContent = card.dataset.summary || 'No summary available.';
+      document.getElementById('modal-link').href = card.dataset.link;
+      document.getElementById('article-modal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }}
+    function handleOverlayClick(e) {{
+      if (e.target === document.getElementById('article-modal')) closeArticleModal();
+    }}
+    function closeArticleModal() {{
+      document.getElementById('article-modal').classList.remove('active');
+      document.body.style.overflow = '';
+    }}
+    document.addEventListener('keydown', function(e) {{
+      if (e.key === 'Escape') closeArticleModal();
+    }});
+    document.querySelectorAll('.card').forEach(function(card) {{
+      card.addEventListener('keydown', function(e) {{
+        if (e.key === 'Enter' || e.key === ' ') {{ e.preventDefault(); openArticle(card); }}
+      }});
+    }});
+  </script>
 
 </body>
 </html>"""
@@ -577,24 +721,24 @@ def build_full_html(all_data, vocab_term, vocab_definition):
 
 # ── Main ──────────────────────────────────────────────
 if __name__ == "__main__":
-    print(f"🚀 Morning Digest — {today_str}")
+    print(f"Morning Digest — {today_str}")
 
     vocab_term, vocab_definition = VOCABULARY[day_of_year % len(VOCABULARY)]
-    print(f"📚 Vocabulary: {vocab_term}")
+    print(f"Vocabulary: {vocab_term}")
 
     all_data = {}
     for key, section in SOURCES.items():
-        print(f"\n📰 [{section['label']}]")
+        print(f"\n[{section['label']}]")
         if section["has_subsections"]:
             all_data[key] = {}
             for sub_key, sub_config in section["subsections"].items():
                 items = fetch_feeds(sub_config["feeds"], ITEMS_PER_SUBSECTION)
                 all_data[key][sub_key] = items
-                print(f"   ↳ {sub_config['label']}: {len(items)} articles")
+                print(f"   -> {sub_config['label']}: {len(items)} articles")
         else:
             items = fetch_feeds(section["feeds"], ITEMS_PER_SECTION)
             all_data[key] = items
-            print(f"   ↳ {len(items)} articles")
+            print(f"   -> {len(items)} articles")
 
     html_content = build_full_html(all_data, vocab_term, vocab_definition)
 
@@ -603,4 +747,4 @@ if __name__ == "__main__":
     for path in ["index.html", "docs/index.html", f"docs/{now.strftime('%Y-%m-%d')}.html"]:
         with open(path, "w", encoding="utf-8") as f:
             f.write(html_content)
-        print(f"✅ Written: {os.path.abspath(path)}")
+        print(f"Written: {os.path.abspath(path)}")

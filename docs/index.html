@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Morning Digest — Friday, 08 May 2026</title>
+  <title>Morning Digest — Monday, 11 May 2026</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -68,7 +68,7 @@
       border-bottom: 1px solid var(--border);
       padding: 0 24px;
       position: sticky;
-      top: 85px;
+      top: 69px;
       z-index: 99;
     }
     .nav-inner {
@@ -107,7 +107,7 @@
     /* Section */
     .section-block {
       margin-bottom: 52px;
-      scroll-margin-top: 140px;
+      scroll-margin-top: 120px;
     }
     .section-header {
       display: flex;
@@ -156,6 +156,7 @@
       flex-direction: column;
       gap: 9px;
       transition: box-shadow 0.2s ease, transform 0.2s ease;
+      cursor: pointer;
     }
     .card:hover {
       box-shadow: var(--shadow-hover);
@@ -176,11 +177,10 @@
       font-size: 14.5px;
       font-weight: 600;
       color: #0F172A;
-      text-decoration: none;
       line-height: 1.45;
       display: block;
     }
-    .card-title:hover { color: var(--section-color); }
+    .card:hover .card-title { color: var(--section-color); }
     .card-summary {
       font-size: 13px;
       color: var(--text-secondary);
@@ -191,14 +191,13 @@
       font-size: 12px;
       font-weight: 500;
       color: var(--section-color);
-      text-decoration: none;
       display: inline-flex;
       align-items: center;
       gap: 2px;
       margin-top: 2px;
       opacity: 0.85;
     }
-    .card-read-more:hover { opacity: 1; text-decoration: underline; }
+    .card:hover .card-read-more { opacity: 1; }
     .empty-state { color: var(--text-muted); font-size: 14px; padding: 16px 0; }
 
     /* Vocabulary */
@@ -233,14 +232,99 @@
       line-height: 1.6;
     }
 
+    /* Article Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      backdrop-filter: blur(2px);
+    }
+    .modal-overlay.active { display: flex; }
+    .modal-content {
+      background: #FFFFFF;
+      border-radius: 16px;
+      padding: 40px 44px 36px;
+      max-width: 700px;
+      width: 100%;
+      max-height: 82vh;
+      overflow-y: auto;
+      position: relative;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.22), 0 4px 16px rgba(0,0,0,0.10);
+    }
+    .modal-close {
+      position: absolute;
+      top: 18px;
+      right: 22px;
+      background: none;
+      border: none;
+      font-size: 22px;
+      cursor: pointer;
+      color: var(--text-muted);
+      line-height: 1;
+      padding: 4px;
+      border-radius: 4px;
+      transition: color 0.15s;
+    }
+    .modal-close:hover { color: #0F172A; }
+    .modal-source {
+      display: inline-flex;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      padding: 2px 10px;
+      border-radius: 4px;
+      margin-bottom: 16px;
+    }
+    .modal-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #0F172A;
+      line-height: 1.45;
+      margin-bottom: 20px;
+      letter-spacing: -0.3px;
+    }
+    .modal-divider {
+      height: 1px;
+      background: var(--border);
+      margin-bottom: 20px;
+    }
+    .modal-summary {
+      font-size: 14.5px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
+    .modal-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #0F172A;
+      color: #FFFFFF;
+      padding: 11px 22px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      transition: background 0.15s;
+    }
+    .modal-link:hover { background: #1E293B; }
+
     /* Responsive */
     @media (max-width: 640px) {
       header { padding: 12px 16px; }
-      nav { top: 77px; }
+      nav { top: 61px; }
       main { padding: 24px 16px 40px; }
       .cards-grid { grid-template-columns: 1fr; }
       .vocab-card { padding: 20px; }
       .section-title { font-size: 17px; }
+      .modal-content { padding: 28px 20px 24px; }
+      .modal-title { font-size: 17px; }
     }
   </style>
 </head>
@@ -251,7 +335,7 @@
       <div class="header-logo">MD</div>
       <div>
         <div class="header-title">Morning Digest</div>
-        <div class="header-date">Friday, 08 May 2026</div>
+        <div class="header-date">Monday, 11 May 2026</div>
       </div>
     </div>
   </header>
@@ -272,58 +356,113 @@
       <section class="section-block" id="wealth" style="--section-color:#10B981; --section-color-bg:#ECFDF5;">
         <div class="section-header">
           <h2 class="section-title">Wealth</h2>
-          <span class="section-count">6 articles</span>
+          <span class="section-count">9 articles</span>
         </div>
         
           <div class="subsection">
-            <h3 class="subsection-title">Strategy &amp; Portfolios</h3>
+            <h3 class="subsection-title">Wealth Management</h3>
             <div class="cards-grid">
-            <article class="card">
-              <span class="card-source">LiveMint Markets</span>
-              <a href="https://www.livemint.com/market/stock-market-news/park-medi-world-stock-surges-70-in-2026-analysts-see-rally-sustaining-on-strong-healthcare-growth-11778245913212.html" target="_blank" rel="noopener" class="card-title">Park Medi World stock surges 70% in 2026; analysts see rally sustaining on strong healthcare growth</a>
-              <p class="card-summary">Park Medi shares have surged 70% in 2026 so far, outperforming the market and pushing market cap over ₹10,000 crore. Analysts expect continued momentum due to the scalable healthcare model and strong demand.&amp;nbsp;</p>
-              <a href="https://www.livemint.com/market/stock-market-news/park-medi-world-stock-surges-70-in-2026-analysts-see-rally-sustaining-on-strong-healthcare-growth-11778245913212.html" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Second marriage &amp; dowry harassment: SC quashes FIR against in-laws, keeps 498A case against husband"
+              data-source="ET Wealth"
+              data-summary="The Supreme Court quashed FIRs against a husband&#x27;s in-laws and sister in a dowry harassment case. While the wife alleged they were aware of his second marriage, the court found no evidence of their active participation. The case against the husband, however, proceeds due to specific allegations of torture and dowry demands."
+              data-link="https://economictimes.indiatimes.com/wealth/legal/will/second-marriage-dowry-harassment-sc-quashes-fir-against-in-laws-keeps-498a-case-against-husband/articleshow/131003939.cms">
+              <span class="card-source">ET Wealth</span>
+              <span class="card-title">Second marriage &amp; dowry harassment: SC quashes FIR against in-laws, keeps 498A case against husband</span>
+              <p class="card-summary">The Supreme Court quashed FIRs against a husband&#x27;s in-laws and sister in a dowry harassment case. While the wife alleged they were aware of his second marriage, the court found no evidence of their active participation. The case against the husband, however, proceeds due to specific allegations of torture and…</p>
+              <span class="card-read-more">Read more →</span>
             </article>
-            <article class="card">
-              <span class="card-source">LiveMint Markets</span>
-              <a href="https://www.livemint.com/market/kissht-listing-becomes-first-big-market-test-for-digital-lenders-11778240208862.html" target="_blank" rel="noopener" class="card-title">Kissht listing becomes first big market test for digital lenders</a>
-              <p class="card-summary">Kissht parent OnEMI Tech listed on NSE at an 11% premium, becoming India&#x27;s first meaningful public-market test for a pure-play app-led consumer lender.&amp;nbsp;</p>
-              <a href="https://www.livemint.com/market/kissht-listing-becomes-first-big-market-test-for-digital-lenders-11778240208862.html" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="7 ways to negotiate non-monetary benefits when your salary won&#x27;t budge"
+              data-source="ET Wealth"
+              data-summary=""
+              data-link="https://economictimes.indiatimes.com/wealth/earn/7-ways-to-negotiate-non-monetary-benefits-when-your-salary-wont-budge/slideshow/131003234.cms">
+              <span class="card-source">ET Wealth</span>
+              <span class="card-title">7 ways to negotiate non-monetary benefits when your salary won&#x27;t budge</span>
+              
+              <span class="card-read-more">Read more →</span>
             </article>
-            <article class="card">
-              <span class="card-source">LiveMint Markets</span>
-              <a href="https://www.livemint.com/market/sebi-market-data-30-day-lag-investor-education-regulatory-clarity-11778244697776.html" target="_blank" rel="noopener" class="card-title">Sebi ends market data ambiguity with uniform 30-day lag for educators</a>
-              <p class="card-summary">The new norms will come into effect from 1 July 2026.</p>
-              <a href="https://www.livemint.com/market/sebi-market-data-30-day-lag-investor-education-regulatory-clarity-11778244697776.html" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="The one number that can save you lakhs on your home loan; do you have it?"
+              data-source="ET Wealth"
+              data-summary=""
+              data-link="https://economictimes.indiatimes.com/wealth/borrow/the-one-number-that-can-save-you-lakhs-on-your-home-loan-do-you-have-it/slideshow/131002914.cms">
+              <span class="card-source">ET Wealth</span>
+              <span class="card-title">The one number that can save you lakhs on your home loan; do you have it?</span>
+              
+              <span class="card-read-more">Read more →</span>
             </article>
           </div>
           </div>
           <div class="subsection">
-            <h3 class="subsection-title">Bonds</h3>
+            <h3 class="subsection-title">Fintech &amp; UAE Market</h3>
             <div class="cards-grid">
-            <article class="card">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Fintech Funding Shows Resilience in the UAE Led by Established Firms and B2B Fintech"
+              data-source="FintechNews UAE"
+              data-summary="Despite significant conflict and instability in the Middle East, fintech investment stayed resilient in Q1 2026, with the United Arab Emirates (UAE) emerging as one of the strongest fintech funding markets globally, according to S&amp;P Global Market Intelligence. The UAE attracted US$486 million in fintech funding in Q1 2026, securing its position as the third-largest [...] The post Fintech Funding Shows Resilience in the UAE Led by Established Firms and B2B Fintech appeared first on Fintech News UAE."
+              data-link="https://fintechnews.ae/31594/fintechdubai/fintech-funding-shows-resilience-in-the-uae-led-by-established-firms-and-b2b-fintech/">
+              <span class="card-source">FintechNews UAE</span>
+              <span class="card-title">Fintech Funding Shows Resilience in the UAE Led by Established Firms and B2B Fintech</span>
+              <p class="card-summary">Despite significant conflict and instability in the Middle East, fintech investment stayed resilient in Q1 2026, with the United Arab Emirates (UAE) emerging as one of the strongest fintech funding markets globally, according to S&amp;P Global Market Intelligence. The UAE attracted US$486 million in fintech funding in Q1 2026, securing…</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="du Partners ADIO to Support Digital Transformation for UAE Manufacturers"
+              data-source="FintechNews UAE"
+              data-summary="du has partnered with the Abu Dhabi Investment Office (ADIO) to provide advisory and consultancy services aimed at supporting enterprises in their digital transformation efforts. The agreement, announced at the Make it in the Emirates forum, will see du Tech guide companies through structured innovation and implementation journeys from concept to execution. The initiative aims [...] The post du Partners ADIO to Support Digital Transformation for UAE Manufacturers appeared first on Fintech News UAE."
+              data-link="https://fintechnews.ae/31605/fintech/digital-transformation-uae-du-adio-partnership/">
+              <span class="card-source">FintechNews UAE</span>
+              <span class="card-title">du Partners ADIO to Support Digital Transformation for UAE Manufacturers</span>
+              <p class="card-summary">du has partnered with the Abu Dhabi Investment Office (ADIO) to provide advisory and consultancy services aimed at supporting enterprises in their digital transformation efforts. The agreement, announced at the Make it in the Emirates forum, will see du Tech guide companies through structured innovation and implementation journeys from concept…</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Mastercard and Yellow Card Launch Stablecoin Payment Initiative Across EEMEA"
+              data-source="FintechNews UAE"
+              data-summary="Mastercard and Yellow Card are launching a strategic partnership to develop stablecoin payment products across Eastern Europe, the Middle East, and Africa, with the UAE named as an initial focus market. The collaboration will test stablecoin use cases across four areas. These include cross-border remittances, business-to-business settlements, digital loyalty programmes, and treasury management. Both companies [...] The post Mastercard and Yellow Card Launch Stablecoin Payment Initiative Across EEMEA appeared first on Fintech News UAE."
+              data-link="https://fintechnews.ae/31599/payments/mastercard-yellow-card-stablecoin-payments/">
+              <span class="card-source">FintechNews UAE</span>
+              <span class="card-title">Mastercard and Yellow Card Launch Stablecoin Payment Initiative Across EEMEA</span>
+              <p class="card-summary">Mastercard and Yellow Card are launching a strategic partnership to develop stablecoin payment products across Eastern Europe, the Middle East, and Africa, with the UAE named as an initial focus market. The collaboration will test stablecoin use cases across four areas. These include cross-border remittances, business-to-business settlements, digital loyalty programmes,…</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+          </div>
+          </div>
+          <div class="subsection">
+            <h3 class="subsection-title">Funds &amp; ETFs</h3>
+            <div class="cards-grid">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="How much further does this Teflon market have to go? Here&#x27;s what traders say"
+              data-source="CNBC Finance"
+              data-summary="Traders on prediction markets platform Kalshi place a more than 50% chance that the S&amp;P 500 crosses 8,000 in 2026."
+              data-link="https://www.cnbc.com/2026/05/08/how-much-further-can-this-teflon-market-go-heres-what-traders-say.html">
               <span class="card-source">CNBC Finance</span>
-              <a href="https://www.cnbc.com/2026/05/08/anthropic-mythos-ai-cybersecurity-banks.html" target="_blank" rel="noopener" class="card-title">Anthropic&#x27;s Mythos set off a cybersecurity &#x27;hysteria.&#x27; Experts say the threat was already here</a>
+              <span class="card-title">How much further does this Teflon market have to go? Here&#x27;s what traders say</span>
+              <p class="card-summary">Traders on prediction markets platform Kalshi place a more than 50% chance that the S&amp;P 500 crosses 8,000 in 2026.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Michael Burry says the market today feels like &#x27;the last months of the 1999-2000 bubble&#x27;"
+              data-source="CNBC Finance"
+              data-summary="&quot;Stocks are not up or down because of jobs or consumer sentiment,&quot; Burry wrote. &quot;Feeling like the last months of the 1999-2000 bubble.&quot;"
+              data-link="https://www.cnbc.com/2026/05/08/michael-burry-says-the-market-today-feels-like-the-last-months-of-the-1999-2000-bubble.html">
+              <span class="card-source">CNBC Finance</span>
+              <span class="card-title">Michael Burry says the market today feels like &#x27;the last months of the 1999-2000 bubble&#x27;</span>
+              <p class="card-summary">&quot;Stocks are not up or down because of jobs or consumer sentiment,&quot; Burry wrote. &quot;Feeling like the last months of the 1999-2000 bubble.&quot;</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Anthropic&#x27;s Mythos set off a cybersecurity &#x27;hysteria.&#x27; Experts say the threat was already here"
+              data-source="CNBC Finance"
+              data-summary="The arrival of Anthropic&#x27;s Mythos jolted banks, software giants and governments into reckoning with a new era of cyber attacks. But the threat is already here."
+              data-link="https://www.cnbc.com/2026/05/08/anthropic-mythos-ai-cybersecurity-banks.html">
+              <span class="card-source">CNBC Finance</span>
+              <span class="card-title">Anthropic&#x27;s Mythos set off a cybersecurity &#x27;hysteria.&#x27; Experts say the threat was already here</span>
               <p class="card-summary">The arrival of Anthropic&#x27;s Mythos jolted banks, software giants and governments into reckoning with a new era of cyber attacks. But the threat is already here.</p>
-              <a href="https://www.cnbc.com/2026/05/08/anthropic-mythos-ai-cybersecurity-banks.html" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
-            </article>
-            <article class="card">
-              <span class="card-source">CNBC Finance</span>
-              <a href="https://www.cnbc.com/2026/05/08/iran-focus-at-trump-xi-summit-may-delay-progress-on-tariffs-rare-earths.html" target="_blank" rel="noopener" class="card-title">Iran focus at Trump-Xi summit may delay progress on tariffs, rare earths</a>
-              <p class="card-summary">Thanks to the Iran war, big issues for U.S. businesses like rare earths and supply chains may take a back seat on the agenda for the Trump-Xi summit.</p>
-              <a href="https://www.cnbc.com/2026/05/08/iran-focus-at-trump-xi-summit-may-delay-progress-on-tariffs-rare-earths.html" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
-            </article>
-            <article class="card">
-              <span class="card-source">CNBC Finance</span>
-              <a href="https://www.cnbc.com/2026/05/07/kalshi-traders-see-odds-rising-that-a-us-iran-nuclear-deal-will-be-reached-by-2027.html" target="_blank" rel="noopener" class="card-title">Kalshi traders see odds rising that a U.S.-Iran nuclear deal will be reached by 2027</a>
-              <p class="card-summary">It comes after Axios reported on Wednesday that the two countries were nearing a one-page memo to end their war.</p>
-              <a href="https://www.cnbc.com/2026/05/07/kalshi-traders-see-odds-rising-that-a-us-iran-nuclear-deal-will-be-reached-by-2027.html" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+              <span class="card-read-more">Read more →</span>
             </article>
           </div>
-          </div>
-          <div class="subsection">
-            <h3 class="subsection-title">UCITS ETFs</h3>
-            <p class="empty-state">No articles available right now.</p>
           </div>
       </section>
       <section class="section-block" id="trade" style="--section-color:#3B82F6; --section-color-bg:#EFF6FF;">
@@ -333,94 +472,142 @@
         </div>
         
           <div class="subsection">
-            <h3 class="subsection-title">Stocks &amp; ETFs</h3>
+            <h3 class="subsection-title">Global Indices (India · US · HKEX · LSE)</h3>
             <div class="cards-grid">
-            <article class="card">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Goldman Sachs picks 12 alpha stocks amid record $22 billion FII exodus"
+              data-source="ET Markets"
+              data-summary="Goldman Sachs has identified 12 Indian stocks as medium-term alpha bets despite warning that the record $22 billion FII selloff in 2026 may persist. Foreign investors have already pulled out more than last year’s total, marking one of the sharpest equity outflows in over two decades amid continued global risk-off sentiment."
+              data-link="https://economictimes.indiatimes.com/markets/stocks/news/goldman-sachs-picks-12-alpha-stocks-amid-record-22-billion-fii-exodus/articleshow/131003828.cms">
               <span class="card-source">ET Markets</span>
-              <a href="https://economictimes.indiatimes.com/markets/stocks/earnings/niva-bupa-health-insurance-company-q4-results-profit-surges-67-to-rs-345-crore/articleshow/130961700.cms" target="_blank" rel="noopener" class="card-title">Niva Bupa Health Insurance Company Q4 Results: Profit surges 67% to Rs 345 crore</a>
-              <p class="card-summary">The company&#x27;s total income during the quarter rose to Rs 2,078 crore against Rs 1,565 crore in the year-ago period, Niva Bupa Health Insurance said in a regulatory filing.</p>
-              <a href="https://economictimes.indiatimes.com/markets/stocks/earnings/niva-bupa-health-insurance-company-q4-results-profit-surges-67-to-rs-345-crore/articleshow/130961700.cms" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+              <span class="card-title">Goldman Sachs picks 12 alpha stocks amid record $22 billion FII exodus</span>
+              <p class="card-summary">Goldman Sachs has identified 12 Indian stocks as medium-term alpha bets despite warning that the record $22 billion FII selloff in 2026 may persist. Foreign investors have already pulled out more than last year’s total, marking one of the sharpest equity outflows in over two decades amid continued global risk-off…</p>
+              <span class="card-read-more">Read more →</span>
             </article>
-            <article class="card">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Who is your worst enemy in markets? Here’s what Buffett’s mentor Benjamin Graham says"
+              data-source="ET Markets"
+              data-summary="Benjamin Graham, Warren Buffett&#x27;s mentor, identified investors themselves as their worst market enemies, attributing disaster to Wall Street&#x27;s enthusiasm. He emphasized that temperament, not just knowledge, is key to investment success, advocating for a strong-minded approach based on the margin-of-safety principle. Graham also distinguished between speculation and investment, advising a separate, smaller fund for speculative ventures."
+              data-link="https://economictimes.indiatimes.com/markets/stocks/news/who-is-your-worst-enemy-in-markets-heres-what-buffetts-mentor-benjamin-graham-says/articleshow/131003640.cms">
               <span class="card-source">ET Markets</span>
-              <a href="https://economictimes.indiatimes.com/markets/stocks/earnings/bank-of-baroda-posts-record-q4-profit-despite-higher-provisions/articleshow/130961496.cms" target="_blank" rel="noopener" class="card-title">Bank of Baroda posts record Q4 profit despite higher provisions</a>
-              <p class="card-summary">Bank of Baroda reported a record Q4 net profit of Rs 5,616 crore, driven by higher net interest income and improved asset quality. Despite increased provisions, the bank strengthened balance sheet metrics, announced FY27 growth guidance and approved a Rs 6,000 crore capital raising plan</p>
-              <a href="https://economictimes.indiatimes.com/markets/stocks/earnings/bank-of-baroda-posts-record-q4-profit-despite-higher-provisions/articleshow/130961496.cms" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+              <span class="card-title">Who is your worst enemy in markets? Here’s what Buffett’s mentor Benjamin Graham says</span>
+              <p class="card-summary">Benjamin Graham, Warren Buffett&#x27;s mentor, identified investors themselves as their worst market enemies, attributing disaster to Wall Street&#x27;s enthusiasm. He emphasized that temperament, not just knowledge, is key to investment success, advocating for a strong-minded approach based on the margin-of-safety principle. Graham also distinguished between speculation and investment, advising a…</p>
+              <span class="card-read-more">Read more →</span>
             </article>
-            <article class="card">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Bajaj Auto&#x27;s Rs 5,633 crore share buyback: Should you participate or avoid?"
+              data-source="ET Markets"
+              data-summary="Bajaj Auto is undertaking its largest share buyback at Rs 5,633 crore. The offer price of Rs 12,000 per share presents a premium for shareholders. Retail investors may benefit due to a reserved portion and promoter non-participation. This move signals management confidence and strong cash generation. Investors should await the record date and letter of offer for participation decisions."
+              data-link="https://economictimes.indiatimes.com/markets/stocks/news/bajaj-autos-rs-5633-crore-share-buyback-should-you-participate-or-avoid/articleshow/131003511.cms">
               <span class="card-source">ET Markets</span>
-              <a href="https://economictimes.indiatimes.com/markets/stocks/earnings/titan-q4-profit-jumps-35-as-jewellery-sales-power-growth/articleshow/130961305.cms" target="_blank" rel="noopener" class="card-title">Titan Q4 profit jumps 35% as jewellery sales power growth</a>
-              <p class="card-summary">Titan reported a 35% rise in Q4 FY26 net profit to Rs 1,179 crore, driven by strong jewellery demand and premium watch sales. Revenue surged 46%, while expansion in India and overseas, including the Damas acquisition, strengthened Titan’s retail and international market presence.</p>
-              <a href="https://economictimes.indiatimes.com/markets/stocks/earnings/titan-q4-profit-jumps-35-as-jewellery-sales-power-growth/articleshow/130961305.cms" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+              <span class="card-title">Bajaj Auto&#x27;s Rs 5,633 crore share buyback: Should you participate or avoid?</span>
+              <p class="card-summary">Bajaj Auto is undertaking its largest share buyback at Rs 5,633 crore. The offer price of Rs 12,000 per share presents a premium for shareholders. Retail investors may benefit due to a reserved portion and promoter non-participation. This move signals management confidence and strong cash generation. Investors should await the…</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+          </div>
+          </div>
+          <div class="subsection">
+            <h3 class="subsection-title">Commodities &amp; Precious Metals (Spot Gold/Silver LBMA)</h3>
+            <div class="cards-grid">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Silver Market Poised for Sixth Straight Annual Deficit This Year"
+              data-source="Metals Focus"
+              data-summary="The global silver market is expected to remain in a deficit for a sixth consecutive year amid robust demand for bars and coins, and declining supplies, according to the Silver Institute. The 2026 deficit is projected to widen by 15% to 46.3 million troy ounces, the industry group said in its annual outlook published Wednesday. By Yvonne Yue Li for Bloomberg The post Silver Market Poised for Sixth Straight Annual Deficit This Year appeared first on Metals Focus."
+              data-link="https://www.bloomberg.com/news/articles/2026-04-15/silver-market-poised-for-sixth-straight-annual-deficit-this-year#new_tab">
+              <span class="card-source">Metals Focus</span>
+              <span class="card-title">Silver Market Poised for Sixth Straight Annual Deficit This Year</span>
+              <p class="card-summary">The global silver market is expected to remain in a deficit for a sixth consecutive year amid robust demand for bars and coins, and declining supplies, according to the Silver Institute. The 2026 deficit is projected to widen by 15% to 46.3 million troy ounces, the industry group said in…</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Silver market seen as ripe for another price squeeze"
+              data-source="Metals Focus"
+              data-summary="The market is forecast to suffer its sixth straight year of deficit in 2026, with total demand outpacing supply, according to the World Silver Survey, published by consultancy Metals Focus and industry body the Silver Institute. “The conditions are certainly there for another squeeze,” said Philip Newman, managing director of Metals Focus. “We don’t know how long it will last for, but I don’t think it is necessarily all behind us.” By Leslie Hook for Financial Times The post Silver market seen as ripe for another price squeeze appeared first on Metals Focus."
+              data-link="https://www.ft.com/content/311bd0e0-3a18-443e-a0ae-6534db9dfa8e?syn-25a6b1a6=1#new_tab">
+              <span class="card-source">Metals Focus</span>
+              <span class="card-title">Silver market seen as ripe for another price squeeze</span>
+              <p class="card-summary">The market is forecast to suffer its sixth straight year of deficit in 2026, with total demand outpacing supply, according to the World Silver Survey, published by consultancy Metals Focus and industry body the Silver Institute. “The conditions are certainly there for another squeeze,” said Philip Newman, managing director of…</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Silver faces sixth year of deficit with stock drawdown raising squeeze risks, research shows"
+              data-source="Metals Focus"
+              data-summary="The silver market is heading for a sixth year of structural deficit, with 762 million troy ounces drawn from stocks since 2021, raising the risk of a renewed liquidity squeeze despite weaker demand expectations, the Silver Institute and consultancy Metals Focus said on Wednesday. Silver , used in jewellery, electronics, electric vehicles and solar panels as well as for investment, is down 35% since a bout of frenzied retail buying – following a 147% surge in 2025 – drove prices to a record high of $121.6 an ounce in January. By Polina Devitt for Reuters The post Silver faces sixth year of deficit with stock drawdown raising squeeze risks, research shows appeared first on Metals Focus."
+              data-link="https://www.mining.com/web/silver-faces-sixth-year-of-deficit-with-stock-drawdown-raising-squeeze-risks-research-shows/#new_tab">
+              <span class="card-source">Metals Focus</span>
+              <span class="card-title">Silver faces sixth year of deficit with stock drawdown raising squeeze risks, research shows</span>
+              <p class="card-summary">The silver market is heading for a sixth year of structural deficit, with 762 million troy ounces drawn from stocks since 2021, raising the risk of a renewed liquidity squeeze despite weaker demand expectations, the Silver Institute and consultancy Metals Focus said on Wednesday. Silver , used in jewellery, electronics,…</p>
+              <span class="card-read-more">Read more →</span>
             </article>
           </div>
           </div>
           <div class="subsection">
             <h3 class="subsection-title">Crypto</h3>
             <div class="cards-grid">
-            <article class="card">
-              <span class="card-source">Cointelegraph</span>
-              <a href="https://cointelegraph.com/news/europe-crypto-wrench-attacks-losses-101m-certik-report?utm_source=rss_feed&amp;utm_medium=rss&amp;utm_campaign=rss_partner_inbound" target="_blank" rel="noopener" class="card-title">Europe sees ‘hyperconcentration’ of crypto wrench attacks as losses hit $101M</a>
-              <p class="card-summary">Criminal teams behind wrench attacks usually consist of three to five people, often posing as delivery drivers or luring victims into ambushes, said CertiK.</p>
-              <a href="https://cointelegraph.com/news/europe-crypto-wrench-attacks-losses-101m-certik-report?utm_source=rss_feed&amp;utm_medium=rss&amp;utm_campaign=rss_partner_inbound" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Retail Traders Get Crypto Access as Morgan Stanley Follows SoFi in Trading Push"
+              data-source="Finance Magnates"
+              data-summary="Morgan Stanley has begun piloting direct cryptocurrency trading on its E*Trade platform, charging around 50 basis points per transaction, according to a Bloomberg report.Singapore Summit: Meet the largest APAC brokers you know (and those you still don&#x27;t!).Charles Schwab has begun rolling out plans for spot cryptocurrency trading for retail clients. SoFi Technologies resumed crypto trading after regulatory changes. Several firms, including Morgan Stanley and PNC Financial Services, have also been exploring or developing crypto offerings. The moves reflect wider expansion in retail access to digital assets.Retail Crypto Fees Under Competitive PressureAt Morgan Stanley, the service is currently available to a limited group of users. A broader rollout is expected later in 2026. It is planned to reach about 8.6 million E*Trade clients.The pricing places Morgan Stanley below several competitors in retail crypto trading. Coinbase charges can exceed 0.5%, depending on user tier and payment method. Robinhood offers commission-free trading but generates revenue through spreads, typically between 35 and 95 basis points. Charles Schwab charges around 75 basis points for Bitcoin and Ether transactions.LATEST: 🏦 Morgan Stanley has begun piloting crypto trading via E*Trade with lower fees than than Coinbase, Robinhood, and Schwab, according to Bloomberg. pic.twitter.com/rVXopGkBw2— CoinMarketCap (@CoinMarketCap) May 6,…"
+              data-link="https://www.financemagnates.com/forex/retail-traders-get-crypto-access-as-morgan-stanley-follows-sofi-in-trading-push/">
+              <span class="card-source">Finance Magnates</span>
+              <span class="card-title">Retail Traders Get Crypto Access as Morgan Stanley Follows SoFi in Trading Push</span>
+              <p class="card-summary">Morgan Stanley has begun piloting direct cryptocurrency trading on its E*Trade platform, charging around 50 basis points per transaction, according to a Bloomberg report.Singapore Summit: Meet the largest APAC brokers you know (and those you still don&#x27;t!).Charles Schwab has begun rolling out plans for spot cryptocurrency trading for retail clients.…</p>
+              <span class="card-read-more">Read more →</span>
             </article>
-            <article class="card">
-              <span class="card-source">Cointelegraph</span>
-              <a href="https://cointelegraph.com/news/australian-police-seize-41m-bitcoin-largest-dark-net-bust?utm_source=rss_feed&amp;utm_medium=rss&amp;utm_campaign=rss_partner_inbound" target="_blank" rel="noopener" class="card-title">Australian police seize $4.1M in Bitcoin tied to darknet market</a>
-              <p class="card-summary">NSW Police said the Bitcoin was allegedly linked to illegal darknet marketplace activity involving drugs and weapons.</p>
-              <a href="https://cointelegraph.com/news/australian-police-seize-41m-bitcoin-largest-dark-net-bust?utm_source=rss_feed&amp;utm_medium=rss&amp;utm_campaign=rss_partner_inbound" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Coinbase Cuts 14% of Staff as AI and Crypto Downturn Reshape Its Operating Model"
+              data-source="Finance Magnates"
+              data-summary="Coinbase will reduce its global headcount by about 14%, or roughly 700 roles, as the US-listed crypto exchange streamlines operations and reorganises parts of its business around artificial intelligence and leaner teams.Singapore Summit: Meet the largest APAC brokers you know (and those you still don&#x27;t!).The move extends a broader restructuring cycle across the crypto sector that began after the 2022 market downturn, with exchanges repeatedly adjusting staffing levels in response to weaker trading activity and volatile revenue conditions.Coinbase Flattens Structure, Cuts Jobs Amid AIIn an internal message to employees, CEO Brian Armstrong said the decision reflects both market conditions and shifts in how work is being executed inside the company. He cited “continued weakness in parts of the crypto market” and “rapid advances in AI tools that are materially changing how work is executed”.Armstrong said Coinbase is increasingly using AI tools to accelerate development and reduce coordination across teams, with plans to move toward smaller, more autonomous “AI-native” groups supported by automation.This is an email I sent earlier today to all employees at Coinbase:Team,Today I’ve made the difficult decision to reduce the size of Coinbase by ~14%. I want to walk you through why we&#x27;re doing this now, what it…"
+              data-link="https://www.financemagnates.com/cryptocurrency/coinbase-cuts-14-of-staff-as-ai-and-crypto-downturn-reshape-its-operating-model/">
+              <span class="card-source">Finance Magnates</span>
+              <span class="card-title">Coinbase Cuts 14% of Staff as AI and Crypto Downturn Reshape Its Operating Model</span>
+              <p class="card-summary">Coinbase will reduce its global headcount by about 14%, or roughly 700 roles, as the US-listed crypto exchange streamlines operations and reorganises parts of its business around artificial intelligence and leaner teams.Singapore Summit: Meet the largest APAC brokers you know (and those you still don&#x27;t!).The move extends a broader restructuring…</p>
+              <span class="card-read-more">Read more →</span>
             </article>
-            <article class="card">
-              <span class="card-source">Cointelegraph</span>
-              <a href="https://cointelegraph.com/features/how-ai-cryptos-favorite-reason-cut-staff?utm_source=rss_feed&amp;utm_medium=rss&amp;utm_campaign=rss_partner_inbound" target="_blank" rel="noopener" class="card-title">How AI became crypto&#x27;s favorite reason to cut staff</a>
-              <p class="card-summary">Coinbase, Block and Crypto.com have all cited AI to justify recent cuts, though Scale AI’s Jason Droege suspects companies are using the technology as cover.</p>
-              <a href="https://cointelegraph.com/features/how-ai-cryptos-favorite-reason-cut-staff?utm_source=rss_feed&amp;utm_medium=rss&amp;utm_campaign=rss_partner_inbound" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Bitget Wallet: Prediction Markets Will Consolidate in Liquidity but Spread in Access"
+              data-source="Finance Magnates"
+              data-summary="Prediction markets are increasingly being built on a small number of liquid venues, but accessed through a growing number of interfaces. Wallets, exchanges, and fintech apps are emerging as the main entry points, shifting competition toward distribution and user experience.Singapore Summit: Meet the largest APAC brokers you know (and those you still don&#x27;t!)According to Alvin Kan, this split between liquidity and access may define the next phase of the sector. Platforms like Bitget are focusing on access and usability, rather than building their own markets. The assumption is that adoption will depend more on how markets are accessed than where they are hosted. When Liquidity Meets Accessibility and User Experience The difference between using a native platform like Polymarket and accessing markets through a wallet lies in how users access and interpret them, Kan explains. “Platforms like Polymarket are effective at liquidity and price discovery, but they typically require users to navigate multiple steps and interpret raw probabilities independently. Bitget Wallet adds a layer focused on accessibility and usability,” he says. From an access standpoint, users can move from funding to execution within a single mobile interface, aiming to reduce friction. From an interpretation standpoint, AI-assisted analysis helps aggregate data,…"
+              data-link="https://www.financemagnates.com/cryptocurrency/interview/bitget-wallet-prediction-markets-will-consolidate-in-liquidity-but-spread-in-access/">
+              <span class="card-source">Finance Magnates</span>
+              <span class="card-title">Bitget Wallet: Prediction Markets Will Consolidate in Liquidity but Spread in Access</span>
+              <p class="card-summary">Prediction markets are increasingly being built on a small number of liquid venues, but accessed through a growing number of interfaces. Wallets, exchanges, and fintech apps are emerging as the main entry points, shifting competition toward distribution and user experience.Singapore Summit: Meet the largest APAC brokers you know (and those…</p>
+              <span class="card-read-more">Read more →</span>
             </article>
           </div>
           </div>
           <div class="subsection">
-            <h3 class="subsection-title">Margin</h3>
+            <h3 class="subsection-title">CFDs &amp; Margin</h3>
             <div class="cards-grid">
-            <article class="card">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="PayModum Announces Acquisition of Floid Inc. to Strengthen US Bank Payment Capabilities"
+              data-source="Finance Magnates"
+              data-summary="PayModum, an online payment gateway providing access to 150+ online payment methods, today announces the completion of its acquisition of Floid Inc., a Delaware-incorporated entity that holds direct relationships enabling local, instant bank payments for merchants.Jake Dovey, CEO of PayModum, commented:“The acquisition represents a significant step forward for PayModum, strengthening its position in the growing market for instant bank payments in the US.”With the increasing demand for instant payment rails—particularly those providing account information services such as date of birth, name, and address for payee verification—the acquisition represents an improvement to current payment processes, which often lack access to this level of data. As regulation continues to evolve, it is becoming increasingly important for online merchants to better understand and utilize the payment information they collect, which many traditional payment methods do not provide.Daniel Bessmert, Local Director at Floid Inc., added:“As a local director of the business, we are excited to continue the growth of this proposition for online merchants. We aim to deliver a reliable and trusted payment experience for both merchants and end users. Whilst the US is known for being a market driven by credit cards, we are seeing an increasing uptake in the use of local…"
+              data-link="https://www.financemagnates.com/thought-leadership/paymodum-announces-acquisition-of-floid-inc-to-strengthen-us-bank-payment-capabilities/">
               <span class="card-source">Finance Magnates</span>
-              <a href="https://www.financemagnates.com/institutional-forex/singapore-private-equity-ecosystem-faces-balancing-act-as-retail-capital-enters-frame/" target="_blank" rel="noopener" class="card-title">Singapore Private Equity Ecosystem Faces Balancing Act as Retail Capital Enters Frame</a>
-              <p class="card-summary">New flows will have to be carefully managed if Singapore is to maintain and enhance its status as a leading regional hub for private equity. Private equity is just one of many aspects of Singapore’s capital markets ecosystem that have benefited from regulatory support.Singapore Summit: Meet the largest APAC brokers you know (and those you still don&#x27;t!). For example, the Monetary Authority of Singapore (MAS) private markets programme has encouraged leading private equity, infrastructure, and private credit managers to set up and expand in Singapore – a process that has enhanced the private market ecosystem.Singapore’s Private Equity Hub Status Under…</p>
-              <a href="https://www.financemagnates.com/institutional-forex/singapore-private-equity-ecosystem-faces-balancing-act-as-retail-capital-enters-frame/" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+              <span class="card-title">PayModum Announces Acquisition of Floid Inc. to Strengthen US Bank Payment Capabilities</span>
+              <p class="card-summary">PayModum, an online payment gateway providing access to 150+ online payment methods, today announces the completion of its acquisition of Floid Inc., a Delaware-incorporated entity that holds direct relationships enabling local, instant bank payments for merchants.Jake Dovey, CEO of PayModum, commented:“The acquisition represents a significant step forward for PayModum, strengthening…</p>
+              <span class="card-read-more">Read more →</span>
             </article>
-            <article class="card">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Weekly Report: Smarter Copy Trading Challenges Prop Firm Controls; CFD Volumes Soar 96%"
+              data-source="Finance Magnates"
+              data-summary="Finfluencer reach doesn’t mean trustFinfluencer marketing has become a standard play in the trading industry, but its effectiveness is increasingly under scrutiny. Many trading influencers build large followings using trading-related content. Yet, their primary revenue often comes from selling courses, memberships, or monetizing attention, frequently with low conversion and retention rates.Singapore Summit: Meet the largest APAC brokers you know (and those you still don&#x27;t!)While brokers continue to pay premium rates to access these audiences, questions remain about the real value delivered, especially as client retention declines.From inside the industry, a clearer picture emerges. Most creators on platforms like Instagram, TikTok, and YouTube operate as content businesses rather than active traders, using trading visuals such as charts and profit screenshots to drive engagement.Kudotrade secures UAE CMA approvalMeanwhile, the industry is expanding fast. Kudotrade received initial approval from the UAE’s Capital Market Authority (CMA) and opened a new office in Dubai. The broker, which is currently licensed in Mauritius, also confirmed it has acquired the Kudo.com domain and plans to use it as its main brand going forward.The CMA, recently rebranded from the Securities and Commodities Authority, has become a key regulatory target for retail brokers. Competition for licenses has intensified in…"
+              data-link="https://www.financemagnates.com/forex/weekly-report-smarter-copy-trading-challenges-prop-firm-controls-cfd-volumes-soar-96/">
               <span class="card-source">Finance Magnates</span>
-              <a href="https://www.financemagnates.com/fintech/inside-the-prediction-markets-kalshi-raises-1b-as-regulatory-tensions-escalate/" target="_blank" rel="noopener" class="card-title">Inside the Prediction Markets: Kalshi Raises $1B as Regulatory Tensions Escalate</a>
-              <p class="card-summary">Kalshi raised $1 billion this week at a $22 billion valuation, one of the largest financings yet in prediction markets. At the same time, the CFTC closed its public comment window on prediction market regulation after receiving more than 1,500 submissions.Singapore Summit: Meet the largest APAC brokers you know (and those you still don&#x27;t!).These developments highlighted the same underlying trend: prediction markets are growing fast enough to attract institutional capital, while regulators and industry groups are still arguing over what these products actually are. What Moved the Prediction Markets This Week Kalshi Closes $1 Billion at $22 Billion Valuation On…</p>
-              <a href="https://www.financemagnates.com/fintech/inside-the-prediction-markets-kalshi-raises-1b-as-regulatory-tensions-escalate/" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+              <span class="card-title">Weekly Report: Smarter Copy Trading Challenges Prop Firm Controls; CFD Volumes Soar 96%</span>
+              <p class="card-summary">Finfluencer reach doesn’t mean trustFinfluencer marketing has become a standard play in the trading industry, but its effectiveness is increasingly under scrutiny. Many trading influencers build large followings using trading-related content. Yet, their primary revenue often comes from selling courses, memberships, or monetizing attention, frequently with low conversion and retention…</p>
+              <span class="card-read-more">Read more →</span>
             </article>
-            <article class="card">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="CFD Broker Born2trade to Enter Prediction Markets After Acquiring Predictory.com Domain"
+              data-source="Finance Magnates"
+              data-summary="Born2trade is preparing to enter the prediction markets segment after acquiring the domain predictory.com for an undisclosed amount. The CFD broker said it plans to integrate the new product into its trading ecosystem in the first half of 2026, marking a shift beyond its current CFD-focused offering.Singapore Summit: Meet the largest APAC brokers you know (and those you still don&#x27;t!).Integration Into Existing PlatformsAccording to the information shared with FinanceMagnatesRU, the broker will add prediction markets as a complementary product rather than a standalone service. Users will access the new instrument through existing infrastructure, including MetaTrader 5 and the Born2trade X platform.The move occurs as CFD brokers and their technology providers add prediction markets to their product stacks as they look for new client acquisition tools. Several infrastructure firms that work with forex and CFD brokers now offer event-based trading modules that brokers can plug into their existing platforms. These products often sit alongside spot FX and CFD instruments rather than replacing them.#Born2trade готовит запуск рынков предсказанийhttps://t.co/I9wW3wn1IO pic.twitter.com/PUAIBgA4yZ— Finance Magnates RU (@ForexMagnatesRu) May 8, 2026One example is Match-Trader, whose developer Match-Trade Technologies recently launched a prediction markets module that brokers can deploy either inside their current trading environment or as a…"
+              data-link="https://www.financemagnates.com/forex/cfd-broker-born2trade-to-enter-prediction-markets-after-acquiring-predictorycom-domain/">
               <span class="card-source">Finance Magnates</span>
-              <a href="https://www.financemagnates.com/thought-leadership/is-artena-legit-a-closer-look-at-its-on-chain-transparency-model/" target="_blank" rel="noopener" class="card-title">Is Artena Legit? A Closer Look at Its On-Chain Transparency Model</a>
-              <p class="card-summary">As private investment clubs and DeFi platforms continue to grow in popularity, one question appears almost every time a new name enters the market: Is it legitimate?For many investors, especially in crypto, the concern is justified. The industry has seen too many opaque structures, unclear promises, and platforms where trust depends entirely on marketing rather than verifiable facts.This is exactly the problem Artena Strategic Systems is trying to solve. Rather than positioning itself as a traditional investment fund or a high-yield platform, Artena presents itself as a private, invitation-only investment club built around transparent execution, smart contract infrastructure, and market-neutral…</p>
-              <a href="https://www.financemagnates.com/thought-leadership/is-artena-legit-a-closer-look-at-its-on-chain-transparency-model/" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
-            </article>
-          </div>
-          </div>
-          <div class="subsection">
-            <h3 class="subsection-title">CFDs</h3>
-            <div class="cards-grid">
-            <article class="card">
-              <span class="card-source">Finance Magnates</span>
-              <a href="https://www.financemagnates.com/institutional-forex/singapore-private-equity-ecosystem-faces-balancing-act-as-retail-capital-enters-frame/" target="_blank" rel="noopener" class="card-title">Singapore Private Equity Ecosystem Faces Balancing Act as Retail Capital Enters Frame</a>
-              <p class="card-summary">New flows will have to be carefully managed if Singapore is to maintain and enhance its status as a leading regional hub for private equity. Private equity is just one of many aspects of Singapore’s capital markets ecosystem that have benefited from regulatory support.Singapore Summit: Meet the largest APAC brokers you know (and those you still don&#x27;t!). For example, the Monetary Authority of Singapore (MAS) private markets programme has encouraged leading private equity, infrastructure, and private credit managers to set up and expand in Singapore – a process that has enhanced the private market ecosystem.Singapore’s Private Equity Hub Status Under…</p>
-              <a href="https://www.financemagnates.com/institutional-forex/singapore-private-equity-ecosystem-faces-balancing-act-as-retail-capital-enters-frame/" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
-            </article>
-            <article class="card">
-              <span class="card-source">Finance Magnates</span>
-              <a href="https://www.financemagnates.com/fintech/inside-the-prediction-markets-kalshi-raises-1b-as-regulatory-tensions-escalate/" target="_blank" rel="noopener" class="card-title">Inside the Prediction Markets: Kalshi Raises $1B as Regulatory Tensions Escalate</a>
-              <p class="card-summary">Kalshi raised $1 billion this week at a $22 billion valuation, one of the largest financings yet in prediction markets. At the same time, the CFTC closed its public comment window on prediction market regulation after receiving more than 1,500 submissions.Singapore Summit: Meet the largest APAC brokers you know (and those you still don&#x27;t!).These developments highlighted the same underlying trend: prediction markets are growing fast enough to attract institutional capital, while regulators and industry groups are still arguing over what these products actually are. What Moved the Prediction Markets This Week Kalshi Closes $1 Billion at $22 Billion Valuation On…</p>
-              <a href="https://www.financemagnates.com/fintech/inside-the-prediction-markets-kalshi-raises-1b-as-regulatory-tensions-escalate/" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
-            </article>
-            <article class="card">
-              <span class="card-source">Finance Magnates</span>
-              <a href="https://www.financemagnates.com/thought-leadership/is-artena-legit-a-closer-look-at-its-on-chain-transparency-model/" target="_blank" rel="noopener" class="card-title">Is Artena Legit? A Closer Look at Its On-Chain Transparency Model</a>
-              <p class="card-summary">As private investment clubs and DeFi platforms continue to grow in popularity, one question appears almost every time a new name enters the market: Is it legitimate?For many investors, especially in crypto, the concern is justified. The industry has seen too many opaque structures, unclear promises, and platforms where trust depends entirely on marketing rather than verifiable facts.This is exactly the problem Artena Strategic Systems is trying to solve. Rather than positioning itself as a traditional investment fund or a high-yield platform, Artena presents itself as a private, invitation-only investment club built around transparent execution, smart contract infrastructure, and market-neutral…</p>
-              <a href="https://www.financemagnates.com/thought-leadership/is-artena-legit-a-closer-look-at-its-on-chain-transparency-model/" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+              <span class="card-title">CFD Broker Born2trade to Enter Prediction Markets After Acquiring Predictory.com Domain</span>
+              <p class="card-summary">Born2trade is preparing to enter the prediction markets segment after acquiring the domain predictory.com for an undisclosed amount. The CFD broker said it plans to integrate the new product into its trading ecosystem in the first half of 2026, marking a shift beyond its current CFD-focused offering.Singapore Summit: Meet the…</p>
+              <span class="card-read-more">Read more →</span>
             </article>
           </div>
           </div>
@@ -431,35 +618,55 @@
           <span class="section-count">5 articles</span>
         </div>
         <div class="cards-grid">
-            <article class="card">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Get ready for the whisper-filled office of the future"
+              data-source="TechCrunch AI"
+              data-summary="How will work setups change if we spend more and more time talking to our computers?"
+              data-link="https://techcrunch.com/2026/05/10/get-ready-for-the-whisper-filled-office-of-the-future/">
               <span class="card-source">TechCrunch AI</span>
-              <a href="https://techcrunch.com/2026/05/08/last-24-hours-to-get-50-off-a-second-pass-to-techcrunch-disrupt-2026/" target="_blank" rel="noopener" class="card-title">Last 24 hours to get 50% off a second pass to TechCrunch Disrupt 2026</a>
-              <p class="card-summary">Last day to buy one pass and get a second one at 50% off to TechCrunch Disrupt 2026. Bring a partner, co-founder, or colleague at half off. Register now.</p>
-              <a href="https://techcrunch.com/2026/05/08/last-24-hours-to-get-50-off-a-second-pass-to-techcrunch-disrupt-2026/" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+              <span class="card-title">Get ready for the whisper-filled office of the future</span>
+              <p class="card-summary">How will work setups change if we spend more and more time talking to our computers?</p>
+              <span class="card-read-more">Read more →</span>
             </article>
-            <article class="card">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Anthropic says ‘evil’ portrayals of AI were responsible for Claude’s blackmail attempts"
+              data-source="TechCrunch AI"
+              data-summary="Fictional portrayals of artificial intelligence can have a real effect on AI models, according to Anthropic."
+              data-link="https://techcrunch.com/2026/05/10/anthropic-says-evil-portrayals-of-ai-were-responsible-for-claudes-blackmail-attempts/">
               <span class="card-source">TechCrunch AI</span>
-              <a href="https://techcrunch.com/2026/05/07/the-back-office-problem-that-explains-why-specialists-never-call-you-back/" target="_blank" rel="noopener" class="card-title">Why you can never get your doctor to call you back</a>
-              <p class="card-summary">Like many AI companies automating work that humans currently do, Basata will eventually face a harder question about where the line is between augmenting workers and displacing them. For now, the founders say the administrative staff they work with aren&#x27;t worried about that; they&#x27;re more worried about drowning.</p>
-              <a href="https://techcrunch.com/2026/05/07/the-back-office-problem-that-explains-why-specialists-never-call-you-back/" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+              <span class="card-title">Anthropic says ‘evil’ portrayals of AI were responsible for Claude’s blackmail attempts</span>
+              <p class="card-summary">Fictional portrayals of artificial intelligence can have a real effect on AI models, according to Anthropic.</p>
+              <span class="card-read-more">Read more →</span>
             </article>
-            <article class="card">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="We’re feeling cynical about xAI’s big deal with Anthropic"
+              data-source="TechCrunch AI"
+              data-summary="On the latest episode of the Equity podcast, we discussed what xAI&#x27;s deal with Anthropic might mean for parent company SpaceX."
+              data-link="https://techcrunch.com/2026/05/10/were-feeling-cynical-about-xais-big-deal-with-anthropic/">
               <span class="card-source">TechCrunch AI</span>
-              <a href="https://techcrunch.com/2026/05/07/openai-launches-new-voice-intelligence-features-in-its-api/" target="_blank" rel="noopener" class="card-title">OpenAI launches new voice intelligence features in its API</a>
-              <p class="card-summary">The new features could be handy for customer service systems, but OpenAI says they have applications that work across a variety of other fields, including education and creator platforms.</p>
-              <a href="https://techcrunch.com/2026/05/07/openai-launches-new-voice-intelligence-features-in-its-api/" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+              <span class="card-title">We’re feeling cynical about xAI’s big deal with Anthropic</span>
+              <p class="card-summary">On the latest episode of the Equity podcast, we discussed what xAI&#x27;s deal with Anthropic might mean for parent company SpaceX.</p>
+              <span class="card-read-more">Read more →</span>
             </article>
-            <article class="card">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Musk v. Altman week 2: OpenAI fires back, and Shivon Zilis reveals that Musk tried to poach Sam Altman"
+              data-source="MIT Tech Review"
+              data-summary="In the second week of the landmark trial between Elon Musk and OpenAI, Musk’s motivations for bringing the suit were under scrutiny. Last week, Musk took the stand, alleging that OpenAI CEO Sam Altman and president Greg Brockman had deceived him into donating $38 million to the company. He claimed that they’d promised to maintain…"
+              data-link="https://www.technologyreview.com/2026/05/08/1137008/musk-v-altman-week-2-openai-fires-back-and-shivon-zilis-reveals-that-musk-tried-to-poach-sam-altman/">
               <span class="card-source">MIT Tech Review</span>
-              <a href="https://www.technologyreview.com/2026/05/08/1136985/the-download-ai-malaise-babymaking-ivf-tech/" target="_blank" rel="noopener" class="card-title">The Download: AI malaise and babymaking tech</a>
-              <p class="card-summary">This is today’s edition of The Download, our weekday newsletter that provides a daily dose of what’s going on in the world of technology. We’ve entered the era of AI malaise AI is spreading everywhere, and it is not going away. But what will it do? What effect will it have on our society? Will…</p>
-              <a href="https://www.technologyreview.com/2026/05/08/1136985/the-download-ai-malaise-babymaking-ivf-tech/" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+              <span class="card-title">Musk v. Altman week 2: OpenAI fires back, and Shivon Zilis reveals that Musk tried to poach Sam Altman</span>
+              <p class="card-summary">In the second week of the landmark trial between Elon Musk and OpenAI, Musk’s motivations for bringing the suit were under scrutiny. Last week, Musk took the stand, alleging that OpenAI CEO Sam Altman and president Greg Brockman had deceived him into donating $38 million to the company. He claimed…</p>
+              <span class="card-read-more">Read more →</span>
             </article>
-            <article class="card">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Here’s what you need to know about the cruise ship hantavirus outbreak"
+              data-source="MIT Tech Review"
+              data-summary="MIT Technology Review Explains: Let our writers untangle the complex, messy world of technology to help you understand what’s coming next. You can read more from the series here. Eight passengers aboard a Dutch-flagged cruise ship have contracted a type of hantavirus, a rare virus transmitted by rats. Three of them have died. As the ship…"
+              data-link="https://www.technologyreview.com/2026/05/08/1136988/heres-what-you-need-to-know-about-the-cruise-ship-hantavirus-outbreak/">
               <span class="card-source">MIT Tech Review</span>
-              <a href="https://www.technologyreview.com/2026/05/08/1136974/heres-how-technology-transformed-babymaking-ivf/" target="_blank" rel="noopener" class="card-title">Here’s how technology transformed babymaking</a>
-              <p class="card-summary">Technology is changing the way we make babies. The pioneering work of the scientists who invented IVF led to the birth of the first “test tube baby” in 1978. We’ve come a long, long way since then. This week, I’ve been working on a piece about the cutting edge of IVF technologies and what’s coming…</p>
-              <a href="https://www.technologyreview.com/2026/05/08/1136974/heres-how-technology-transformed-babymaking-ivf/" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+              <span class="card-title">Here’s what you need to know about the cruise ship hantavirus outbreak</span>
+              <p class="card-summary">MIT Technology Review Explains: Let our writers untangle the complex, messy world of technology to help you understand what’s coming next. You can read more from the series here. Eight passengers aboard a Dutch-flagged cruise ship have contracted a type of hantavirus, a rare virus transmitted by rats. Three of…</p>
+              <span class="card-read-more">Read more →</span>
             </article>
           </div>
       </section>
@@ -469,35 +676,55 @@
           <span class="section-count">5 articles</span>
         </div>
         <div class="cards-grid">
-            <article class="card">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Get ready for the whisper-filled office of the future"
+              data-source="TechCrunch"
+              data-summary="How will work setups change if we spend more and more time talking to our computers?"
+              data-link="https://techcrunch.com/2026/05/10/get-ready-for-the-whisper-filled-office-of-the-future/">
               <span class="card-source">TechCrunch</span>
-              <a href="https://techcrunch.com/2026/05/08/live-only-at-techcrunch-disrupt-2026-why-most-founders-are-already-behind-on-raising-a-series-a-in-2027/" target="_blank" rel="noopener" class="card-title">Live only at TechCrunch Disrupt 2026: Why most founders are already behind on raising a Series A in 2027</a>
-              <p class="card-summary">Learn what it takes to build a Series A in 2027 from top VCs at TechCrunch Disrupt 2026, taking place at San Francisco’s Moscone West on October 13-15. Register today to hear this session live on the Builders Stage.</p>
-              <a href="https://techcrunch.com/2026/05/08/live-only-at-techcrunch-disrupt-2026-why-most-founders-are-already-behind-on-raising-a-series-a-in-2027/" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+              <span class="card-title">Get ready for the whisper-filled office of the future</span>
+              <p class="card-summary">How will work setups change if we spend more and more time talking to our computers?</p>
+              <span class="card-read-more">Read more →</span>
             </article>
-            <article class="card">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Anthropic says ‘evil’ portrayals of AI were responsible for Claude’s blackmail attempts"
+              data-source="TechCrunch"
+              data-summary="Fictional portrayals of artificial intelligence can have a real effect on AI models, according to Anthropic."
+              data-link="https://techcrunch.com/2026/05/10/anthropic-says-evil-portrayals-of-ai-were-responsible-for-claudes-blackmail-attempts/">
               <span class="card-source">TechCrunch</span>
-              <a href="https://techcrunch.com/2026/05/08/last-24-hours-to-get-50-off-a-second-pass-to-techcrunch-disrupt-2026/" target="_blank" rel="noopener" class="card-title">Last 24 hours to get 50% off a second pass to TechCrunch Disrupt 2026</a>
-              <p class="card-summary">Last day to buy one pass and get a second one at 50% off to TechCrunch Disrupt 2026. Bring a partner, co-founder, or colleague at half off. Register now.</p>
-              <a href="https://techcrunch.com/2026/05/08/last-24-hours-to-get-50-off-a-second-pass-to-techcrunch-disrupt-2026/" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+              <span class="card-title">Anthropic says ‘evil’ portrayals of AI were responsible for Claude’s blackmail attempts</span>
+              <p class="card-summary">Fictional portrayals of artificial intelligence can have a real effect on AI models, according to Anthropic.</p>
+              <span class="card-read-more">Read more →</span>
             </article>
-            <article class="card">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Uber has always wanted to be more than a ride; now it has reason to hurry"
+              data-source="TechCrunch"
+              data-summary="The company has been trying to embed itself inside the AV industry — as a data provider, an investor, and a distribution platform — but the consumer-facing bet may be just as important."
+              data-link="https://techcrunch.com/2026/05/10/uber-has-always-wanted-to-be-more-than-a-ride-now-it-has-reason-to-hurry/">
               <span class="card-source">TechCrunch</span>
-              <a href="https://techcrunch.com/2026/05/08/lime-the-uber-backed-micromobility-company-files-for-ipo/" target="_blank" rel="noopener" class="card-title">Lime, the Uber-backed micromobility company, files for IPO</a>
-              <p class="card-summary">After years of hints and preparation, Lime plans to enter the public markets.</p>
-              <a href="https://techcrunch.com/2026/05/08/lime-the-uber-backed-micromobility-company-files-for-ipo/" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+              <span class="card-title">Uber has always wanted to be more than a ride; now it has reason to hurry</span>
+              <p class="card-summary">The company has been trying to embed itself inside the AV industry — as a data provider, an investor, and a distribution platform — but the consumer-facing bet may be just as important.</p>
+              <span class="card-read-more">Read more →</span>
             </article>
-            <article class="card">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="The Week’s 10 Biggest Funding Rounds: Enterprise AI, Space Tech And Biotech Top The Ranks"
+              data-source="Crunchbase News"
+              data-summary="Another week, another infusion of big AI rounds."
+              data-link="https://news.crunchbase.com/venture/biggest-funding-rounds-sierra-astrani-anagram-therapeutics/">
               <span class="card-source">Crunchbase News</span>
-              <a href="https://news.crunchbase.com/sales-marketing/gtm-ai-startup-funding-netomi-hightouch/" target="_blank" rel="noopener" class="card-title">Sector Snapshot: Sales And Marketing Gets An AI Makeover</a>
+              <span class="card-title">The Week’s 10 Biggest Funding Rounds: Enterprise AI, Space Tech And Biotech Top The Ranks</span>
+              <p class="card-summary">Another week, another infusion of big AI rounds.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Sector Snapshot: Sales And Marketing Gets An AI Makeover"
+              data-source="Crunchbase News"
+              data-summary="So far in 2026, companies in sales, marketing and CRM categories have pulled in around $2.7 billion globally in seed- through growth-stage funding, per Crunchbase data."
+              data-link="https://news.crunchbase.com/sales-marketing/gtm-ai-startup-funding-netomi-hightouch/">
+              <span class="card-source">Crunchbase News</span>
+              <span class="card-title">Sector Snapshot: Sales And Marketing Gets An AI Makeover</span>
               <p class="card-summary">So far in 2026, companies in sales, marketing and CRM categories have pulled in around $2.7 billion globally in seed- through growth-stage funding, per Crunchbase data.</p>
-              <a href="https://news.crunchbase.com/sales-marketing/gtm-ai-startup-funding-netomi-hightouch/" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
-            </article>
-            <article class="card">
-              <span class="card-source">Crunchbase News</span>
-              <a href="https://news.crunchbase.com/fintech/fazeshift-accounts-receivable-ai-finance-ops-startup-funding/" target="_blank" rel="noopener" class="card-title">Exclusive: Fazeshift Scores $17M As Investors Bet On AI-Powered Finance Ops, Starting With Accounts Receivable</a>
-              <p class="card-summary">Fazeshift, a startup that uses AI agents to automate accounts receivable, has raised $17 million in a Series A round of funding, it tells Crunchbase News exclusively.</p>
-              <a href="https://news.crunchbase.com/fintech/fazeshift-accounts-receivable-ai-finance-ops-startup-funding/" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+              <span class="card-read-more">Read more →</span>
             </article>
           </div>
       </section>
@@ -507,35 +734,55 @@
           <span class="section-count">5 articles</span>
         </div>
         <div class="cards-grid">
-            <article class="card">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Prime Video follows Netflix and Disney by adding a TikTok-like ‘Clips’ feed in its app"
+              data-source="TechCrunch Apps"
+              data-summary="The Clips feed aims to enable discovery by offering users a scrollable feed with short snippets of shows and movies."
+              data-link="https://techcrunch.com/2026/05/08/prime-video-follows-netflix-and-disney-by-adding-a-tiktok-like-clips-feed-in-its-app/">
               <span class="card-source">TechCrunch Apps</span>
-              <a href="https://techcrunch.com/2026/05/08/last-24-hours-to-get-50-off-a-second-pass-to-techcrunch-disrupt-2026/" target="_blank" rel="noopener" class="card-title">Last 24 hours to get 50% off a second pass to TechCrunch Disrupt 2026</a>
+              <span class="card-title">Prime Video follows Netflix and Disney by adding a TikTok-like ‘Clips’ feed in its app</span>
+              <p class="card-summary">The Clips feed aims to enable discovery by offering users a scrollable feed with short snippets of shows and movies.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Truecaller slashes 70 jobs amid declining ad sales"
+              data-source="TechCrunch Apps"
+              data-summary="Truecaller&#x27;s ad revenue declined by 44%, leading to the layoffs."
+              data-link="https://techcrunch.com/2026/05/08/truecaller-slashes-70-jobs-amid-declining-ad-sales/">
+              <span class="card-source">TechCrunch Apps</span>
+              <span class="card-title">Truecaller slashes 70 jobs amid declining ad sales</span>
+              <p class="card-summary">Truecaller&#x27;s ad revenue declined by 44%, leading to the layoffs.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Last 24 hours to get 50% off a second pass to TechCrunch Disrupt 2026"
+              data-source="TechCrunch Apps"
+              data-summary="Last day to buy one pass and get a second one at 50% off to TechCrunch Disrupt 2026. Bring a partner, co-founder, or colleague at half off. Register now."
+              data-link="https://techcrunch.com/2026/05/08/last-24-hours-to-get-50-off-a-second-pass-to-techcrunch-disrupt-2026/">
+              <span class="card-source">TechCrunch Apps</span>
+              <span class="card-title">Last 24 hours to get 50% off a second pass to TechCrunch Disrupt 2026</span>
               <p class="card-summary">Last day to buy one pass and get a second one at 50% off to TechCrunch Disrupt 2026. Bring a partner, co-founder, or colleague at half off. Register now.</p>
-              <a href="https://techcrunch.com/2026/05/08/last-24-hours-to-get-50-off-a-second-pass-to-techcrunch-disrupt-2026/" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+              <span class="card-read-more">Read more →</span>
             </article>
-            <article class="card">
-              <span class="card-source">TechCrunch Apps</span>
-              <a href="https://techcrunch.com/2026/05/07/disney-looking-to-make-a-unified-super-app-report-says/" target="_blank" rel="noopener" class="card-title">Disney looking to make a unified ‘super app,’ report says</a>
-              <p class="card-summary">Disney CEO Josh D&#x27;Amaro, who took over for Bob Iger earlier this year, has emphasized his intent to streamline the Disney experience.</p>
-              <a href="https://techcrunch.com/2026/05/07/disney-looking-to-make-a-unified-super-app-report-says/" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
-            </article>
-            <article class="card">
-              <span class="card-source">TechCrunch Apps</span>
-              <a href="https://techcrunch.com/2026/05/07/perplexitys-personal-computer-is-now-available-everyone-on-mac/" target="_blank" rel="noopener" class="card-title">Perplexity’s Personal Computer is now available to everyone on Mac</a>
-              <p class="card-summary">Perplexity&#x27;s Personal Computer brings AI agents to your Mac, and is now open to everyone.</p>
-              <a href="https://techcrunch.com/2026/05/07/perplexitys-personal-computer-is-now-available-everyone-on-mac/" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
-            </article>
-            <article class="card">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="InvestorFinder"
+              data-source="Product Hunt"
+              data-summary="Find investors who&#x27;ve backed founders just like you Discussion | Link"
+              data-link="https://www.producthunt.com/products/investorfinder">
               <span class="card-source">Product Hunt</span>
-              <a href="https://www.producthunt.com/products/sendly-2" target="_blank" rel="noopener" class="card-title">Sendly</a>
-              <p class="card-summary">SMS For AI Agents &amp; Developers Discussion | Link</p>
-              <a href="https://www.producthunt.com/products/sendly-2" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+              <span class="card-title">InvestorFinder</span>
+              <p class="card-summary">Find investors who&#x27;ve backed founders just like you Discussion | Link</p>
+              <span class="card-read-more">Read more →</span>
             </article>
-            <article class="card">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Tailgrids 3.0"
+              data-source="Product Hunt"
+              data-summary="Open-source React UI library for Tailwind and AI Workflow Discussion | Link"
+              data-link="https://www.producthunt.com/products/tailgrids">
               <span class="card-source">Product Hunt</span>
-              <a href="https://www.producthunt.com/products/rankspot" target="_blank" rel="noopener" class="card-title">RankSpot</a>
-              <p class="card-summary">AI SEO Blog driven by deep competitor intelligence Discussion | Link</p>
-              <a href="https://www.producthunt.com/products/rankspot" target="_blank" rel="noopener" class="card-read-more">Read full article →</a>
+              <span class="card-title">Tailgrids 3.0</span>
+              <p class="card-summary">Open-source React UI library for Tailwind and AI Workflow Discussion | Link</p>
+              <span class="card-read-more">Read more →</span>
             </article>
           </div>
       </section>
@@ -546,16 +793,56 @@
         </div>
         <div class="vocab-card">
           <p class="vocab-label">Term of the Day</p>
-          <h3 class="vocab-term">AUM – Assets Under Management</h3>
-          <p class="vocab-definition">The total market value of all investments a firm manages on behalf of clients. AUM directly drives fee revenue and is the standard measure of a fund manager&#x27;s scale and market position. Global asset-management AUM exceeds $100 trillion. Rapid AUM growth can paradoxically hurt performance as large funds struggle to deploy capital without moving markets.</p>
+          <h3 class="vocab-term">KYC – Know Your Customer</h3>
+          <p class="vocab-definition">Mandatory identity-verification process that financial institutions use to confirm client identity and assess financial crime risk before onboarding. Typical steps include government ID verification, proof of address, and a risk questionnaire. Regulators impose heavy fines for KYC failures, making it a core compliance obligation for banks, brokers, and increasingly crypto exchanges.</p>
         </div>
       </section>
   </main>
 
   <footer>
     <p>Auto-generated daily at 8:00 AM IST</p>
-    <p style="margin-top:4px;">Sources: Economic Times · LiveMint · Bloomberg · TechCrunch · Crunchbase · FintechNews.ae · Arabian Business · Reuters · CNBC · CoinDesk · Cointelegraph &amp; more</p>
+    <p style="margin-top:4px;">Sources: Economic Times · LiveMint · Bloomberg · TechCrunch · Crunchbase · FintechNews.ae · Arabian Business · Reuters · CNBC · CoinDesk · Cointelegraph · Kitco · BullionVault &amp; more</p>
   </footer>
+
+  <!-- Article Modal -->
+  <div id="article-modal" class="modal-overlay" onclick="handleOverlayClick(event)">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeArticleModal()" aria-label="Close">&times;</button>
+      <span class="modal-source" id="modal-source"></span>
+      <h2 class="modal-title" id="modal-title"></h2>
+      <div class="modal-divider"></div>
+      <p class="modal-summary" id="modal-summary"></p>
+      <a class="modal-link" id="modal-link" href="#" target="_blank" rel="noopener noreferrer">
+        Read Full Article &rarr;
+      </a>
+    </div>
+  </div>
+
+  <script>
+    function openArticle(card) {
+      document.getElementById('modal-source').textContent = card.dataset.source;
+      document.getElementById('modal-title').textContent = card.dataset.title;
+      document.getElementById('modal-summary').textContent = card.dataset.summary || 'No summary available.';
+      document.getElementById('modal-link').href = card.dataset.link;
+      document.getElementById('article-modal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function handleOverlayClick(e) {
+      if (e.target === document.getElementById('article-modal')) closeArticleModal();
+    }
+    function closeArticleModal() {
+      document.getElementById('article-modal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeArticleModal();
+    });
+    document.querySelectorAll('.card').forEach(function(card) {
+      card.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openArticle(card); }
+      });
+    });
+  </script>
 
 </body>
 </html>
