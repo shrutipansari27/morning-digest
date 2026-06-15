@@ -964,3 +964,16 @@ if __name__ == "__main__":
         with open(path, "w", encoding="utf-8") as f:
             f.write(html_content)
         print(f"Written: {os.path.abspath(path)}")
+
+    # Remove dated HTMLs older than 2 days
+    cutoff = (now - datetime.timedelta(days=2)).date()
+    for fname in os.listdir("docs"):
+        if not fname.endswith(".html") or fname == "index.html":
+            continue
+        try:
+            file_date = datetime.date.fromisoformat(fname[:-5])
+        except ValueError:
+            continue
+        if file_date < cutoff:
+            os.remove(os.path.join("docs", fname))
+            print(f"Removed: docs/{fname}")
