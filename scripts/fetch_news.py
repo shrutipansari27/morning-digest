@@ -360,7 +360,14 @@ def fetch_article_body(url, max_words=200):
         return ""
 
 
-def fetch_feeds(feeds, max_items, sub_key=None):
+def _dedup_key(title, link):
+    """Return a tuple of (title_key, url_key) for deduplication."""
+    title_key = re.sub(r"[^a-z0-9]", "", title.lower())[:80]
+    url_key = re.sub(r"\?.*$", "", link).rstrip("/")
+    return title_key, url_key
+
+
+def fetch_feeds(feeds, max_items, sub_key=None, seen_global=None):
     # Phase 1: collect from RSS feeds with relevance filtering
     candidates = []
     for source_name, url in feeds:
@@ -381,6 +388,11 @@ def fetch_feeds(feeds, max_items, sub_key=None):
                     continue
                 if not is_relevant(title, full_summary, sub_key):
                     continue
+                # Skip articles already seen in another section
+                if seen_global is not None:
+                    title_key, url_key = _dedup_key(title, link)
+                    if title_key in seen_global or url_key in seen_global:
+                        continue
                 candidates.append(
                     {
                         "title": title,
@@ -395,6 +407,13 @@ def fetch_feeds(feeds, max_items, sub_key=None):
             print(f"  [Error] {source_name}: {e}")
 
     items = candidates[:max_items]
+
+    # Register chosen items as seen so later sections skip them
+    if seen_global is not None:
+        for item in items:
+            title_key, url_key = _dedup_key(item["title"], item["link"])
+            seen_global.add(title_key)
+            seen_global.add(url_key)
 
     # Phase 2: enrich short summaries by fetching article body in parallel
     to_enrich = [(i, it) for i, it in enumerate(items) if it["_short"] and it["link"] != "#"]
@@ -438,7 +457,7 @@ def build_cards(items):
         safe_link = html.escape(item["link"])
         safe_title = html.escape(item["title"])
         safe_source = html.escape(item["source"])
-        safe_full = html.escape(item.get("full_summary", item.get("summary", "")))
+        safe_full = html.escape(item.get("summary", ""))
         cards += f"""
             <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
               data-title="{safe_title}"
@@ -943,16 +962,17 @@ if __name__ == "__main__":
     print(f"Vocabulary: {', '.join(t for t, _ in daily_vocab)}")
 
     all_data = {}
+    seen_global = set()  # tracks normalized titles + URLs to avoid cross-section duplicates
     for key, section in SOURCES.items():
         print(f"\n[{section['label']}]")
         if section["has_subsections"]:
             all_data[key] = {}
             for sub_key, sub_config in section["subsections"].items():
-                items = fetch_feeds(sub_config["feeds"], ITEMS_PER_SUBSECTION, sub_key=sub_key)
+                items = fetch_feeds(sub_config["feeds"], ITEMS_PER_SUBSECTION, sub_key=sub_key, seen_global=seen_global)
                 all_data[key][sub_key] = items
                 print(f"   -> {sub_config['label']}: {len(items)} articles")
         else:
-            items = fetch_feeds(section["feeds"], ITEMS_PER_SECTION)
+            items = fetch_feeds(section["feeds"], ITEMS_PER_SECTION, seen_global=seen_global)
             all_data[key] = items
             print(f"   -> {len(items)} articles")
 
