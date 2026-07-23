@@ -6,6 +6,8 @@ import datetime
 import html
 import re
 import os
+import json
+import random
 import urllib.request
 import concurrent.futures
 
@@ -264,6 +266,52 @@ SUBSECTION_BLOCKLIST = {
     },
 }
 
+# ── Key Announcement detection ─────────────────────────
+KEY_ANNOUNCEMENT_PATTERNS = [
+    r"\brbi\b.{0,50}(rate|cut|hike|pause|policy|decision)",
+    r"\bfed(eral\s+reserve)?\b.{0,50}(rate|cut|hike|pause|pivot|decision)",
+    r"\b(bank\s+of\s+england|boe|ecb|pboc|rba|boj)\b.{0,50}(rate|cut|hike|pause)",
+    r"\brate\s+cut\b",
+    r"\brate\s+hike\b",
+    r"\binterest\s+rate.{0,30}(cut|hike|raised|lowered|unchanged|hold)",
+    r"\b(fund|portfolio|etf|index)\s+rebalanc",
+    r"\b(gold|oil|crude|silver|copper|palladium)\b.{0,40}(spike|surges?|plunges?|crash|record|all[- ]time\s+high|historic)",
+    r"\bcommodity.{0,40}(surges?|plunges?|crash|record)",
+    r"\bmonetary\s+policy\s+(meeting|decision|statement)",
+]
+
+# ── Business Signals ───────────────────────────────────
+SIGNALS_FEEDS = [
+    ("Gulf Business", "https://gulfbusiness.com/feed/"),
+    ("Arabian Business", "https://www.arabianbusiness.com/rss/"),
+    ("Finance Magnates", "https://www.financemagnates.com/feed/"),
+    ("ET Markets", "https://economictimes.indiatimes.com/markets/stocks/rssfeeds/2146842.cms"),
+]
+
+SIGNALS_KEYWORDS = {
+    # Crypto sentiment
+    "fear", "crypto fear", "greed index", "bear market", "crypto crash",
+    "capitulation", "sell-off", "liquidation", "forced selling",
+    # UAE/Dubai seasonal
+    "dubai summer", "school holidays", "summer slowdown", "uae holiday",
+    "ramadan", "eid", "expat exodus", "uae consumer spending",
+    # Wio-relevant macro / fintech metrics
+    "user growth", "customer acquisition", "retail adoption", "fintech growth",
+    "digital wallet adoption", "neobank", "engagement drops", "aum decline",
+    "order volume", "trading volume falls", "retail investor sentiment",
+    # Systemic / regulatory
+    "regulatory crackdown", "crypto ban", "exchange closure", "trading halt",
+    "capital outflow", "sanctions", "market shutdown",
+    # Broader risk signals
+    "recession fears", "global selloff", "risk-off", "uae economy slowdown",
+    "gcc growth slowdown", "mena fintech", "dubai real estate slowdown",
+}
+
+SIGNALS_BLOCKLIST = {
+    "cricket", "bollywood", "film", "movie", "celebrity", "fashion",
+    "sports", "entertainment", "cooking", "travel tips", "horoscope",
+}
+
 
 # ── Helpers ───────────────────────────────────────────
 def get_entry_summary(entry):
@@ -318,6 +366,69 @@ def is_relevant(title, summary, sub_key):
     return any(kw in text for kw in keywords)
 
 
+def is_key_announcement(title, summary=""):
+    text = (title + " " + summary).lower()
+    return any(re.search(p, text) for p in KEY_ANNOUNCEMENT_PATTERNS)
+
+
+def is_business_signal(title, summary=""):
+    text = (title + " " + summary).lower()
+    if any(bl in text for bl in SIGNALS_BLOCKLIST):
+        return False
+    return any(kw in text for kw in SIGNALS_KEYWORDS)
+
+
+def load_vocab_history():
+    path = os.path.join("docs", "vocab_history.json")
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}
+
+
+def select_daily_vocab(history):
+    """Pick VOCAB_PER_DAY terms not shown in the last 60 days, deterministically."""
+    today_key = now.strftime("%Y-%m-%d")
+    if today_key in history:
+        term_names = set(history[today_key])
+        result = [(t, d) for t, d in VOCABULARY if t in term_names]
+        if result:
+            return result
+
+    cutoff_key = (now - datetime.timedelta(days=60)).strftime("%Y-%m-%d")
+    recently_shown = set()
+    for date_str, terms in history.items():
+        if date_str >= cutoff_key:
+            recently_shown.update(terms)
+
+    all_term_names = [t for t, _ in VOCABULARY]
+    pool = [t for t in all_term_names if t not in recently_shown]
+
+    if len(pool) < VOCAB_PER_DAY:
+        shown_dates = {}
+        for date_str, terms in history.items():
+            for term in terms:
+                if term not in shown_dates or date_str > shown_dates[term]:
+                    shown_dates[term] = date_str
+        pool = sorted(all_term_names, key=lambda t: shown_dates.get(t, "0000-00-00"))
+
+    rng = random.Random(day_of_year)
+    selected = set(rng.sample(pool, min(VOCAB_PER_DAY, len(pool))))
+    return [(t, d) for t, d in VOCABULARY if t in selected]
+
+
+def save_vocab_history(history, terms_today):
+    today_key = now.strftime("%Y-%m-%d")
+    history[today_key] = [t for t, _ in terms_today]
+    cutoff_key = (now - datetime.timedelta(days=90)).strftime("%Y-%m-%d")
+    pruned = {k: v for k, v in history.items() if k >= cutoff_key}
+    os.makedirs("docs", exist_ok=True)
+    with open(os.path.join("docs", "vocab_history.json"), "w", encoding="utf-8") as f:
+        json.dump(pruned, f, indent=2)
+    return pruned
+
+
 _BODY_SKIP = {
     "facebook", "twitter", "linkedin", "instagram", "newsletter",
     "subscribe", "copyright", "advertisement", "sign up", "log in",
@@ -334,28 +445,56 @@ def fetch_article_body(url, max_words=200):
         )
         with urllib.request.urlopen(req, timeout=7) as resp:
             raw = resp.read().decode("utf-8", errors="ignore")
+
+        # Capture meta description before stripping tags (reliable short summary)
+        meta_desc = ""
+        for pattern in (
+            r'<meta\s+name=["\']description["\']\s+content=["\'](.*?)["\']',
+            r'<meta\s+content=["\'](.*?)["\']\s+name=["\']description["\']',
+        ):
+            m = re.search(pattern, raw, re.IGNORECASE)
+            if m:
+                meta_desc = clean(html.unescape(m.group(1)))
+                break
+
         # Strip non-content sections
         for tag in ("script", "style", "nav", "header", "footer", "aside", "menu", "figure"):
             raw = re.sub(rf"<{tag}[^>]*>.*?</{tag}>", "", raw, flags=re.DOTALL | re.IGNORECASE)
+
+        # Try <p> tags; if sparse, also look inside article/content containers
         paras = re.findall(r"<p[^>]*>(.*?)</p>", raw, flags=re.DOTALL | re.IGNORECASE)
+        if len(paras) < 3:
+            for selector in (
+                r"<article[^>]*>(.*?)</article>",
+                r'<div[^>]*class=["\'][^"\']*(?:article|story|post|entry)[_-]?body[^"\']*["\'][^>]*>(.*?)</div>',
+                r'<div[^>]*class=["\'][^"\']*post[_-]?content[^"\']*["\'][^>]*>(.*?)</div>',
+            ):
+                matches = re.findall(selector, raw, flags=re.DOTALL | re.IGNORECASE)
+                if matches:
+                    extra = re.findall(r"<p[^>]*>(.*?)</p>", " ".join(matches), flags=re.DOTALL | re.IGNORECASE)
+                    if len(extra) > len(paras):
+                        paras = extra
+                    break
+
         texts, word_count = [], 0
         for p in paras:
             t = clean(p)
             words = t.split()
-            if len(words) < 20:
+            if len(words) < 12:  # relaxed from 20
                 continue
-            # Skip paragraphs with no sentence punctuation — likely nav/menu text
             if not re.search(r"[.!?,;]", t):
                 continue
             t_lower = t.lower()
-            # Skip navigation/social/boilerplate paragraphs
             if sum(1 for kw in _BODY_SKIP if kw in t_lower) >= 2:
                 continue
             texts.append(t)
             word_count += len(words)
             if word_count >= max_words:
                 break
-        return clean(" ".join(texts), max_words=max_words) if texts else ""
+
+        if texts:
+            return clean(" ".join(texts), max_words=max_words)
+        return meta_desc  # fallback to meta description
     except Exception:
         return ""
 
@@ -370,6 +509,7 @@ def _dedup_key(title, link):
 def fetch_feeds(feeds, max_items, sub_key=None, seen_global=None):
     # Phase 1: collect from RSS feeds with relevance filtering
     candidates = []
+    seen_local = set()  # dedup within this call across multiple feeds
     for source_name, url in feeds:
         try:
             feed = feedparser.parse(
@@ -386,13 +526,18 @@ def fetch_feeds(feeds, max_items, sub_key=None, seen_global=None):
                 link = entry.get("link", "#")
                 if not title:
                     continue
+                # Intra-call deduplication (same article from multiple feeds)
+                title_key, url_key = _dedup_key(title, link)
+                if title_key in seen_local or url_key in seen_local:
+                    continue
                 if not is_relevant(title, full_summary, sub_key):
                     continue
-                # Skip articles already seen in another section
+                # Cross-section deduplication
                 if seen_global is not None:
-                    title_key, url_key = _dedup_key(title, link)
                     if title_key in seen_global or url_key in seen_global:
                         continue
+                seen_local.add(title_key)
+                seen_local.add(url_key)
                 candidates.append(
                     {
                         "title": title,
@@ -406,6 +551,8 @@ def fetch_feeds(feeds, max_items, sub_key=None, seen_global=None):
         except Exception as e:
             print(f"  [Error] {source_name}: {e}")
 
+    # Key announcements bubble to the top within each batch
+    candidates.sort(key=lambda x: 0 if is_key_announcement(x["title"], x["full_summary"]) else 1)
     items = candidates[:max_items]
 
     # Register chosen items as seen so later sections skip them
@@ -437,7 +584,7 @@ def fetch_feeds(feeds, max_items, sub_key=None, seen_global=None):
     for item in items:
         item.pop("_short", None)
         if not item["full_summary"]:
-            item["full_summary"] = "Full summary not available. Click 'Read Full Article' to read on the source site."
+            item["full_summary"] = f"{item['source']} reports: {item['title']}."
             item["summary"] = item["full_summary"]
 
     return items
@@ -470,6 +617,23 @@ def build_cards(items):
               <span class="card-read-more">Read more →</span>
             </article>"""
     return f'<div class="cards-grid">{cards}\n          </div>'
+
+
+def build_alert_section_html(section_id, title, icon, color, color_bg, items):
+    """Render a flat card section for Key Announcements or Business Signals."""
+    if not items:
+        return ""
+    count = len(items)
+    cards = build_cards(items)
+    return f"""
+      <section class="section-block alert-section" id="{section_id}"
+               style="--section-color:{color}; --section-color-bg:{color_bg};">
+        <div class="section-header">
+          <h2 class="section-title">{icon} {html.escape(title)}</h2>
+          <span class="section-count">{count} {'item' if count == 1 else 'items'}</span>
+        </div>
+        {cards}
+      </section>"""
 
 
 def build_section_html(key, section, data):
@@ -523,9 +687,23 @@ def build_vocab_html(daily_terms):
       </section>"""
 
 
-def build_full_html(all_data, daily_vocab):
+def build_full_html(all_data, daily_vocab, key_announcements=None, signals=None):
     sections_html = ""
     nav_links = ""
+
+    if key_announcements:
+        sections_html += build_alert_section_html(
+            "key-announcements", "Key Announcements", "⚡", "#D97706", "#FFFBEB",
+            key_announcements,
+        )
+        nav_links += '<a href="#key-announcements">⚡ Key Announcements</a>\n      '
+
+    if signals:
+        sections_html += build_alert_section_html(
+            "business-signals", "Business Signals", "📡", "#EF4444", "#FEF2F2",
+            signals,
+        )
+        nav_links += '<a href="#business-signals">📡 Signals</a>\n      '
 
     for key, section in SOURCES.items():
         data = all_data.get(key, {} if section["has_subsections"] else [])
@@ -954,11 +1132,20 @@ def build_full_html(all_data, daily_vocab):
 
 
 # ── Main ──────────────────────────────────────────────
+def _all_items_flat(data, section):
+    """Return a flat list of all items in a section (handles subsections)."""
+    if section.get("has_subsections"):
+        return [it for sub in data.values() for it in sub]
+    return data if isinstance(data, list) else []
+
+
 if __name__ == "__main__":
     print(f"Morning Digest — {today_str}")
 
-    start = (day_of_year * VOCAB_PER_DAY) % len(VOCABULARY)
-    daily_vocab = [VOCABULARY[(start + i) % len(VOCABULARY)] for i in range(VOCAB_PER_DAY)]
+    # Vocabulary — history-aware selection
+    vocab_history = load_vocab_history()
+    daily_vocab = select_daily_vocab(vocab_history)
+    save_vocab_history(vocab_history, daily_vocab)
     print(f"Vocabulary: {', '.join(t for t, _ in daily_vocab)}")
 
     all_data = {}
@@ -976,7 +1163,41 @@ if __name__ == "__main__":
             all_data[key] = items
             print(f"   -> {len(items)} articles")
 
-    html_content = build_full_html(all_data, daily_vocab)
+    # Key Announcements — scan all fetched items
+    print("\n[Key Announcements]")
+    seen_ka = set()
+    key_announcements = []
+    for key, section in SOURCES.items():
+        for item in _all_items_flat(all_data.get(key, [] if not section["has_subsections"] else {}), section):
+            if is_key_announcement(item["title"], item.get("full_summary", "")):
+                tk, uk = _dedup_key(item["title"], item["link"])
+                if tk not in seen_ka and uk not in seen_ka:
+                    key_announcements.append(item)
+                    seen_ka.add(tk)
+                    seen_ka.add(uk)
+    print(f"   -> {len(key_announcements)} key announcement(s)")
+
+    # Business Signals — own feeds + cross-posts from other sections
+    print("\n[Business Signals]")
+    seen_signals = set()
+    signals_from_feeds = fetch_feeds(SIGNALS_FEEDS, ITEMS_PER_SECTION, seen_global=seen_signals)
+    signals = [it for it in signals_from_feeds if is_business_signal(it["title"], it.get("full_summary", ""))]
+    for it in signals:
+        tk, uk = _dedup_key(it["title"], it["link"])
+        seen_signals.add(tk)
+        seen_signals.add(uk)
+    for key, section in SOURCES.items():
+        for item in _all_items_flat(all_data.get(key, [] if not section["has_subsections"] else {}), section):
+            if is_business_signal(item["title"], item.get("full_summary", "")):
+                tk, uk = _dedup_key(item["title"], item["link"])
+                if tk not in seen_signals and uk not in seen_signals:
+                    signals.append(item)
+                    seen_signals.add(tk)
+                    seen_signals.add(uk)
+    signals = signals[:ITEMS_PER_SECTION]
+    print(f"   -> {len(signals)} business signal(s)")
+
+    html_content = build_full_html(all_data, daily_vocab, key_announcements=key_announcements, signals=signals)
 
     os.makedirs("docs", exist_ok=True)
 
