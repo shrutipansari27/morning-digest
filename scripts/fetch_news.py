@@ -1190,23 +1190,11 @@ if __name__ == "__main__":
 
     print(f"   -> {len(key_announcements)} key announcement(s)")
 
-    # Business Signals — own feeds + cross-posts from other sections
+    # Business Signals — own feeds only, using seen_global so no article can
+    # appear in both a regular section and signals
     print("\n[Business Signals]")
-    seen_signals = set()
-    signals_from_feeds = fetch_feeds(SIGNALS_FEEDS, ITEMS_PER_SECTION, seen_global=seen_signals)
-    signals = [it for it in signals_from_feeds if is_business_signal(it["title"], it.get("full_summary", ""))]
-    for it in signals:
-        tk, uk = _dedup_key(it["title"], it["link"])
-        seen_signals.add(tk)
-        seen_signals.add(uk)
-    for key, section in SOURCES.items():
-        for item in _all_items_flat(all_data.get(key, [] if not section["has_subsections"] else {}), section):
-            if is_business_signal(item["title"], item.get("full_summary", "")):
-                tk, uk = _dedup_key(item["title"], item["link"])
-                if tk not in seen_signals and uk not in seen_signals:
-                    signals.append(item)
-                    seen_signals.add(tk)
-                    seen_signals.add(uk)
+    signals_raw = fetch_feeds(SIGNALS_FEEDS, ITEMS_PER_SECTION * 3, seen_global=seen_global)
+    signals = [it for it in signals_raw if is_business_signal(it["title"], it.get("full_summary", ""))]
     signals = signals[:ITEMS_PER_SECTION]
     print(f"   -> {len(signals)} business signal(s)")
 
