@@ -1163,7 +1163,7 @@ if __name__ == "__main__":
             all_data[key] = items
             print(f"   -> {len(items)} articles")
 
-    # Key Announcements — scan all fetched items
+    # Key Announcements — scan all fetched items, then remove from source sections
     print("\n[Key Announcements]")
     seen_ka = set()
     key_announcements = []
@@ -1175,6 +1175,19 @@ if __name__ == "__main__":
                     key_announcements.append(item)
                     seen_ka.add(tk)
                     seen_ka.add(uk)
+
+    # Remove promoted items from their original sections so they appear only once
+    if key_announcements:
+        def _not_ka(it):
+            tk, uk = _dedup_key(it["title"], it["link"])
+            return tk not in seen_ka and uk not in seen_ka
+        for key, section in SOURCES.items():
+            if section["has_subsections"]:
+                for sub_key in list(all_data.get(key, {})):
+                    all_data[key][sub_key] = [it for it in all_data[key][sub_key] if _not_ka(it)]
+            else:
+                all_data[key] = [it for it in all_data.get(key, []) if _not_ka(it)]
+
     print(f"   -> {len(key_announcements)} key announcement(s)")
 
     # Business Signals — own feeds + cross-posts from other sections
