@@ -33,5 +33,12 @@
     "Repo Rate",
     "Stress Testing / DFAST",
     "Transaction Cost Analysis (TCA)"
+  ],
+  "2026-07-28": [
+    "Yield Curve Control (YCC)",
+    "Repo / Reverse Repo",
+    "Dark Pool",
+    "Impermanent Loss",
+    "Embedded Payments / Super App"
   ]
 }
