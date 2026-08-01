@@ -61,5 +61,12 @@
     "Basis Points (bps)",
     "VWAP / TWAP",
     "Momentum Factor"
+  ],
+  "2026-08-01": [
+    "CCP \u2013 Central Counterparty Clearing",
+    "ISO 20022",
+    "Payment for Order Flow (PFOF)",
+    "Duration",
+    "Collateral Management"
   ]
 }
