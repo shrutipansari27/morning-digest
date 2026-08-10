@@ -124,5 +124,12 @@
     "Funding Rate (Crypto)",
     "Liquidity Pool (DeFi)",
     "Regulatory Capital / CET1"
+  ],
+  "2026-08-10": [
+    "Smart Order Routing (SOR)",
+    "Implied Volatility Surface",
+    "Tokenisation of Real-World Assets (RWA)",
+    "Market Microstructure",
+    "Open Banking / PSD3"
   ]
 }
