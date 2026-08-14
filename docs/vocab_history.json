@@ -152,5 +152,12 @@
     "Market Microstructure",
     "VWAP / TWAP",
     "Funding Rate (Crypto)"
+  ],
+  "2026-08-14": [
+    "MiCA \u2013 Markets in Crypto-Assets Regulation",
+    "ISO 20022",
+    "Sharpe Ratio",
+    "Funding Rate (Crypto)",
+    "Open Banking / PSD3"
   ]
 }
