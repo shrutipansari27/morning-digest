@@ -159,5 +159,12 @@
     "Sharpe Ratio",
     "Funding Rate (Crypto)",
     "Open Banking / PSD3"
+  ],
+  "2026-08-15": [
+    "Gamma Squeeze",
+    "Algorithmic Market Making",
+    "Drawdown",
+    "Sharpe Ratio",
+    "Transaction Cost Analysis (TCA)"
   ]
 }
