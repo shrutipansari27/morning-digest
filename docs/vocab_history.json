@@ -215,5 +215,12 @@
     "BaaS \u2013 Banking as a Service",
     "Cross-Margining",
     "Regulatory Capital / CET1"
+  ],
+  "2026-08-23": [
+    "UCITS",
+    "Prime Brokerage",
+    "Sharpe Ratio",
+    "VWAP / TWAP",
+    "Funding Rate (Crypto)"
   ]
 }
