@@ -222,5 +222,12 @@
     "Sharpe Ratio",
     "VWAP / TWAP",
     "Funding Rate (Crypto)"
+  ],
+  "2026-08-24": [
+    "Repo / Reverse Repo",
+    "ISO 20022",
+    "Repo Rate",
+    "Impermanent Loss",
+    "Open Banking / PSD3"
   ]
 }
