@@ -229,5 +229,12 @@
     "Repo Rate",
     "Impermanent Loss",
     "Open Banking / PSD3"
+  ],
+  "2026-08-25": [
+    "Implied Volatility Surface",
+    "MEV \u2013 Maximal Extractable Value",
+    "Repo / Reverse Repo",
+    "Prime of Prime (PoP)",
+    "Dispersion Trading"
   ]
 }
