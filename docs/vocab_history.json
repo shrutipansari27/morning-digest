@@ -236,5 +236,12 @@
     "Repo / Reverse Repo",
     "Prime of Prime (PoP)",
     "Dispersion Trading"
+  ],
+  "2026-08-26": [
+    "Delta Hedging",
+    "Contango vs Backwardation",
+    "Implied Volatility Surface",
+    "ISO 20022",
+    "Transaction Cost Analysis (TCA)"
   ]
 }
