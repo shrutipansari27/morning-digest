@@ -243,5 +243,12 @@
     "Implied Volatility Surface",
     "ISO 20022",
     "Transaction Cost Analysis (TCA)"
+  ],
+  "2026-08-27": [
+    "Smart Order Routing (SOR)",
+    "Implied Volatility Surface",
+    "Liquidity Coverage Ratio (LCR)",
+    "Information Ratio (IR)",
+    "Open Banking / PSD3"
   ]
 }
