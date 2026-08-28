@@ -250,5 +250,12 @@
     "Liquidity Coverage Ratio (LCR)",
     "Information Ratio (IR)",
     "Open Banking / PSD3"
+  ],
+  "2026-08-28": [
+    "Yield Curve Control (YCC)",
+    "CCP \u2013 Central Counterparty Clearing",
+    "Market Microstructure",
+    "Funding Rate (Crypto)",
+    "Momentum Factor"
   ]
 }
