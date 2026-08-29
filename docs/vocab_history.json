@@ -257,5 +257,12 @@
     "Market Microstructure",
     "Funding Rate (Crypto)",
     "Momentum Factor"
+  ],
+  "2026-08-29": [
+    "Information Ratio (IR)",
+    "Dark Pool",
+    "VWAP / TWAP",
+    "Liquidity Pool (DeFi)",
+    "Transaction Cost Analysis (TCA)"
   ]
 }
