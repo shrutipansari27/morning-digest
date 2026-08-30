@@ -264,5 +264,12 @@
     "VWAP / TWAP",
     "Liquidity Pool (DeFi)",
     "Transaction Cost Analysis (TCA)"
+  ],
+  "2026-08-30": [
+    "Contango vs Backwardation",
+    "Perpetual Futures (Perps)",
+    "Alpha Decay",
+    "Sharpe Ratio",
+    "Impermanent Loss"
   ]
 }
