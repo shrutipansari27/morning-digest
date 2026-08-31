@@ -271,5 +271,12 @@
     "Alpha Decay",
     "Sharpe Ratio",
     "Impermanent Loss"
+  ],
+  "2026-08-31": [
+    "UCITS",
+    "T+1 Settlement",
+    "Prime Brokerage",
+    "Stress Testing / DFAST",
+    "Dispersion Trading"
   ]
 }
