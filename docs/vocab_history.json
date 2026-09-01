@@ -278,5 +278,12 @@
     "Prime Brokerage",
     "Stress Testing / DFAST",
     "Dispersion Trading"
+  ],
+  "2026-09-01": [
+    "UCITS",
+    "MEV \u2013 Maximal Extractable Value",
+    "Sharpe Ratio",
+    "Liquidity Pool (DeFi)",
+    "Regulatory Capital / CET1"
   ]
 }
