@@ -285,5 +285,12 @@
     "Sharpe Ratio",
     "Liquidity Pool (DeFi)",
     "Regulatory Capital / CET1"
+  ],
+  "2026-09-02": [
+    "Implied Volatility Surface",
+    "ISO 20022",
+    "Open Interest",
+    "Carry Trade",
+    "Embedded Payments / Super App"
   ]
 }
