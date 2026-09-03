@@ -292,5 +292,12 @@
     "Open Interest",
     "Carry Trade",
     "Embedded Payments / Super App"
+  ],
+  "2026-09-03": [
+    "Delta Hedging",
+    "MEV \u2013 Maximal Extractable Value",
+    "Repo / Reverse Repo",
+    "Information Ratio (IR)",
+    "SWIFT gpi \u2013 Global Payments Innovation"
   ]
 }
