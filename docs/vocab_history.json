@@ -306,5 +306,12 @@
     "Dark Pool",
     "Momentum Factor",
     "Prime of Prime (PoP)"
+  ],
+  "2026-09-05": [
+    "MEV \u2013 Maximal Extractable Value",
+    "Payment for Order Flow (PFOF)",
+    "Alpha Decay",
+    "VWAP / TWAP",
+    "Momentum Factor"
   ]
 }
