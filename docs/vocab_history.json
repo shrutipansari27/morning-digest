@@ -313,5 +313,12 @@
     "Alpha Decay",
     "VWAP / TWAP",
     "Momentum Factor"
+  ],
+  "2026-09-06": [
+    "Implied Volatility Surface",
+    "Open Interest",
+    "BaaS \u2013 Banking as a Service",
+    "Momentum Factor",
+    "Regulatory Capital / CET1"
   ]
 }
