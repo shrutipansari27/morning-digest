@@ -327,5 +327,12 @@
     "Funding Rate (Crypto)",
     "Liquidity Pool (DeFi)",
     "Transaction Cost Analysis (TCA)"
+  ],
+  "2026-09-08": [
+    "Perpetual Futures (Perps)",
+    "Repo / Reverse Repo",
+    "Payment for Order Flow (PFOF)",
+    "Open Interest",
+    "Stress Testing / DFAST"
   ]
 }
