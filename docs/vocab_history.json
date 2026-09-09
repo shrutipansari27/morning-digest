@@ -334,5 +334,12 @@
     "Payment for Order Flow (PFOF)",
     "Open Interest",
     "Stress Testing / DFAST"
+  ],
+  "2026-09-09": [
+    "CBDC \u2013 Central Bank Digital Currency",
+    "Liquidity Coverage Ratio (LCR)",
+    "Alpha Decay",
+    "Momentum Factor",
+    "Transaction Cost Analysis (TCA)"
   ]
 }
