@@ -348,5 +348,12 @@
     "Value at Risk (VaR)",
     "Dark Pool",
     "Basis Points (bps)"
+  ],
+  "2026-09-11": [
+    "MEV \u2013 Maximal Extractable Value",
+    "Payment for Order Flow (PFOF)",
+    "Carry Trade",
+    "Open Banking / PSD3",
+    "Dispersion Trading"
   ]
 }
