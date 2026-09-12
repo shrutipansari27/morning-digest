@@ -355,5 +355,12 @@
     "Carry Trade",
     "Open Banking / PSD3",
     "Dispersion Trading"
+  ],
+  "2026-09-12": [
+    "MEV \u2013 Maximal Extractable Value",
+    "Repo / Reverse Repo",
+    "CBDC \u2013 Central Bank Digital Currency",
+    "Impermanent Loss",
+    "Collateral Management"
   ]
 }
