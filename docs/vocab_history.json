@@ -369,5 +369,12 @@
     "Information Ratio (IR)",
     "SWIFT gpi \u2013 Global Payments Innovation",
     "VWAP / TWAP"
+  ],
+  "2026-09-14": [
+    "ISO 20022",
+    "Drawdown",
+    "Market Microstructure",
+    "Momentum Factor",
+    "Regulatory Capital / CET1"
   ]
 }
