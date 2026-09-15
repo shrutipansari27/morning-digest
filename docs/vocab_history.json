@@ -376,5 +376,12 @@
     "Market Microstructure",
     "Momentum Factor",
     "Regulatory Capital / CET1"
+  ],
+  "2026-09-15": [
+    "Repo / Reverse Repo",
+    "Gamma Squeeze",
+    "Stress Testing / DFAST",
+    "Dark Pool",
+    "Duration"
   ]
 }
