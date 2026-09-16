@@ -383,5 +383,12 @@
     "Stress Testing / DFAST",
     "Dark Pool",
     "Duration"
+  ],
+  "2026-09-16": [
+    "Gamma Squeeze",
+    "Collateral Transformation",
+    "AUM \u2013 Assets Under Management",
+    "Transaction Cost Analysis (TCA)",
+    "Dispersion Trading"
   ]
 }
