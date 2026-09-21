@@ -418,5 +418,12 @@
     "Carry Trade",
     "Basis Points (bps)",
     "VWAP / TWAP"
+  ],
+  "2026-09-21": [
+    "Delta Hedging",
+    "Contango vs Backwardation",
+    "Liquidity Coverage Ratio (LCR)",
+    "Gamma Squeeze",
+    "Momentum Factor"
   ]
 }
