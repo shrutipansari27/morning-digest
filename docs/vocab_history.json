@@ -425,5 +425,12 @@
     "Liquidity Coverage Ratio (LCR)",
     "Gamma Squeeze",
     "Momentum Factor"
+  ],
+  "2026-09-22": [
+    "Contango vs Backwardation",
+    "ISO 20022",
+    "Payment for Order Flow (PFOF)",
+    "Gamma Squeeze",
+    "Stress Testing / DFAST"
   ]
 }
