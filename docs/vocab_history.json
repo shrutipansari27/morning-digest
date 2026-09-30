@@ -481,5 +481,12 @@
     "Information Ratio (IR)",
     "Stress Testing / DFAST",
     "Regulatory Capital / CET1"
+  ],
+  "2026-09-30": [
+    "Collateral Transformation",
+    "BaaS \u2013 Banking as a Service",
+    "RegTech",
+    "Market Microstructure",
+    "Embedded Payments / Super App"
   ]
 }
