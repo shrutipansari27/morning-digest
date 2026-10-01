@@ -488,5 +488,12 @@
     "RegTech",
     "Market Microstructure",
     "Embedded Payments / Super App"
+  ],
+  "2026-10-01": [
+    "Smart Order Routing (SOR)",
+    "MEV \u2013 Maximal Extractable Value",
+    "T+1 Settlement",
+    "Dark Pool",
+    "Momentum Factor"
   ]
 }
