@@ -495,5 +495,12 @@
     "T+1 Settlement",
     "Dark Pool",
     "Momentum Factor"
+  ],
+  "2026-10-02": [
+    "Contango vs Backwardation",
+    "T+1 Settlement",
+    "Value at Risk (VaR)",
+    "BaaS \u2013 Banking as a Service",
+    "Market Microstructure"
   ]
 }
