@@ -537,5 +537,12 @@
     "RegTech",
     "Duration",
     "Cross-Margining"
+  ],
+  "2026-10-08": [
+    "Yield Curve Control (YCC)",
+    "Embedded Finance",
+    "Tokenisation of Real-World Assets (RWA)",
+    "Momentum Factor",
+    "Open Banking / PSD3"
   ]
 }
