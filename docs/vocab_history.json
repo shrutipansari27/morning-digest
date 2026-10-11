@@ -558,5 +558,12 @@
     "Open Interest",
     "Embedded Payments / Super App",
     "Open Banking / PSD3"
+  ],
+  "2026-10-11": [
+    "Liquidity Coverage Ratio (LCR)",
+    "Open Interest",
+    "Stress Testing / DFAST",
+    "BaaS \u2013 Banking as a Service",
+    "Transaction Cost Analysis (TCA)"
   ]
 }
