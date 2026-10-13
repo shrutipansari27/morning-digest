@@ -572,5 +572,12 @@
     "Duration",
     "Funding Rate (Crypto)",
     "Dispersion Trading"
+  ],
+  "2026-10-13": [
+    "Delta Hedging",
+    "Contango vs Backwardation",
+    "Payment for Order Flow (PFOF)",
+    "AUM \u2013 Assets Under Management",
+    "Open Banking / PSD3"
   ]
 }
