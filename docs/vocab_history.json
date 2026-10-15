@@ -586,5 +586,12 @@
     "CBDC \u2013 Central Bank Digital Currency",
     "SWIFT gpi \u2013 Global Payments Innovation",
     "Basis Points (bps)"
+  ],
+  "2026-10-15": [
+    "Value at Risk (VaR)",
+    "Payment for Order Flow (PFOF)",
+    "Drawdown",
+    "Basis Points (bps)",
+    "Prime of Prime (PoP)"
   ]
 }
