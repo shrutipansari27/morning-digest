@@ -607,5 +607,12 @@
     "Stress Testing / DFAST",
     "Impermanent Loss",
     "Embedded Payments / Super App"
+  ],
+  "2026-10-18": [
+    "Value at Risk (VaR)",
+    "Repo / Reverse Repo",
+    "CBDC \u2013 Central Bank Digital Currency",
+    "Open Interest",
+    "Transaction Cost Analysis (TCA)"
   ]
 }
