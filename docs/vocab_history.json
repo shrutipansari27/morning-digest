@@ -628,5 +628,12 @@
     "Dark Pool",
     "Duration",
     "Dispersion Trading"
+  ],
+  "2026-10-21": [
+    "Perpetual Futures (Perps)",
+    "Securities Lending",
+    "Information Ratio (IR)",
+    "Market Microstructure",
+    "Open Banking / PSD3"
   ]
 }
