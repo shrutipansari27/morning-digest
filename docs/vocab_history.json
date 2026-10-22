@@ -1,11 +1,4 @@
 {
-  "2026-07-23": [
-    "Factor Investing / Smart Beta",
-    "MEV \u2013 Maximal Extractable Value",
-    "Value at Risk (VaR)",
-    "Algorithmic Market Making",
-    "Sharpe Ratio"
-  ],
   "2026-07-24": [
     "Perpetual Futures (Perps)",
     "SWIFT gpi \u2013 Global Payments Innovation",
@@ -635,5 +628,12 @@
     "Information Ratio (IR)",
     "Market Microstructure",
     "Open Banking / PSD3"
+  ],
+  "2026-10-22": [
+    "Delta Hedging",
+    "Contango vs Backwardation",
+    "Prime Brokerage",
+    "Securities Lending",
+    "Market Microstructure"
   ]
 }
