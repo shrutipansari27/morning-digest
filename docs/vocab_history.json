@@ -1,11 +1,4 @@
 {
-  "2026-07-24": [
-    "Perpetual Futures (Perps)",
-    "SWIFT gpi \u2013 Global Payments Innovation",
-    "Drawdown",
-    "Market Microstructure",
-    "Regulatory Capital / CET1"
-  ],
   "2026-07-25": [
     "UCITS",
     "Implied Volatility Surface",
@@ -635,5 +628,12 @@
     "Prime Brokerage",
     "Securities Lending",
     "Market Microstructure"
+  ],
+  "2026-10-23": [
+    "T+1 Settlement",
+    "Carry Trade",
+    "RegTech",
+    "Tokenisation of Real-World Assets (RWA)",
+    "Sharpe Ratio"
   ]
 }
