@@ -1,11 +1,4 @@
 {
-  "2026-07-25": [
-    "UCITS",
-    "Implied Volatility Surface",
-    "Securities Lending",
-    "DORA \u2013 Digital Operational Resilience Act",
-    "Information Ratio (IR)"
-  ],
   "2026-07-26": [
     "Delta Hedging",
     "Embedded Finance",
@@ -635,5 +628,12 @@
     "RegTech",
     "Tokenisation of Real-World Assets (RWA)",
     "Sharpe Ratio"
+  ],
+  "2026-10-24": [
+    "Prime Brokerage",
+    "Open Interest",
+    "SWIFT gpi \u2013 Global Payments Innovation",
+    "Basis Points (bps)",
+    "Collateral Management"
   ]
 }
