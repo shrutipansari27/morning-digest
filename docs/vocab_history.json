@@ -1,11 +1,4 @@
 {
-  "2026-07-26": [
-    "Delta Hedging",
-    "Embedded Finance",
-    "Gamma Squeeze",
-    "AUM \u2013 Assets Under Management",
-    "Dispersion Trading"
-  ],
   "2026-07-27": [
     "T+1 Settlement",
     "Collateral Transformation",
@@ -635,5 +628,12 @@
     "SWIFT gpi \u2013 Global Payments Innovation",
     "Basis Points (bps)",
     "Collateral Management"
+  ],
+  "2026-10-25": [
+    "Delta Hedging",
+    "Embedded Finance",
+    "Algorithmic Market Making",
+    "Dark Pool",
+    "Impermanent Loss"
   ]
 }
