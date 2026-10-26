@@ -1,11 +1,4 @@
 {
-  "2026-07-27": [
-    "T+1 Settlement",
-    "Collateral Transformation",
-    "Repo Rate",
-    "Stress Testing / DFAST",
-    "Transaction Cost Analysis (TCA)"
-  ],
   "2026-07-28": [
     "Yield Curve Control (YCC)",
     "Repo / Reverse Repo",
@@ -635,5 +628,12 @@
     "Algorithmic Market Making",
     "Dark Pool",
     "Impermanent Loss"
+  ],
+  "2026-10-26": [
+    "Contango vs Backwardation",
+    "Factor Investing / Smart Beta",
+    "MiCA \u2013 Markets in Crypto-Assets Regulation",
+    "Open Interest",
+    "Momentum Factor"
   ]
 }
