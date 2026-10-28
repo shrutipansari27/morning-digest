@@ -1,11 +1,4 @@
 {
-  "2026-07-29": [
-    "Contango vs Backwardation",
-    "MiCA \u2013 Markets in Crypto-Assets Regulation",
-    "BaaS \u2013 Banking as a Service",
-    "Liquidity Pool (DeFi)",
-    "Prime of Prime (PoP)"
-  ],
   "2026-07-30": [
     "Smart Order Routing (SOR)",
     "Open Interest",
@@ -635,5 +628,12 @@
     "RegTech",
     "VWAP / TWAP",
     "Open Banking / PSD3"
+  ],
+  "2026-10-28": [
+    "Delta Hedging",
+    "Value at Risk (VaR)",
+    "Payment for Order Flow (PFOF)",
+    "Tokenisation of Real-World Assets (RWA)",
+    "Market Microstructure"
   ]
 }
