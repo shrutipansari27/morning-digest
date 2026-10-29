@@ -1,11 +1,4 @@
 {
-  "2026-07-30": [
-    "Smart Order Routing (SOR)",
-    "Open Interest",
-    "RegTech",
-    "Tokenisation of Real-World Assets (RWA)",
-    "Open Banking / PSD3"
-  ],
   "2026-07-31": [
     "Prime Brokerage",
     "Alpha Decay",
@@ -635,5 +628,12 @@
     "Payment for Order Flow (PFOF)",
     "Tokenisation of Real-World Assets (RWA)",
     "Market Microstructure"
+  ],
+  "2026-10-29": [
+    "T+1 Settlement",
+    "ISO 20022",
+    "SWIFT gpi \u2013 Global Payments Innovation",
+    "Duration",
+    "Basis Points (bps)"
   ]
 }
