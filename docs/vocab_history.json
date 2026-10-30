@@ -1,11 +1,4 @@
 {
-  "2026-07-31": [
-    "Prime Brokerage",
-    "Alpha Decay",
-    "Basis Points (bps)",
-    "VWAP / TWAP",
-    "Momentum Factor"
-  ],
   "2026-08-01": [
     "CCP \u2013 Central Counterparty Clearing",
     "ISO 20022",
@@ -635,5 +628,12 @@
     "SWIFT gpi \u2013 Global Payments Innovation",
     "Duration",
     "Basis Points (bps)"
+  ],
+  "2026-10-30": [
+    "MEV \u2013 Maximal Extractable Value",
+    "Payment for Order Flow (PFOF)",
+    "Liquidity Coverage Ratio (LCR)",
+    "Gamma Squeeze",
+    "AUM \u2013 Assets Under Management"
   ]
 }

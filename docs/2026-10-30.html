@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Digest — Friday, 30 October 2026</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #F8FAFC;
+      --surface: #FFFFFF;
+      --border: #E2E8F0;
+      --text-primary: #0F172A;
+      --text-secondary: #475569;
+      --text-muted: #94A3B8;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-hover: 0 6px 20px rgba(0,0,0,0.10), 0 2px 6px rgba(0,0,0,0.06);
+      --radius: 12px;
+      --section-color: #64748B;
+      --section-color-bg: #F8FAFC;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Header */
+    header {
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .header-logo {
+      width: 34px;
+      height: 34px;
+      background: #0F172A;
+      color: #FFFFFF;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      flex-shrink: 0;
+    }
+    .header-title { font-size: 19px; font-weight: 700; color: #0F172A; letter-spacing: -0.4px; }
+    .header-date { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }
+
+    /* Navigation */
+    nav {
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      position: sticky;
+      top: 69px;
+      z-index: 99;
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .nav-inner::-webkit-scrollbar { display: none; }
+    .nav-inner a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 13px 14px;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .nav-inner a:hover {
+      color: #0F172A;
+      border-bottom-color: #CBD5E1;
+    }
+
+    /* Main */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 36px 24px 56px;
+    }
+
+    /* Section */
+    .section-block {
+      margin-bottom: 52px;
+      scroll-margin-top: 120px;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 14px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-title { font-size: 18px; font-weight: 700; color: #0F172A; letter-spacing: -0.3px; padding-left: 12px; border-left: 3px solid var(--section-color); }
+    .section-count {
+      margin-left: auto;
+      font-size: 11px;
+      color: var(--text-muted);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+
+    /* Subsections */
+    .subsection { margin-bottom: 28px; }
+    .subsection-title {
+      font-size: 10.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    /* Cards */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+      cursor: pointer;
+    }
+    .card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+    .card-source {
+      display: inline-flex;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      padding: 2px 8px;
+      border-radius: 4px;
+      width: fit-content;
+    }
+    .card-title {
+      font-size: 14.5px;
+      font-weight: 600;
+      color: #0F172A;
+      line-height: 1.45;
+      display: block;
+    }
+    .card:hover .card-title { color: var(--section-color); }
+    .card-summary {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      flex: 1;
+    }
+    .card-read-more {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--section-color);
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      margin-top: 2px;
+      opacity: 0.85;
+    }
+    .card:hover .card-read-more { opacity: 1; }
+    .empty-state { color: var(--text-muted); font-size: 14px; padding: 16px 0; }
+
+    /* Vocabulary */
+    .vocab-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 20px;
+    }
+    .vocab-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--section-color);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      box-shadow: var(--shadow);
+    }
+    .vocab-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--section-color);
+      margin-bottom: 8px;
+    }
+    .vocab-term { font-size: 17px; font-weight: 700; color: #0F172A; margin-bottom: 10px; letter-spacing: -0.3px; }
+    .vocab-definition { font-size: 13.5px; color: var(--text-secondary); line-height: 1.75; }
+
+    /* Footer */
+    footer {
+      background: #FFFFFF;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 22px 24px;
+      color: var(--text-muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    /* Article Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      backdrop-filter: blur(2px);
+    }
+    .modal-overlay.active { display: flex; }
+    .modal-content {
+      background: #FFFFFF;
+      border-radius: 16px;
+      padding: 40px 44px 36px;
+      max-width: 700px;
+      width: 100%;
+      max-height: 82vh;
+      overflow-y: auto;
+      position: relative;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.22), 0 4px 16px rgba(0,0,0,0.10);
+    }
+    .modal-close {
+      position: absolute;
+      top: 18px;
+      right: 22px;
+      background: none;
+      border: none;
+      font-size: 22px;
+      cursor: pointer;
+      color: var(--text-muted);
+      line-height: 1;
+      padding: 4px;
+      border-radius: 4px;
+      transition: color 0.15s;
+    }
+    .modal-close:hover { color: #0F172A; }
+    .modal-source {
+      display: inline-flex;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      padding: 2px 10px;
+      border-radius: 4px;
+      margin-bottom: 16px;
+    }
+    .modal-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #0F172A;
+      line-height: 1.45;
+      margin-bottom: 20px;
+      letter-spacing: -0.3px;
+    }
+    .modal-divider {
+      height: 1px;
+      background: var(--border);
+      margin-bottom: 20px;
+    }
+    .modal-summary {
+      font-size: 14.5px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
+    .modal-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #0F172A;
+      color: #FFFFFF;
+      padding: 11px 22px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      transition: background 0.15s;
+    }
+    .modal-link:hover { background: #1E293B; }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      header { padding: 12px 16px; }
+      nav { top: 61px; }
+      main { padding: 24px 16px 40px; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .vocab-card { padding: 20px; }
+      .section-title { font-size: 17px; }
+      .modal-content { padding: 28px 20px 24px; }
+      .modal-title { font-size: 17px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <div class="header-logo">MD</div>
+      <div>
+        <div class="header-title">Morning Digest</div>
+        <div class="header-date">Friday, 30 October 2026</div>
+      </div>
+    </div>
+  </header>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="#key-announcements">⚡ Key Announcements</a>
+      <a href="#wealth">Wealth</a>
+      <a href="#trade">Trade</a>
+      <a href="#ai">AI</a>
+      <a href="#companies">Companies</a>
+      <a href="#product">Product</a>
+      <a href="#vocabulary">Vocabulary</a>
+    </div>
+  </nav>
+
+  <main>
+    
+      <section class="section-block alert-section" id="key-announcements"
+               style="--section-color:#D97706; --section-color-bg:#FFFBEB;">
+        <div class="section-header">
+          <h2 class="section-title">⚡ Key Announcements</h2>
+          <span class="section-count">4 items</span>
+        </div>
+        <div class="cards-grid">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Yen Holds Gains Against Dollar After BOJ Keeps Rates Steady"
+              data-source="LiveMint Markets"
+              data-summary="LiveMint Markets reports: Yen Holds Gains Against Dollar After BOJ Keeps Rates Steady."
+              data-link="https://www.livemint.com/market/yen-holds-gains-against-dollar-after-boj-keeps-rates-steady-11793331858764.html">
+              <span class="card-source">LiveMint Markets</span>
+              <span class="card-title">Yen Holds Gains Against Dollar After BOJ Keeps Rates Steady</span>
+              <p class="card-summary">LiveMint Markets reports: Yen Holds Gains Against Dollar After BOJ Keeps Rates Steady.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Gold up Rs1,200, global market flat"
+              data-source="Metals Focus"
+              data-summary="--&gt; Home Business Gold up Rs1,200, global market flat Rises to Rs437,536/tola as Fed bets shift; rupee inches up The price of 10-gram gold increased by Rs1,029 to Rs375,116. On Saturday, gold had fallen by Rs4,300 per tola."
+              data-link="https://tribune.com.pk/story/2633170/gold-up-rs1200-global-market-flat#new_tab">
+              <span class="card-source">Metals Focus</span>
+              <span class="card-title">Gold up Rs1,200, global market flat</span>
+              <p class="card-summary">--&gt; Home Business Gold up Rs1,200, global market flat Rises to Rs437,536/tola as Fed bets shift; rupee inches up The price of 10-gram gold increased by Rs1,029 to Rs375,116. On Saturday, gold had fallen by Rs4,300 per tola.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Gold set for fresh record on strong precious metals sentiment"
+              data-source="Metals Focus"
+              data-summary="Gold is expected to reach fresh all-time highs in 2027 as persistent inflation, heavy government borrowing and uncertainty over US policy encourage investors to diversify away from traditional dollar assets, according to Metals Focus."
+              data-link="https://www.thearmchairtrader.com/commodities/gold-set-for-fresh-record-on-strong-precious-metals-sentiment/#new_tab">
+              <span class="card-source">Metals Focus</span>
+              <span class="card-title">Gold set for fresh record on strong precious metals sentiment</span>
+              <p class="card-summary">Gold is expected to reach fresh all-time highs in 2027 as persistent inflation, heavy government borrowing and uncertainty over US policy encourage investors to diversify away from traditional dollar assets, according to Metals Focus.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Metals Focus Publishes Precious Metals Investment Focus 2026/2027"
+              data-source="Metals Focus"
+              data-summary="Metals Focus, a leading precious metals consultancy, has announced the publication of its Precious Metals Investment Focus 2026/2027 report, its flagship annual report on investment in gold, silver, and platinum group metals."
+              data-link="https://www.crown.co.za/latest-news/modern-mining-latest-news/38395-metals-focus-publishes-precious-metals-investment-focus-2026-2027#new_tab">
+              <span class="card-source">Metals Focus</span>
+              <span class="card-title">Metals Focus Publishes Precious Metals Investment Focus 2026/2027</span>
+              <p class="card-summary">Metals Focus, a leading precious metals consultancy, has announced the publication of its Precious Metals Investment Focus 2026/2027 report, its flagship annual report on investment in gold, silver, and platinum group metals.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+          </div>
+      </section>
+      <section class="section-block" id="wealth" style="--section-color:#10B981; --section-color-bg:#ECFDF5;">
+        <div class="section-header">
+          <h2 class="section-title">Wealth</h2>
+          <span class="section-count">8 articles</span>
+        </div>
+        
+          <div class="subsection">
+            <h3 class="subsection-title">Wealth Management</h3>
+            <div class="cards-grid">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Rs 36.4 lakh fraud in Post Office through NSC and term deposit: India Post employees convicted; Madhya Pradesh HC grants relief to depositors"
+              data-source="ET Wealth"
+              data-summary="Employees at the Bina branch of India Post defrauded depositors out of Rs 36.4 lakh through forged documents. The Madhya Pradesh High Court has ordered the postal department to refund the victims with applicable interest."
+              data-link="https://economictimes.indiatimes.com/wealth/legal/will/rs-36-4-lakh-fraud-in-post-office-through-nsc-and-term-deposit-india-post-employees-convicted-madhya-pradesh-hc-grants-relief-to-depositors/articleshow/135341301.cms">
+              <span class="card-source">ET Wealth</span>
+              <span class="card-title">Rs 36.4 lakh fraud in Post Office through NSC and term deposit: India Post employees convicted; Madhya Pradesh HC grants relief to depositors</span>
+              <p class="card-summary">Employees at the Bina branch of India Post defrauded depositors out of Rs 36.4 lakh through forged documents. The Madhya Pradesh High Court has ordered the postal department to refund the victims with applicable interest.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="India housing market: Unsold stock up 12%, affordable homes gain ground; should you buy now or wait?"
+              data-source="ET Wealth"
+              data-summary="ET Wealth reports: India housing market: Unsold stock up 12%, affordable homes gain ground; should you buy now or wait?."
+              data-link="https://economictimes.indiatimes.com/wealth/real-estate/india-housing-market-unsold-stock-up-12-affordable-homes-gain-ground-should-you-buy-now-or-wait/slideshow/135341663.cms">
+              <span class="card-source">ET Wealth</span>
+              <span class="card-title">India housing market: Unsold stock up 12%, affordable homes gain ground; should you buy now or wait?</span>
+              <p class="card-summary">ET Wealth reports: India housing market: Unsold stock up 12%, affordable homes gain ground; should you buy now or wait?.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+          </div>
+          </div>
+          <div class="subsection">
+            <h3 class="subsection-title">Fintech &amp; UAE Market</h3>
+            <div class="cards-grid">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Dubai AI Campus Doubles Its Target to 1,000 Firms by 2030"
+              data-source="FintechNews UAE"
+              data-summary="Dubai AI Campus aims to attract more than 1,000 AI firms by 2030. It also plans to create over 5,000 highly skilled jobs. Sheikh Hamdan bin Mohammed bin Rashid Al Maktoum, Crown Prince of Dubai, approved the goals at the third Dubai AI Festival."
+              data-link="https://fintechnews.ae/34597/ai/dubai-ai-campus-1000-ai-firms-2030/">
+              <span class="card-source">FintechNews UAE</span>
+              <span class="card-title">Dubai AI Campus Doubles Its Target to 1,000 Firms by 2030</span>
+              <p class="card-summary">Dubai AI Campus aims to attract more than 1,000 AI firms by 2030. It also plans to create over 5,000 highly skilled jobs. Sheikh Hamdan bin Mohammed bin Rashid Al Maktoum, Crown Prince of Dubai, approved the goals at the third Dubai AI Festival.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Winning Middle East Lenders Will Run on AI and Composable Infrastructure"
+              data-source="FintechNews UAE"
+              data-summary="By 2028, the most competitive lenders in the Middle East will operate from unified data, make decisions in real time through intelligent automation, and use composable infrastructure that allows products, regulations, and tech capabilities to evolve without rebuilding core systems, according to a new paper by banking infrastructure provider Stitch"
+              data-link="https://fintechnews.ae/34516/lending/winning-middle-east-lenders-will-run-on-ai-and-composable-infrastructure/">
+              <span class="card-source">FintechNews UAE</span>
+              <span class="card-title">Winning Middle East Lenders Will Run on AI and Composable Infrastructure</span>
+              <p class="card-summary">By 2028, the most competitive lenders in the Middle East will operate from unified data, make decisions in real time through intelligent automation, and use composable infrastructure that allows products, regulations, and tech capabilities to evolve without rebuilding core systems, according to a new paper by banking infrastructure provider Stitch</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="ADGM Crypto Mining Guidance Sets Out Licence and Disclosure Terms"
+              data-source="FintechNews UAE"
+              data-summary="The Registration Authority (RA) of Abu Dhabi Global Market (ADGM) has published guidance on crypto mining. Under the ADGM crypto mining guidance, mining is a licensed business activity, not a financial service. The RA issued the guidance under section 23 of the Commercial Licensing Regulations 2025."
+              data-link="https://fintechnews.ae/34592/crypto/adgm-crypto-mining-guidance-abu-dhabi/">
+              <span class="card-source">FintechNews UAE</span>
+              <span class="card-title">ADGM Crypto Mining Guidance Sets Out Licence and Disclosure Terms</span>
+              <p class="card-summary">The Registration Authority (RA) of Abu Dhabi Global Market (ADGM) has published guidance on crypto mining. Under the ADGM crypto mining guidance, mining is a licensed business activity, not a financial service. The RA issued the guidance under section 23 of the Commercial Licensing Regulations 2025.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+          </div>
+          </div>
+          <div class="subsection">
+            <h3 class="subsection-title">Funds &amp; ETFs</h3>
+            <div class="cards-grid">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Biggest-ever crypto hack impacts $6.3 billion as Binance works to contain fallout"
+              data-source="CNBC Investing"
+              data-summary="Binance said Friday that a security incident had an estimated impact of $6.3 billion, with around $3 billion in cryptocurrency assets frozen so far, and pledged to cover all losses."
+              data-link="https://www.cnbc.com/2026/10/29/circle-tether-freeze-funds-impacted-by-potential-binance-security-issue.html">
+              <span class="card-source">CNBC Investing</span>
+              <span class="card-title">Biggest-ever crypto hack impacts $6.3 billion as Binance works to contain fallout</span>
+              <p class="card-summary">Binance said Friday that a security incident had an estimated impact of $6.3 billion, with around $3 billion in cryptocurrency assets frozen so far, and pledged to cover all losses.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Coinbase net income surges 66% in third quarter, benefiting from bitcoin investment gains"
+              data-source="CNBC Investing"
+              data-summary="Coinbase Global earned third-quarter adjusted net income of $719 million, up 66% from $433 million a year ago, largely due to a recovery in the cryptocurrency market."
+              data-link="https://www.cnbc.com/2026/10/29/coinbase-coin-earnings-q3-2026-.html">
+              <span class="card-source">CNBC Investing</span>
+              <span class="card-title">Coinbase net income surges 66% in third quarter, benefiting from bitcoin investment gains</span>
+              <p class="card-summary">Coinbase Global earned third-quarter adjusted net income of $719 million, up 66% from $433 million a year ago, largely due to a recovery in the cryptocurrency market.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Goldman Sachs, JPMorgan and Morgan Stanley are dominating the AI stock boom. Here&#x27;s their edge"
+              data-source="CNBC Finance"
+              data-summary="Fueled by the global boom in artificial intelligence stocks, relaxed capital rules and greater lending to hedge funds, big Wall Street banks have already had a banner year for equities trading — even with one quarter left to go."
+              data-link="https://www.cnbc.com/2026/10/21/goldman-sachs-jpmorgan-morgan-stanley-ai-trading.html">
+              <span class="card-source">CNBC Finance</span>
+              <span class="card-title">Goldman Sachs, JPMorgan and Morgan Stanley are dominating the AI stock boom. Here&#x27;s their edge</span>
+              <p class="card-summary">Fueled by the global boom in artificial intelligence stocks, relaxed capital rules and greater lending to hedge funds, big Wall Street banks have already had a banner year for equities trading — even with one quarter left to go.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+          </div>
+          </div>
+      </section>
+      <section class="section-block" id="trade" style="--section-color:#3B82F6; --section-color-bg:#EFF6FF;">
+        <div class="section-header">
+          <h2 class="section-title">Trade</h2>
+          <span class="section-count">7 articles</span>
+        </div>
+        
+          <div class="subsection">
+            <h3 class="subsection-title">Global Indices (India · US · HKEX · LSE)</h3>
+            <div class="cards-grid">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Core4 Engineers SME shares to list today: Check IPO subscription status and other key details"
+              data-source="ET Markets"
+              data-summary="Subscribe to ET Prime and read the Economic Times ePaper Online.and Sensex Today. Top Trending Stocks: SBI Share Price, Axis Bank Share Price, HDFC Bank Share Price, Infosys Share Price, Wipro Share Price, NTPC Share Price Subscribe to ET Prime and read the Economic Times ePaper Online.and Sensex Today."
+              data-link="https://economictimes.indiatimes.com/markets/stocks/news/core4-engineers-sme-shares-to-list-today-check-ipo-subscription-status-and-other-key-details/articleshow/135342428.cms">
+              <span class="card-source">ET Markets</span>
+              <span class="card-title">Core4 Engineers SME shares to list today: Check IPO subscription status and other key details</span>
+              <p class="card-summary">Subscribe to ET Prime and read the Economic Times ePaper Online.and Sensex Today. Top Trending Stocks: SBI Share Price, Axis Bank Share Price, HDFC Bank Share Price, Infosys Share Price, Wipro Share Price, NTPC Share Price Subscribe to ET Prime and read the Economic Times ePaper Online.and Sensex Today.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Hero MotoCorp among 4 stocks that closed below VWAP"
+              data-source="ET Markets"
+              data-summary="VWAP represents the average price at which a stock traded during the day, weighted by trading volume."
+              data-link="https://economictimes.indiatimes.com/markets/stocks/news/hero-motocorp-among-4-stocks-that-closed-below-vwap/slideshow/135342406.cms">
+              <span class="card-source">ET Markets</span>
+              <span class="card-title">Hero MotoCorp among 4 stocks that closed below VWAP</span>
+              <p class="card-summary">VWAP represents the average price at which a stock traded during the day, weighted by trading volume.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="JSW Energy among 6 Nifty500 stocks showing RSI trending up"
+              data-source="ET Markets"
+              data-summary="Six Nifty500 stocks that gained over 5.5% on October 29 featured in StockEdge’s RSI Trending Up scan, indicating strengthening price momentum as their Relative Strength Index (RSI) values crossed above 50 from below."
+              data-link="https://economictimes.indiatimes.com/markets/stocks/news/jsw-energy-among-6-nifty500-stocks-showing-rsi-trending-up/slideshow/135342208.cms">
+              <span class="card-source">ET Markets</span>
+              <span class="card-title">JSW Energy among 6 Nifty500 stocks showing RSI trending up</span>
+              <p class="card-summary">Six Nifty500 stocks that gained over 5.5% on October 29 featured in StockEdge’s RSI Trending Up scan, indicating strengthening price momentum as their Relative Strength Index (RSI) values crossed above 50 from below.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+          </div>
+          </div>
+          <div class="subsection">
+            <h3 class="subsection-title">Commodities &amp; Precious Metals (Spot Gold/Silver LBMA)</h3>
+            <p class="empty-state">No articles available right now.</p>
+          </div>
+          <div class="subsection">
+            <h3 class="subsection-title">Crypto</h3>
+            <div class="cards-grid">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="India Names Binance and Bybit Among Foreign Platforms in $585M Crypto Remittance Probe"
+              data-source="Finance Magnates"
+              data-summary="Finance Magnates reports: India Names Binance and Bybit Among Foreign Platforms in $585M Crypto Remittance Probe."
+              data-link="https://www.financemagnates.com/cryptocurrency/india-names-binance-and-bybit-among-foreign-platforms-in-585m-crypto-remittance-probe/">
+              <span class="card-source">Finance Magnates</span>
+              <span class="card-title">India Names Binance and Bybit Among Foreign Platforms in $585M Crypto Remittance Probe</span>
+              <p class="card-summary">Finance Magnates reports: India Names Binance and Bybit Among Foreign Platforms in $585M Crypto Remittance Probe.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Crypto Exchange HTX Leaves UK and Settles Regulator’s Lawsuit Over Illegal Ads"
+              data-source="Finance Magnates"
+              data-summary="HTX, the crypto exchange formerly known as Huobi, has settled a lawsuit brought by the Financial Conduct Authority (FCA) and left the UK market."
+              data-link="https://www.financemagnates.com/cryptocurrency/regulation/crypto-exchange-htx-leaves-uk-and-settles-regulators-lawsuit-over-illegal-ads/">
+              <span class="card-source">Finance Magnates</span>
+              <span class="card-title">Crypto Exchange HTX Leaves UK and Settles Regulator’s Lawsuit Over Illegal Ads</span>
+              <p class="card-summary">HTX, the crypto exchange formerly known as Huobi, has settled a lawsuit brought by the Financial Conduct Authority (FCA) and left the UK market.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Crypto.com Enters US Crypto Perpetuals Market for Retail Traders as Kraken and Kalshi Expand"
+              data-source="Finance Magnates"
+              data-summary="Crypto.com has launched cryptocurrency perpetual contracts for eligible US retail traders, offering leverage of up to 5x through the Crypto.com App and Crypto.com Exchange, according to an announcement today (Tuesday).London&#x27;s trading industry is coming home!The launch follows Kraken&#x27;s introduction of CFTC-regulated perpetual futures in the United States in June."
+              data-link="https://www.financemagnates.com/cryptocurrency/cryptocom-enters-us-crypto-perpetuals-market-for-retail-traders-as-kraken-and-kalshi-expand/">
+              <span class="card-source">Finance Magnates</span>
+              <span class="card-title">Crypto.com Enters US Crypto Perpetuals Market for Retail Traders as Kraken and Kalshi Expand</span>
+              <p class="card-summary">Crypto.com has launched cryptocurrency perpetual contracts for eligible US retail traders, offering leverage of up to 5x through the Crypto.com App and Crypto.com Exchange, according to an announcement today (Tuesday).London&#x27;s trading industry is coming home!The launch follows Kraken&#x27;s introduction of CFTC-regulated perpetual futures in the United States in June.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+          </div>
+          </div>
+          <div class="subsection">
+            <h3 class="subsection-title">CFDs &amp; Margin</h3>
+            <div class="cards-grid">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="B2TRADER Adds ChatGPT and Claude for AI Trade Execution, but Brokers Set the Limits"
+              data-source="Finance Magnates"
+              data-summary="B2BROKER Group has added Model Context Protocol support and an in-terminal AI chat to its B2TRADER platform. The update allows traders to connect external AI tools, including Claude and ChatGPT, to their accounts for analysis and, with the required permissions, trade execution.London&#x27;s trading industry is coming home!Other trading platforms have"
+              data-link="https://www.financemagnates.com/forex/b2trader-adds-chatgpt-and-claude-for-ai-trade-execution-but-brokers-set-the-limits/">
+              <span class="card-source">Finance Magnates</span>
+              <span class="card-title">B2TRADER Adds ChatGPT and Claude for AI Trade Execution, but Brokers Set the Limits</span>
+              <p class="card-summary">B2BROKER Group has added Model Context Protocol support and an in-terminal AI chat to its B2TRADER platform. The update allows traders to connect external AI tools, including Claude and ChatGPT, to their accounts for analysis and, with the required permissions, trade execution.London&#x27;s trading industry is coming home!Other trading platforms have</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+          </div>
+          </div>
+      </section>
+      <section class="section-block" id="ai" style="--section-color:#8B5CF6; --section-color-bg:#F5F3FF;">
+        <div class="section-header">
+          <h2 class="section-title">AI</h2>
+          <span class="section-count">5 articles</span>
+        </div>
+        <div class="cards-grid">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="You don’t need to believe in a god to get a religious exemption from using AI at work"
+              data-source="TechCrunch AI"
+              data-summary="Buy One Founder Summit Ticket, Get a Second for Free. Register now. Founder Summit begins Nov. 4, 9:00 a.m. ET. Get your pass savings &amp; deals before it starts. REGISTER HERE."
+              data-link="https://techcrunch.com/2026/10/29/you-dont-need-to-believe-in-a-god-to-get-a-religious-exemption-from-using-ai-at-work/">
+              <span class="card-source">TechCrunch AI</span>
+              <span class="card-title">You don’t need to believe in a god to get a religious exemption from using AI at work</span>
+              <p class="card-summary">Buy One Founder Summit Ticket, Get a Second for Free. Register now. Founder Summit begins Nov. 4, 9:00 a.m. ET. Get your pass savings &amp; deals before it starts. REGISTER HERE.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="AWS will be a $1T business, Jassy says. But first, it will spend big."
+              data-source="TechCrunch AI"
+              data-summary="Buy One Founder Summit Ticket, Get a Second for Free. Register now. Founder Summit begins Nov. 4, 9:00 a.m. ET. Get your pass savings &amp; deals before it starts. REGISTER HERE. AI AWS will be a $1T business, Jassy says. But first, it will spend big."
+              data-link="https://techcrunch.com/2026/10/29/aws-will-be-a-1t-business-jassy-says-but-first-it-will-spend-big/">
+              <span class="card-source">TechCrunch AI</span>
+              <span class="card-title">AWS will be a $1T business, Jassy says. But first, it will spend big.</span>
+              <p class="card-summary">Buy One Founder Summit Ticket, Get a Second for Free. Register now. Founder Summit begins Nov. 4, 9:00 a.m. ET. Get your pass savings &amp; deals before it starts. REGISTER HERE. AI AWS will be a $1T business, Jassy says. But first, it will spend big.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="As search traffic dries up, Reddit announces it’s shifting to a logged-in experience"
+              data-source="TechCrunch AI"
+              data-summary="Buy One Founder Summit Ticket, Get a Second for Free. Register now. Founder Summit begins Nov. 4, 9:00 a.m. ET. Get your pass savings &amp; deals before it starts. REGISTER HERE."
+              data-link="https://techcrunch.com/2026/10/29/as-search-traffic-dries-up-reddit-announces-its-shifting-to-a-logged-in-experience/">
+              <span class="card-source">TechCrunch AI</span>
+              <span class="card-title">As search traffic dries up, Reddit announces it’s shifting to a logged-in experience</span>
+              <p class="card-summary">Buy One Founder Summit Ticket, Get a Second for Free. Register now. Founder Summit begins Nov. 4, 9:00 a.m. ET. Get your pass savings &amp; deals before it starts. REGISTER HERE.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Rivian expands joint venture with VW to include AI assistant"
+              data-source="TechCrunch AI"
+              data-summary="Buy One Founder Summit Ticket, Get a Second for Free. Register now. Founder Summit begins Nov. 4, 9:00 a.m. ET. Get your pass savings &amp; deals before it starts. REGISTER HERE."
+              data-link="https://techcrunch.com/2026/10/29/rivian-expands-joint-venture-with-vw-to-include-ai-assistant/">
+              <span class="card-source">TechCrunch AI</span>
+              <span class="card-title">Rivian expands joint venture with VW to include AI assistant</span>
+              <p class="card-summary">Buy One Founder Summit Ticket, Get a Second for Free. Register now. Founder Summit begins Nov. 4, 9:00 a.m. ET. Get your pass savings &amp; deals before it starts. REGISTER HERE.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="OpenAI-backed Thrive Holdings acquires ADT"
+              data-source="TechCrunch AI"
+              data-summary="Buy One Founder Summit Ticket, Get a Second for Free. Register now. Founder Summit begins Nov. 4, 9:00 a.m. ET. Get your pass savings &amp; deals before it starts. REGISTER HERE."
+              data-link="https://techcrunch.com/2026/10/29/openai-backed-thrive-holdings-acquires-adt/">
+              <span class="card-source">TechCrunch AI</span>
+              <span class="card-title">OpenAI-backed Thrive Holdings acquires ADT</span>
+              <p class="card-summary">Buy One Founder Summit Ticket, Get a Second for Free. Register now. Founder Summit begins Nov. 4, 9:00 a.m. ET. Get your pass savings &amp; deals before it starts. REGISTER HERE.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+          </div>
+      </section>
+      <section class="section-block" id="companies" style="--section-color:#F59E0B; --section-color-bg:#FFFBEB;">
+        <div class="section-header">
+          <h2 class="section-title">Companies</h2>
+          <span class="section-count">5 articles</span>
+        </div>
+        <div class="cards-grid">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Andy Jassy says Prime Video is on track to earn ‘tens of billions of dollars’"
+              data-source="TechCrunch"
+              data-summary="Buy One Founder Summit Ticket, Get a Second for Free. Register now. Founder Summit begins Nov. 4, 9:00 a.m. ET. Get your pass savings &amp; deals before it starts. REGISTER HERE."
+              data-link="https://techcrunch.com/2026/10/29/andy-jassy-says-prime-video-is-on-track-to-earn-tens-of-billions-of-dollars/">
+              <span class="card-source">TechCrunch</span>
+              <span class="card-title">Andy Jassy says Prime Video is on track to earn ‘tens of billions of dollars’</span>
+              <p class="card-summary">Buy One Founder Summit Ticket, Get a Second for Free. Register now. Founder Summit begins Nov. 4, 9:00 a.m. ET. Get your pass savings &amp; deals before it starts. REGISTER HERE.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Binance pauses withdrawals as hackers suspected of stealing billions in crypto"
+              data-source="TechCrunch"
+              data-summary="Buy One Founder Summit Ticket, Get a Second for Free. Register now. Founder Summit begins Nov. 4, 9:00 a.m. ET. Get your pass savings &amp; deals before it starts. REGISTER HERE."
+              data-link="https://techcrunch.com/2026/10/29/binance-pauses-withdrawals-as-hackers-suspected-of-stealing-billions-in-crypto/">
+              <span class="card-source">TechCrunch</span>
+              <span class="card-title">Binance pauses withdrawals as hackers suspected of stealing billions in crypto</span>
+              <p class="card-summary">Buy One Founder Summit Ticket, Get a Second for Free. Register now. Founder Summit begins Nov. 4, 9:00 a.m. ET. Get your pass savings &amp; deals before it starts. REGISTER HERE.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Elon Musk is ‘truly a genius,’ says Vladimir Putin"
+              data-source="TechCrunch"
+              data-summary="Buy One Founder Summit Ticket, Get a Second for Free. Register now. Founder Summit begins Nov. 4, 9:00 a.m. ET. Get your pass savings &amp; deals before it starts. REGISTER HERE."
+              data-link="https://techcrunch.com/2026/10/29/elon-musk-is-truly-a-genius-says-vladimir-putin/">
+              <span class="card-source">TechCrunch</span>
+              <span class="card-title">Elon Musk is ‘truly a genius,’ says Vladimir Putin</span>
+              <p class="card-summary">Buy One Founder Summit Ticket, Get a Second for Free. Register now. Founder Summit begins Nov. 4, 9:00 a.m. ET. Get your pass savings &amp; deals before it starts. REGISTER HERE.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Series B Funding Is Up, But Fewer Deals Are Getting Done"
+              data-source="Crunchbase News"
+              data-summary="More money, fewer rounds. That, in short, is the state of U.S. Series B startup funding in 2026, as venture capital investment continues to concentrate heavily around a handful of AI hotshots."
+              data-link="https://news.crunchbase.com/venture/seriesb-startup-funding-up-deals-down-ai-prometheus/">
+              <span class="card-source">Crunchbase News</span>
+              <span class="card-title">Series B Funding Is Up, But Fewer Deals Are Getting Done</span>
+              <p class="card-summary">More money, fewer rounds. That, in short, is the state of U.S. Series B startup funding in 2026, as venture capital investment continues to concentrate heavily around a handful of AI hotshots.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Jumbo Series A Rounds Hiding The Real Squeeze On Seed Startups"
+              data-source="Crunchbase News"
+              data-summary="Global startups have closed at least 114 Series A rounds of $100 million or more so far this year, Crunchbase reported in late September, and more than 70% of them went to AI companies. For most seed founders, that headline is a warning. U.S."
+              data-link="https://news.crunchbase.com/seed/jumbo-seriesa-squeeze-seed-startup-funding-schroder-mgv/">
+              <span class="card-source">Crunchbase News</span>
+              <span class="card-title">Jumbo Series A Rounds Hiding The Real Squeeze On Seed Startups</span>
+              <p class="card-summary">Global startups have closed at least 114 Series A rounds of $100 million or more so far this year, Crunchbase reported in late September, and more than 70% of them went to AI companies. For most seed founders, that headline is a warning. U.S.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+          </div>
+      </section>
+      <section class="section-block" id="product" style="--section-color:#EC4899; --section-color-bg:#FDF2F8;">
+        <div class="section-header">
+          <h2 class="section-title">Product</h2>
+          <span class="section-count">5 articles</span>
+        </div>
+        <div class="cards-grid">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Meta quietly launches an AI fashion app called Style Sketch"
+              data-source="TechCrunch Apps"
+              data-summary="Buy One Founder Summit Ticket, Get a Second for Free. Register now. Founder Summit begins Nov. 4, 9:00 a.m. ET. Get your pass savings &amp; deals before it starts. REGISTER HERE."
+              data-link="https://techcrunch.com/2026/10/29/meta-quietly-launches-an-ai-fashion-app-called-style-sketch/">
+              <span class="card-source">TechCrunch Apps</span>
+              <span class="card-title">Meta quietly launches an AI fashion app called Style Sketch</span>
+              <p class="card-summary">Buy One Founder Summit Ticket, Get a Second for Free. Register now. Founder Summit begins Nov. 4, 9:00 a.m. ET. Get your pass savings &amp; deals before it starts. REGISTER HERE.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Granola crunches up a dictation feature to compete with Wispr"
+              data-source="TechCrunch Apps"
+              data-summary="Buy One Founder Summit Ticket, Get a Second for Free. Register now. Founder Summit begins Nov. 4, 9:00 a.m. ET. Get your pass savings &amp; deals before it starts. REGISTER HERE."
+              data-link="https://techcrunch.com/2026/10/29/granola-crunches-up-a-dictation-feature-to-compete-with-wispr/">
+              <span class="card-source">TechCrunch Apps</span>
+              <span class="card-title">Granola crunches up a dictation feature to compete with Wispr</span>
+              <p class="card-summary">Buy One Founder Summit Ticket, Get a Second for Free. Register now. Founder Summit begins Nov. 4, 9:00 a.m. ET. Get your pass savings &amp; deals before it starts. REGISTER HERE.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="SuperMe raises $20M for its network of AI expert profiles"
+              data-source="TechCrunch Apps"
+              data-summary="Buy One Founder Summit Ticket, Get a Second for Free. Register now. Founder Summit begins Nov. 4, 9:00 a.m. ET. Get your pass savings &amp; deals before it starts. REGISTER HERE."
+              data-link="https://techcrunch.com/2026/10/29/superme-raises-20m-for-its-network-of-ai-expert-profiles/">
+              <span class="card-source">TechCrunch Apps</span>
+              <span class="card-title">SuperMe raises $20M for its network of AI expert profiles</span>
+              <p class="card-summary">Buy One Founder Summit Ticket, Get a Second for Free. Register now. Founder Summit begins Nov. 4, 9:00 a.m. ET. Get your pass savings &amp; deals before it starts. REGISTER HERE.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Notch Metrics"
+              data-source="Product Hunt"
+              data-summary="Product Hunt reports: Notch Metrics."
+              data-link="https://www.producthunt.com/products/notch-metrics">
+              <span class="card-source">Product Hunt</span>
+              <span class="card-title">Notch Metrics</span>
+              <p class="card-summary">Product Hunt reports: Notch Metrics.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Polylane for ChatGPT"
+              data-source="Product Hunt"
+              data-summary="Product Hunt reports: Polylane for ChatGPT."
+              data-link="https://www.producthunt.com/products/polylane">
+              <span class="card-source">Product Hunt</span>
+              <span class="card-title">Polylane for ChatGPT</span>
+              <p class="card-summary">Product Hunt reports: Polylane for ChatGPT.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+          </div>
+      </section>
+      <section class="section-block" id="vocabulary" style="--section-color:#6366F1; --section-color-bg:#EEF2FF;">
+        <div class="section-header">
+          <h2 class="section-title">Vocabulary</h2>
+          <span class="section-count">5 terms today</span>
+        </div>
+        <div class="vocab-grid">
+          
+        <div class="vocab-card">
+          <p class="vocab-label">Term 1 of 5</p>
+          <h3 class="vocab-term">MEV – Maximal Extractable Value</h3>
+          <p class="vocab-definition">Profit that miners (in Proof-of-Work) or validators (in Proof-of-Stake) can extract beyond standard block rewards by selectively including, reordering, or censoring transactions within a block. MEV strategies include front-running (inserting a buy before a large trade), sandwich attacks (bracketing a victim transaction), and liquidation racing. Ethereum&#x27;s MEV ecosystem, mediated by Flashbots, redistributes hundreds of millions of dollars annually and has prompted architectural debates about fairness and protocol design.</p>
+        </div>
+        <div class="vocab-card">
+          <p class="vocab-label">Term 2 of 5</p>
+          <h3 class="vocab-term">Payment for Order Flow (PFOF)</h3>
+          <p class="vocab-definition">A practice where retail brokers route customer orders to market makers in exchange for a per-share rebate. Critics argue it creates a conflict of interest — the broker is incentivised to send orders to the highest-paying venue rather than the one offering best execution. The EU banned PFOF under MiFID II; the SEC has repeatedly reviewed but not banned it in the US, where it underpins the zero-commission model at Robinhood and others. The debate centres on whether retail investors receive better prices through internalisation or on-exchange competition.</p>
+        </div>
+        <div class="vocab-card">
+          <p class="vocab-label">Term 3 of 5</p>
+          <h3 class="vocab-term">Liquidity Coverage Ratio (LCR)</h3>
+          <p class="vocab-definition">A Basel III requirement that banks hold sufficient high-quality liquid assets (HQLA — cash, central bank reserves, government bonds) to cover 30 days of net cash outflows in a stress scenario. The minimum LCR is 100%. The March 2023 US regional banking crisis exposed the LCR&#x27;s limitations: Silicon Valley Bank was exempt as a mid-size bank, and uninsured depositor runs proved faster than the 30-day horizon assumed. LCR compliance is now a key metric for institutional counterparty assessment.</p>
+        </div>
+        <div class="vocab-card">
+          <p class="vocab-label">Term 4 of 5</p>
+          <h3 class="vocab-term">Gamma Squeeze</h3>
+          <p class="vocab-definition">A market dynamic where a rapid rise in an asset&#x27;s price forces options dealers who sold call options to buy increasing quantities of the underlying to stay delta-neutral — which itself pushes the price higher, forcing more buying. The feedback loop can accelerate dramatically when open interest is concentrated at nearby strikes. The January 2021 GameStop episode was a textbook gamma squeeze amplified by retail co-ordination, pushing the stock from ~$20 to $483 in days and causing billions in losses at short-selling hedge funds.</p>
+        </div>
+        <div class="vocab-card">
+          <p class="vocab-label">Term 5 of 5</p>
+          <h3 class="vocab-term">AUM – Assets Under Management</h3>
+          <p class="vocab-definition">The total market value of all capital a manager oversees on behalf of clients, encompassing discretionary and advisory mandates. AUM is the primary scale metric in asset management — it drives management fee revenue (typically 0.03–2% annually depending on strategy) and signals market standing. Global AUM surpassed $120 trillion in 2024. Paradoxically, AUM growth can destroy alpha: a $100M hedge fund can exploit small opportunities invisible to a $10B fund, which moves markets when it trades — illustrating the capacity constraints that erode performance at scale.</p>
+        </div>
+        </div>
+      </section>
+  </main>
+
+  <footer>
+    <p>Auto-generated daily at 8:00 AM IST</p>
+    <p style="margin-top:4px;">Sources: Economic Times · LiveMint · Bloomberg · TechCrunch · Crunchbase · FintechNews.ae · Arabian Business · Reuters · CNBC · CoinDesk · Cointelegraph · Kitco · BullionVault &amp; more</p>
+  </footer>
+
+  <!-- Article Modal -->
+  <div id="article-modal" class="modal-overlay" onclick="handleOverlayClick(event)">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeArticleModal()" aria-label="Close">&times;</button>
+      <span class="modal-source" id="modal-source"></span>
+      <h2 class="modal-title" id="modal-title"></h2>
+      <div class="modal-divider"></div>
+      <p class="modal-summary" id="modal-summary"></p>
+      <a class="modal-link" id="modal-link" href="#" target="_blank" rel="noopener noreferrer">
+        Read Full Article &rarr;
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // Dynamically pin nav below header and set scroll-margin-top on sections
+    function fixStickyOffsets() {
+      var headerH = document.querySelector('header').offsetHeight;
+      var nav = document.querySelector('nav');
+      nav.style.top = headerH + 'px';
+      var offset = headerH + nav.offsetHeight + 8;
+      document.querySelectorAll('.section-block').forEach(function(el) {
+        el.style.scrollMarginTop = offset + 'px';
+      });
+    }
+    fixStickyOffsets();
+    window.addEventListener('resize', fixStickyOffsets);
+
+    function openArticle(card) {
+      document.getElementById('modal-source').textContent = card.dataset.source;
+      document.getElementById('modal-title').textContent = card.dataset.title;
+      document.getElementById('modal-summary').textContent = card.dataset.summary || 'No summary available.';
+      document.getElementById('modal-link').href = card.dataset.link;
+      document.getElementById('article-modal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function handleOverlayClick(e) {
+      if (e.target === document.getElementById('article-modal')) closeArticleModal();
+    }
+    function closeArticleModal() {
+      document.getElementById('article-modal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeArticleModal();
+    });
+    document.querySelectorAll('.card').forEach(function(card) {
+      card.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openArticle(card); }
+      });
+    });
+  </script>
+
+</body>
+</html>
