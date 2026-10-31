@@ -1,11 +1,4 @@
 {
-  "2026-08-01": [
-    "CCP \u2013 Central Counterparty Clearing",
-    "ISO 20022",
-    "Payment for Order Flow (PFOF)",
-    "Duration",
-    "Collateral Management"
-  ],
   "2026-08-02": [
     "CBDC \u2013 Central Bank Digital Currency",
     "Liquidity Coverage Ratio (LCR)",
@@ -635,5 +628,12 @@
     "Liquidity Coverage Ratio (LCR)",
     "Gamma Squeeze",
     "AUM \u2013 Assets Under Management"
+  ],
+  "2026-10-31": [
+    "Contango vs Backwardation",
+    "DORA \u2013 Digital Operational Resilience Act",
+    "Alpha Decay",
+    "AUM \u2013 Assets Under Management",
+    "Collateral Management"
   ]
 }
