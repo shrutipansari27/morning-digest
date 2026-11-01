@@ -1,11 +1,4 @@
 {
-  "2026-08-02": [
-    "CBDC \u2013 Central Bank Digital Currency",
-    "Liquidity Coverage Ratio (LCR)",
-    "Carry Trade",
-    "Cross-Margining",
-    "Funding Rate (Crypto)"
-  ],
   "2026-08-03": [
     "Prime Brokerage",
     "Value at Risk (VaR)",
@@ -635,5 +628,12 @@
     "Alpha Decay",
     "AUM \u2013 Assets Under Management",
     "Collateral Management"
+  ],
+  "2026-11-01": [
+    "Embedded Finance",
+    "ISO 20022",
+    "Drawdown",
+    "Market Microstructure",
+    "Open Banking / PSD3"
   ]
 }
