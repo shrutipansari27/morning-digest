@@ -1,11 +1,4 @@
 {
-  "2026-08-03": [
-    "Prime Brokerage",
-    "Value at Risk (VaR)",
-    "Collateral Transformation",
-    "SWIFT gpi \u2013 Global Payments Innovation",
-    "AUM \u2013 Assets Under Management"
-  ],
   "2026-08-04": [
     "Delta Hedging",
     "CBDC \u2013 Central Bank Digital Currency",
@@ -635,5 +628,12 @@
     "Drawdown",
     "Market Microstructure",
     "Open Banking / PSD3"
+  ],
+  "2026-11-02": [
+    "Factor Investing / Smart Beta",
+    "Embedded Finance",
+    "Stress Testing / DFAST",
+    "Embedded Payments / Super App",
+    "VWAP / TWAP"
   ]
 }
