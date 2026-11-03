@@ -1,11 +1,4 @@
 {
-  "2026-08-04": [
-    "Delta Hedging",
-    "CBDC \u2013 Central Bank Digital Currency",
-    "DORA \u2013 Digital Operational Resilience Act",
-    "ISO 20022",
-    "AUM \u2013 Assets Under Management"
-  ],
   "2026-08-05": [
     "T+1 Settlement",
     "Information Ratio (IR)",
@@ -635,5 +628,12 @@
     "Stress Testing / DFAST",
     "Embedded Payments / Super App",
     "VWAP / TWAP"
+  ],
+  "2026-11-03": [
+    "Gamma Squeeze",
+    "Carry Trade",
+    "Tokenisation of Real-World Assets (RWA)",
+    "Market Microstructure",
+    "AUM \u2013 Assets Under Management"
   ]
 }
