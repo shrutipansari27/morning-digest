@@ -1,11 +1,4 @@
 {
-  "2026-08-05": [
-    "T+1 Settlement",
-    "Information Ratio (IR)",
-    "Repo Rate",
-    "Cross-Margining",
-    "Transaction Cost Analysis (TCA)"
-  ],
   "2026-08-06": [
     "Embedded Finance",
     "ISO 20022",
@@ -635,5 +628,12 @@
     "Tokenisation of Real-World Assets (RWA)",
     "Market Microstructure",
     "AUM \u2013 Assets Under Management"
+  ],
+  "2026-11-04": [
+    "Open Interest",
+    "BaaS \u2013 Banking as a Service",
+    "Dark Pool",
+    "Impermanent Loss",
+    "Prime of Prime (PoP)"
   ]
 }
