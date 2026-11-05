@@ -1,11 +1,4 @@
 {
-  "2026-08-06": [
-    "Embedded Finance",
-    "ISO 20022",
-    "Liquidity Coverage Ratio (LCR)",
-    "Market Microstructure",
-    "Embedded Payments / Super App"
-  ],
   "2026-08-07": [
     "Algorithmic Market Making",
     "SWIFT gpi \u2013 Global Payments Innovation",
@@ -635,5 +628,12 @@
     "Dark Pool",
     "Impermanent Loss",
     "Prime of Prime (PoP)"
+  ],
+  "2026-11-05": [
+    "Yield Curve Control (YCC)",
+    "CCP \u2013 Central Counterparty Clearing",
+    "Algorithmic Market Making",
+    "Repo Rate",
+    "Transaction Cost Analysis (TCA)"
   ]
 }
