@@ -1,11 +1,4 @@
 {
-  "2026-08-07": [
-    "Algorithmic Market Making",
-    "SWIFT gpi \u2013 Global Payments Innovation",
-    "Duration",
-    "AUM \u2013 Assets Under Management",
-    "Prime of Prime (PoP)"
-  ],
   "2026-08-08": [
     "ISO 20022",
     "Liquidity Coverage Ratio (LCR)",
@@ -635,5 +628,12 @@
     "Algorithmic Market Making",
     "Repo Rate",
     "Transaction Cost Analysis (TCA)"
+  ],
+  "2026-11-06": [
+    "Factor Investing / Smart Beta",
+    "Securities Lending",
+    "Collateral Transformation",
+    "Tokenisation of Real-World Assets (RWA)",
+    "Momentum Factor"
   ]
 }
