@@ -1,11 +1,4 @@
 {
-  "2026-08-09": [
-    "CCP \u2013 Central Counterparty Clearing",
-    "MiCA \u2013 Markets in Crypto-Assets Regulation",
-    "Funding Rate (Crypto)",
-    "Liquidity Pool (DeFi)",
-    "Regulatory Capital / CET1"
-  ],
   "2026-08-10": [
     "Smart Order Routing (SOR)",
     "Implied Volatility Surface",
@@ -635,5 +628,12 @@
     "Collateral Transformation",
     "Alpha Decay",
     "Cross-Margining"
+  ],
+  "2026-11-08": [
+    "Yield Curve Control (YCC)",
+    "Smart Order Routing (SOR)",
+    "DORA \u2013 Digital Operational Resilience Act",
+    "Information Ratio (IR)",
+    "Prime of Prime (PoP)"
   ]
 }
