@@ -1,11 +1,4 @@
 {
-  "2026-08-11": [
-    "Contango vs Backwardation",
-    "DORA \u2013 Digital Operational Resilience Act",
-    "Collateral Transformation",
-    "Carry Trade",
-    "Collateral Management"
-  ],
   "2026-08-12": [
     "Embedded Finance",
     "BaaS \u2013 Banking as a Service",
@@ -635,5 +628,12 @@
     "Gamma Squeeze",
     "Stress Testing / DFAST",
     "Dark Pool"
+  ],
+  "2026-11-10": [
+    "UCITS",
+    "Value at Risk (VaR)",
+    "RegTech",
+    "Market Microstructure",
+    "Dispersion Trading"
   ]
 }
