@@ -1,11 +1,4 @@
 {
-  "2026-08-12": [
-    "Embedded Finance",
-    "BaaS \u2013 Banking as a Service",
-    "Drawdown",
-    "AUM \u2013 Assets Under Management",
-    "Collateral Management"
-  ],
   "2026-08-13": [
     "Contango vs Backwardation",
     "Open Interest",
@@ -635,5 +628,12 @@
     "RegTech",
     "Market Microstructure",
     "Dispersion Trading"
+  ],
+  "2026-11-11": [
+    "Embedded Finance",
+    "Open Interest",
+    "VWAP / TWAP",
+    "Prime of Prime (PoP)",
+    "Regulatory Capital / CET1"
   ]
 }
