@@ -1,11 +1,4 @@
 {
-  "2026-08-13": [
-    "Contango vs Backwardation",
-    "Open Interest",
-    "Market Microstructure",
-    "VWAP / TWAP",
-    "Funding Rate (Crypto)"
-  ],
   "2026-08-14": [
     "MiCA \u2013 Markets in Crypto-Assets Regulation",
     "ISO 20022",
@@ -635,5 +628,12 @@
     "VWAP / TWAP",
     "Prime of Prime (PoP)",
     "Regulatory Capital / CET1"
+  ],
+  "2026-11-12": [
+    "Open Interest",
+    "Embedded Payments / Super App",
+    "VWAP / TWAP",
+    "Funding Rate (Crypto)",
+    "Liquidity Pool (DeFi)"
   ]
 }
