@@ -1,11 +1,4 @@
 {
-  "2026-08-14": [
-    "MiCA \u2013 Markets in Crypto-Assets Regulation",
-    "ISO 20022",
-    "Sharpe Ratio",
-    "Funding Rate (Crypto)",
-    "Open Banking / PSD3"
-  ],
   "2026-08-15": [
     "Gamma Squeeze",
     "Algorithmic Market Making",
@@ -635,5 +628,12 @@
     "VWAP / TWAP",
     "Funding Rate (Crypto)",
     "Liquidity Pool (DeFi)"
+  ],
+  "2026-11-13": [
+    "CCP \u2013 Central Counterparty Clearing",
+    "CBDC \u2013 Central Bank Digital Currency",
+    "Market Microstructure",
+    "Prime of Prime (PoP)",
+    "Transaction Cost Analysis (TCA)"
   ]
 }
