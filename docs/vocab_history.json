@@ -1,11 +1,4 @@
 {
-  "2026-08-15": [
-    "Gamma Squeeze",
-    "Algorithmic Market Making",
-    "Drawdown",
-    "Sharpe Ratio",
-    "Transaction Cost Analysis (TCA)"
-  ],
   "2026-08-16": [
     "Contango vs Backwardation",
     "Prime Brokerage",
@@ -635,5 +628,12 @@
     "Market Microstructure",
     "Prime of Prime (PoP)",
     "Transaction Cost Analysis (TCA)"
+  ],
+  "2026-11-14": [
+    "Prime Brokerage",
+    "RegTech",
+    "Cross-Margining",
+    "Momentum Factor",
+    "Regulatory Capital / CET1"
   ]
 }
