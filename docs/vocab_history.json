@@ -1,11 +1,4 @@
 {
-  "2026-08-17": [
-    "Value at Risk (VaR)",
-    "Repo / Reverse Repo",
-    "DORA \u2013 Digital Operational Resilience Act",
-    "Tokenisation of Real-World Assets (RWA)",
-    "Impermanent Loss"
-  ],
   "2026-08-18": [
     "Contango vs Backwardation",
     "Prime Brokerage",
@@ -635,5 +628,12 @@
     "Stress Testing / DFAST",
     "Sharpe Ratio",
     "Liquidity Pool (DeFi)"
+  ],
+  "2026-11-16": [
+    "Value at Risk (VaR)",
+    "Information Ratio (IR)",
+    "Dark Pool",
+    "Duration",
+    "Funding Rate (Crypto)"
   ]
 }
