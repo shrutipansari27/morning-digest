@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Digest — Tuesday, 17 November 2026</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #F8FAFC;
+      --surface: #FFFFFF;
+      --border: #E2E8F0;
+      --text-primary: #0F172A;
+      --text-secondary: #475569;
+      --text-muted: #94A3B8;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-hover: 0 6px 20px rgba(0,0,0,0.10), 0 2px 6px rgba(0,0,0,0.06);
+      --radius: 12px;
+      --section-color: #64748B;
+      --section-color-bg: #F8FAFC;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Header */
+    header {
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .header-logo {
+      width: 34px;
+      height: 34px;
+      background: #0F172A;
+      color: #FFFFFF;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      flex-shrink: 0;
+    }
+    .header-title { font-size: 19px; font-weight: 700; color: #0F172A; letter-spacing: -0.4px; }
+    .header-date { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }
+
+    /* Navigation */
+    nav {
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      position: sticky;
+      top: 69px;
+      z-index: 99;
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .nav-inner::-webkit-scrollbar { display: none; }
+    .nav-inner a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 13px 14px;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .nav-inner a:hover {
+      color: #0F172A;
+      border-bottom-color: #CBD5E1;
+    }
+
+    /* Main */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 36px 24px 56px;
+    }
+
+    /* Section */
+    .section-block {
+      margin-bottom: 52px;
+      scroll-margin-top: 120px;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 14px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-title { font-size: 18px; font-weight: 700; color: #0F172A; letter-spacing: -0.3px; padding-left: 12px; border-left: 3px solid var(--section-color); }
+    .section-count {
+      margin-left: auto;
+      font-size: 11px;
+      color: var(--text-muted);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+
+    /* Subsections */
+    .subsection { margin-bottom: 28px; }
+    .subsection-title {
+      font-size: 10.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    /* Cards */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+      cursor: pointer;
+    }
+    .card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+    .card-source {
+      display: inline-flex;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      padding: 2px 8px;
+      border-radius: 4px;
+      width: fit-content;
+    }
+    .card-title {
+      font-size: 14.5px;
+      font-weight: 600;
+      color: #0F172A;
+      line-height: 1.45;
+      display: block;
+    }
+    .card:hover .card-title { color: var(--section-color); }
+    .card-summary {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      flex: 1;
+    }
+    .card-read-more {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--section-color);
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      margin-top: 2px;
+      opacity: 0.85;
+    }
+    .card:hover .card-read-more { opacity: 1; }
+    .empty-state { color: var(--text-muted); font-size: 14px; padding: 16px 0; }
+
+    /* Vocabulary */
+    .vocab-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 20px;
+    }
+    .vocab-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--section-color);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      box-shadow: var(--shadow);
+    }
+    .vocab-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--section-color);
+      margin-bottom: 8px;
+    }
+    .vocab-term { font-size: 17px; font-weight: 700; color: #0F172A; margin-bottom: 10px; letter-spacing: -0.3px; }
+    .vocab-definition { font-size: 13.5px; color: var(--text-secondary); line-height: 1.75; }
+
+    /* Footer */
+    footer {
+      background: #FFFFFF;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 22px 24px;
+      color: var(--text-muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    /* Article Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      backdrop-filter: blur(2px);
+    }
+    .modal-overlay.active { display: flex; }
+    .modal-content {
+      background: #FFFFFF;
+      border-radius: 16px;
+      padding: 40px 44px 36px;
+      max-width: 700px;
+      width: 100%;
+      max-height: 82vh;
+      overflow-y: auto;
+      position: relative;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.22), 0 4px 16px rgba(0,0,0,0.10);
+    }
+    .modal-close {
+      position: absolute;
+      top: 18px;
+      right: 22px;
+      background: none;
+      border: none;
+      font-size: 22px;
+      cursor: pointer;
+      color: var(--text-muted);
+      line-height: 1;
+      padding: 4px;
+      border-radius: 4px;
+      transition: color 0.15s;
+    }
+    .modal-close:hover { color: #0F172A; }
+    .modal-source {
+      display: inline-flex;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      padding: 2px 10px;
+      border-radius: 4px;
+      margin-bottom: 16px;
+    }
+    .modal-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #0F172A;
+      line-height: 1.45;
+      margin-bottom: 20px;
+      letter-spacing: -0.3px;
+    }
+    .modal-divider {
+      height: 1px;
+      background: var(--border);
+      margin-bottom: 20px;
+    }
+    .modal-summary {
+      font-size: 14.5px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
+    .modal-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #0F172A;
+      color: #FFFFFF;
+      padding: 11px 22px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      transition: background 0.15s;
+    }
+    .modal-link:hover { background: #1E293B; }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      header { padding: 12px 16px; }
+      nav { top: 61px; }
+      main { padding: 24px 16px 40px; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .vocab-card { padding: 20px; }
+      .section-title { font-size: 17px; }
+      .modal-content { padding: 28px 20px 24px; }
+      .modal-title { font-size: 17px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <div class="header-logo">MD</div>
+      <div>
+        <div class="header-title">Morning Digest</div>
+        <div class="header-date">Tuesday, 17 November 2026</div>
+      </div>
+    </div>
+  </header>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="#key-announcements">⚡ Key Announcements</a>
+      <a href="#wealth">Wealth</a>
+      <a href="#trade">Trade</a>
+      <a href="#ai">AI</a>
+      <a href="#companies">Companies</a>
+      <a href="#product">Product</a>
+      <a href="#vocabulary">Vocabulary</a>
+    </div>
+  </nav>
+
+  <main>
+    
+      <section class="section-block alert-section" id="key-announcements"
+               style="--section-color:#D97706; --section-color-bg:#FFFBEB;">
+        <div class="section-header">
+          <h2 class="section-title">⚡ Key Announcements</h2>
+          <span class="section-count">2 items</span>
+        </div>
+        <div class="cards-grid">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Bank of Jordan Names Mastercard as Its Sole Card Provider"
+              data-source="FintechNews UAE"
+              data-summary="Bank of Jordan (BOJ) has entered a strategic deal with Mastercard to grow digital payments in Jordan, Palestine and Iraq. Mastercard will be the sole provider of all the bank’s cards and payment services."
+              data-link="https://fintechnews.ae/34972/payments/mastercard-bank-of-jordan-partnership-cards/">
+              <span class="card-source">FintechNews UAE</span>
+              <span class="card-title">Bank of Jordan Names Mastercard as Its Sole Card Provider</span>
+              <p class="card-summary">Bank of Jordan (BOJ) has entered a strategic deal with Mastercard to grow digital payments in Jordan, Palestine and Iraq. Mastercard will be the sole provider of all the bank’s cards and payment services.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Why Silver rates crashed from record high of ₹4 lakh per kg price to below ₹1.75 lakh? Experts explain 3 key reasons"
+              data-source="LiveMint Markets"
+              data-summary="Silver prices, which dazzled investors with a spectacular rally earlier this year, have suffered a dramatic reversal. From crossing the ₹4 lakh-per-kg mark on the MCX in January 2026, prices have tumbled below ₹1.75 lakh, raising questions about whether the precious metal&#x27;s rally has run out of steam."
+              data-link="https://www.livemint.com/market/commodities/why-silver-rates-crashed-from-record-high-of-rs-4-lakh-per-kg-price-to-below-rs-1-75-lakh-experts-explain-3-key-reasons-11794890469861.html">
+              <span class="card-source">LiveMint Markets</span>
+              <span class="card-title">Why Silver rates crashed from record high of ₹4 lakh per kg price to below ₹1.75 lakh? Experts explain 3 key reasons</span>
+              <p class="card-summary">Silver prices, which dazzled investors with a spectacular rally earlier this year, have suffered a dramatic reversal. From crossing the ₹4 lakh-per-kg mark on the MCX in January 2026, prices have tumbled below ₹1.75 lakh, raising questions about whether the precious metal&#x27;s rally has run out of steam.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+          </div>
+      </section>
+      <section class="section-block" id="wealth" style="--section-color:#10B981; --section-color-bg:#ECFDF5;">
+        <div class="section-header">
+          <h2 class="section-title">Wealth</h2>
+          <span class="section-count">7 articles</span>
+        </div>
+        
+          <div class="subsection">
+            <h3 class="subsection-title">Wealth Management</h3>
+            <div class="cards-grid">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Gold in wife’s name: Is it legal, tax-free and safe? 8 rules every Indian couple must know"
+              data-source="ET Wealth"
+              data-summary="Is it legal to buy gold in your wife’s name? Yes, but clubbing rules, cash limits, capital gains tax and seizure limits apply. Here is what Indian couples need to know before buying or selling."
+              data-link="https://economictimes.indiatimes.com/wealth/save/buy-gold-in-wifes-name-india-tax-rules/slideshow/135911063.cms">
+              <span class="card-source">ET Wealth</span>
+              <span class="card-title">Gold in wife’s name: Is it legal, tax-free and safe? 8 rules every Indian couple must know</span>
+              <p class="card-summary">Is it legal to buy gold in your wife’s name? Yes, but clubbing rules, cash limits, capital gains tax and seizure limits apply. Here is what Indian couples need to know before buying or selling.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="A Smarter Way to Invest in Real Estate | Senthil Kumar | ET Wealth Expo 2026"
+              data-source="ET Wealth"
+              data-summary="Choose your reason below and click on the Report button. This will alert our moderators to take action"
+              data-link="https://economictimes.indiatimes.com/wealth/real-estate/a-smarter-way-to-invest-in-real-estate-senthil-kumar-et-wealth-expo-2026/videoshow/135886737.cms">
+              <span class="card-source">ET Wealth</span>
+              <span class="card-title">A Smarter Way to Invest in Real Estate | Senthil Kumar | ET Wealth Expo 2026</span>
+              <p class="card-summary">Choose your reason below and click on the Report button. This will alert our moderators to take action</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Retirement Planning: 3 Buckets to Protect &amp; Grow Your Wealth | ET Wealth Expo 2026"
+              data-source="ET Wealth"
+              data-summary="Choose your reason below and click on the Report button. This will alert our moderators to take action"
+              data-link="https://economictimes.indiatimes.com/wealth/invest/retirement-planning-3-buckets-to-protect-grow-your-wealth-et-wealth-expo-2026/videoshow/135884187.cms">
+              <span class="card-source">ET Wealth</span>
+              <span class="card-title">Retirement Planning: 3 Buckets to Protect &amp; Grow Your Wealth | ET Wealth Expo 2026</span>
+              <p class="card-summary">Choose your reason below and click on the Report button. This will alert our moderators to take action</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+          </div>
+          </div>
+          <div class="subsection">
+            <h3 class="subsection-title">Fintech &amp; UAE Market</h3>
+            <div class="cards-grid">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Sokin Secures DFSA Licence and Launches AED Accounts in the UAE"
+              data-source="FintechNews UAE"
+              data-summary="Sokin has obtained a licence from the Dubai Financial Services Authority (DFSA). It holds the licence through its office in the Dubai International Financial Centre (DIFC). As a result, businesses can receive dirhams into a Sokin AED account."
+              data-link="https://fintechnews.ae/34978/payments/sokin-dfsa-licence-uae-aed-accounts/">
+              <span class="card-source">FintechNews UAE</span>
+              <span class="card-title">Sokin Secures DFSA Licence and Launches AED Accounts in the UAE</span>
+              <p class="card-summary">Sokin has obtained a licence from the Dubai Financial Services Authority (DFSA). It holds the licence through its office in the Dubai International Financial Centre (DIFC). As a result, businesses can receive dirhams into a Sokin AED account.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Top 4 Themes Shaping Bahrain Fintech in 2027-2030"
+              data-source="FintechNews UAE"
+              data-summary="Bahrain Fintech Bay (BFB), a fintech hub and ecosystem builder, expect four structural themes to reshape Bahrain’s fintech trajectory from 2027 through 2030, identifying agentic artificial intelligence (AI), stablecoins, open finance, and cross-border payments as the leading trends over the next four years."
+              data-link="https://fintechnews.ae/34896/bahrain/top-4-themes-shaping-bahrain-fintech-in-2027-2030/">
+              <span class="card-source">FintechNews UAE</span>
+              <span class="card-title">Top 4 Themes Shaping Bahrain Fintech in 2027-2030</span>
+              <p class="card-summary">Bahrain Fintech Bay (BFB), a fintech hub and ecosystem builder, expect four structural themes to reshape Bahrain’s fintech trajectory from 2027 through 2030, identifying agentic artificial intelligence (AI), stablecoins, open finance, and cross-border payments as the leading trends over the next four years.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+          </div>
+          </div>
+          <div class="subsection">
+            <h3 class="subsection-title">Funds &amp; ETFs</h3>
+            <div class="cards-grid">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="A trading strategy to ride out the Nvidia uncertainty and generate income in the process"
+              data-source="CNBC Investing"
+              data-summary="Jensen Huang&#x27;s abrupt resignation has sent shockwaves through the tech sector, dragging Nvidia&#x27;s (NVDA) stock down roughly 30% since Oct. 6. The market despises uncertainty, and losing a visionary founder, particularly one without a well-telegraphed succession plan, makes it worse."
+              data-link="https://www.cnbc.com/2026/11/13/a-trading-strategy-to-ride-out-the-nvidia-uncertainty-and-generate-income-in-the-process.html">
+              <span class="card-source">CNBC Investing</span>
+              <span class="card-title">A trading strategy to ride out the Nvidia uncertainty and generate income in the process</span>
+              <p class="card-summary">Jensen Huang&#x27;s abrupt resignation has sent shockwaves through the tech sector, dragging Nvidia&#x27;s (NVDA) stock down roughly 30% since Oct. 6. The market despises uncertainty, and losing a visionary founder, particularly one without a well-telegraphed succession plan, makes it worse.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="China’s slowdown deepens in October as industrial output, retail sales, investment miss estimates"
+              data-source="CNBC Finance"
+              data-summary="China&#x27;s economic slowdown worsened in October with retail sales, investment and industrial output all missing economists&#x27; estimates, as analysts warn a growing reliance on external demand leaves growth more exposed to shocks abroad."
+              data-link="https://www.cnbc.com/2026/11/16/china-retail-sales-october-industrial-output-investment.html">
+              <span class="card-source">CNBC Finance</span>
+              <span class="card-title">China’s slowdown deepens in October as industrial output, retail sales, investment miss estimates</span>
+              <p class="card-summary">China&#x27;s economic slowdown worsened in October with retail sales, investment and industrial output all missing economists&#x27; estimates, as analysts warn a growing reliance on external demand leaves growth more exposed to shocks abroad.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+          </div>
+          </div>
+      </section>
+      <section class="section-block" id="trade" style="--section-color:#3B82F6; --section-color-bg:#EFF6FF;">
+        <div class="section-header">
+          <h2 class="section-title">Trade</h2>
+          <span class="section-count">11 articles</span>
+        </div>
+        
+          <div class="subsection">
+            <h3 class="subsection-title">Global Indices (India · US · HKEX · LSE)</h3>
+            <div class="cards-grid">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Traders pour cash into BlackRock’s India ETF as AI rout deepens"
+              data-source="ET Markets"
+              data-summary="Investors poured over $316 million into BlackRock’s iShares MSCI India ETF last week, its largest weekly inflow since June 2025, as AI-related volatility drove diversification away from technology-heavy markets. Strong Indian equities, lower oil prices and improving earnings boosted sentiment, while foreign investors increasingly reversed their bearish positioning."
+              data-link="https://economictimes.indiatimes.com/markets/stocks/news/traders-pour-cash-into-blackrocks-india-etf-as-ai-rout-deepens/articleshow/135909707.cms">
+              <span class="card-source">ET Markets</span>
+              <span class="card-title">Traders pour cash into BlackRock’s India ETF as AI rout deepens</span>
+              <p class="card-summary">Investors poured over $316 million into BlackRock’s iShares MSCI India ETF last week, its largest weekly inflow since June 2025, as AI-related volatility drove diversification away from technology-heavy markets. Strong Indian equities, lower oil prices and improving earnings boosted sentiment, while foreign investors increasingly reversed their bearish positioning.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Blue Star among 4 stocks closing above VWAP"
+              data-source="ET Markets"
+              data-summary="Four Nifty500 stocks closed more than 1.5% above their respective volume-weighted average prices on November 17, according to StockEdge’s technical scan."
+              data-link="https://economictimes.indiatimes.com/markets/stocks/news/blue-star-among-4-stocks-closing-above-vwap/slideshow/135909667.cms">
+              <span class="card-source">ET Markets</span>
+              <span class="card-title">Blue Star among 4 stocks closing above VWAP</span>
+              <p class="card-summary">Four Nifty500 stocks closed more than 1.5% above their respective volume-weighted average prices on November 17, according to StockEdge’s technical scan.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+          </div>
+          </div>
+          <div class="subsection">
+            <h3 class="subsection-title">Commodities &amp; Precious Metals (Spot Gold/Silver LBMA)</h3>
+            <div class="cards-grid">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Silver demand is set to fall 5% in 2026 as jewellery buyers walk away"
+              data-source="Metals Focus"
+              data-summary="Most Read ByteDance opens its cheaper Seedance 2.5… Anthropic&#x27;s $64 billion IPO lands in… SpaceXAI cuts about 60 Grok Imagine… Decart Sharpens Its Live Video Model… ByteDance opens its cheaper Seedance 2.5… Anthropic&#x27;s $64 billion IPO lands in… SpaceXAI cuts about 60 Grok Imagine… Decart Sharpens Its Live Video Model…"
+              data-link="https://startupfortune.com/silver-demand-is-set-to-fall-5-in-2026-as-jewellery-buyers-walk-away/#new_tab">
+              <span class="card-source">Metals Focus</span>
+              <span class="card-title">Silver demand is set to fall 5% in 2026 as jewellery buyers walk away</span>
+              <p class="card-summary">Most Read ByteDance opens its cheaper Seedance 2.5… Anthropic&#x27;s $64 billion IPO lands in… SpaceXAI cuts about 60 Grok Imagine… Decart Sharpens Its Live Video Model… ByteDance opens its cheaper Seedance 2.5… Anthropic&#x27;s $64 billion IPO lands in… SpaceXAI cuts about 60 Grok Imagine… Decart Sharpens Its Live Video Model…</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Silver Demand Is Set To Slip In 2026"
+              data-source="Metals Focus"
+              data-summary="Metals Focus expects total demand to dip to 1.08 billion troy ounces in 2026 (from 1.132 billion in 2025). It sees industrial use down 3% as solar installations, especially in China, missed expectations and manufacturers used less silver per panel or swapped in alternatives after prices rose."
+              data-link="https://finimize.com/content/silver-demand-is-set-to-slip-in-2026#new_tab">
+              <span class="card-source">Metals Focus</span>
+              <span class="card-title">Silver Demand Is Set To Slip In 2026</span>
+              <p class="card-summary">Metals Focus expects total demand to dip to 1.08 billion troy ounces in 2026 (from 1.132 billion in 2025). It sees industrial use down 3% as solar installations, especially in China, missed expectations and manufacturers used less silver per panel or swapped in alternatives after prices rose.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Silver faces sixth annual deficit despite weaker solar demand"
+              data-source="Metals Focus"
+              data-summary="SILVER is heading for a sixth consecutive annual supply deficit in 2026, despite falling industrial demand from solar panel manufacturers, Bloomberg reported. Demand from manufacturers, jewellers and investors is forecast to decline 5% to 1.08 billion ounces this year, according to preliminary estimates from the Silver Institute."
+              data-link="https://miningmx.com/2026-11-13-silver-faces-sixth-annual-deficit-despite-weaker-solar-demand/#new_tab">
+              <span class="card-source">Metals Focus</span>
+              <span class="card-title">Silver faces sixth annual deficit despite weaker solar demand</span>
+              <p class="card-summary">SILVER is heading for a sixth consecutive annual supply deficit in 2026, despite falling industrial demand from solar panel manufacturers, Bloomberg reported. Demand from manufacturers, jewellers and investors is forecast to decline 5% to 1.08 billion ounces this year, according to preliminary estimates from the Silver Institute.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+          </div>
+          </div>
+          <div class="subsection">
+            <h3 class="subsection-title">Crypto</h3>
+            <div class="cards-grid">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Crypto Market Value Jumped 40% in Q3, but Retail Spot Trading Didn’t Follow"
+              data-source="Finance Magnates"
+              data-summary="eToro&#x27;s funded user accounts jumped 18% over the past year, yet its clients placed 62% fewer crypto trades this October than a year earlier. That disconnect captures the paradox of the third quarter: crypto prices staged 40% rebound, but the retail spot trading volumes did not."
+              data-link="https://www.financemagnates.com/forex/crypto-market-value-jumped-40-in-q3-but-retail-spot-trading-didnt-follow/">
+              <span class="card-source">Finance Magnates</span>
+              <span class="card-title">Crypto Market Value Jumped 40% in Q3, but Retail Spot Trading Didn’t Follow</span>
+              <p class="card-summary">eToro&#x27;s funded user accounts jumped 18% over the past year, yet its clients placed 62% fewer crypto trades this October than a year earlier. That disconnect captures the paradox of the third quarter: crypto prices staged 40% rebound, but the retail spot trading volumes did not.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Coincheck Scraps Aplo Brokerage in $18.8M Reversal, Folding Tech into 3iQ"
+              data-source="Finance Magnates"
+              data-summary="Coincheck Group is winding down its French institutional crypto prime broker, Aplo, just 13 months after acquisition. The group recorded an $18.8 million impairment tied to Aplo for the quarter ended September, contributing to a $26.3 million net quarterly loss, compared with a $2.3 million profit a year earlier."
+              data-link="https://www.financemagnates.com/cryptocurrency/exchange/coincheck-scraps-aplo-brokerage-in-188m-reversal-folding-tech-into-3iq/">
+              <span class="card-source">Finance Magnates</span>
+              <span class="card-title">Coincheck Scraps Aplo Brokerage in $18.8M Reversal, Folding Tech into 3iQ</span>
+              <p class="card-summary">Coincheck Group is winding down its French institutional crypto prime broker, Aplo, just 13 months after acquisition. The group recorded an $18.8 million impairment tied to Aplo for the quarter ended September, contributing to a $26.3 million net quarterly loss, compared with a $2.3 million profit a year earlier.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Kraken Parent Payward Breaks Trading Reliance as Services and Custody Drive Q3 Margin"
+              data-source="Finance Magnates"
+              data-summary="Kraken parent Payward is decoupling its profitability from the crypto trading cycle. In the third quarter, client assets and enterprise services generated 52% of the group’s core margin, eclipsing trading commissions for the first time.The Shift from Churn to CustodyThe structural shift helped Payward nearly triple its adjusted EBITDA to"
+              data-link="https://www.financemagnates.com/cryptocurrency/exchange/kraken-parent-payward-breaks-trading-reliance-as-services-and-custody-drive-q3-margin/">
+              <span class="card-source">Finance Magnates</span>
+              <span class="card-title">Kraken Parent Payward Breaks Trading Reliance as Services and Custody Drive Q3 Margin</span>
+              <p class="card-summary">Kraken parent Payward is decoupling its profitability from the crypto trading cycle. In the third quarter, client assets and enterprise services generated 52% of the group’s core margin, eclipsing trading commissions for the first time.The Shift from Churn to CustodyThe structural shift helped Payward nearly triple its adjusted EBITDA to</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+          </div>
+          </div>
+          <div class="subsection">
+            <h3 class="subsection-title">CFDs &amp; Margin</h3>
+            <div class="cards-grid">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="GODO Advances from Introducing Broker to Full UAE Dealing Licensee"
+              data-source="Finance Magnates"
+              data-summary="Brokerage group GODO has secured a Category 1 licence from the UAE Capital Market Authority (CMA), advancing from an onshore introducing agent into a fully authorised local dealing entity.GODO have announced the licence following initial approval in August and the completion of the regulator&#x27;s remaining requirements."
+              data-link="https://www.financemagnates.com/forex/regulation/godo-advances-from-introducing-broker-to-full-uae-dealing-licensee/">
+              <span class="card-source">Finance Magnates</span>
+              <span class="card-title">GODO Advances from Introducing Broker to Full UAE Dealing Licensee</span>
+              <p class="card-summary">Brokerage group GODO has secured a Category 1 licence from the UAE Capital Market Authority (CMA), advancing from an onshore introducing agent into a fully authorised local dealing entity.GODO have announced the licence following initial approval in August and the completion of the regulator&#x27;s remaining requirements.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Shift Markets’ Ian McAfee on how FX brokers can add event markets without rebuilding the stack"
+              data-source="LeapRate"
+              data-summary="Shift Markets CEO Ian McAfee explains how FX and CFD brokers can add event contracts, source liquidity and manage risk without rebuilding their platform."
+              data-link="https://www.leaprate.com/opinion-interviews/ian-mcafee-shift-markets-prediction-markets-brokers/">
+              <span class="card-source">LeapRate</span>
+              <span class="card-title">Shift Markets’ Ian McAfee on how FX brokers can add event markets without rebuilding the stack</span>
+              <p class="card-summary">Shift Markets CEO Ian McAfee explains how FX and CFD brokers can add event contracts, source liquidity and manage risk without rebuilding their platform.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Exness launches Anthropic CFD following public market debut"
+              data-source="LeapRate"
+              data-summary="Exness clients can trade Anthropic price movements on Exness Terminal, MetaTrader 4, and MetaTrader 5. Exness clients can trade Anthropic price movements on Exness Terminal, MetaTrader 4, and MetaTrader 5."
+              data-link="https://www.leaprate.com/retail-fx-cfd/exness-launches-anthropic-cfd-following-public-market-debut/">
+              <span class="card-source">LeapRate</span>
+              <span class="card-title">Exness launches Anthropic CFD following public market debut</span>
+              <p class="card-summary">Exness clients can trade Anthropic price movements on Exness Terminal, MetaTrader 4, and MetaTrader 5. Exness clients can trade Anthropic price movements on Exness Terminal, MetaTrader 4, and MetaTrader 5.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+          </div>
+          </div>
+      </section>
+      <section class="section-block" id="ai" style="--section-color:#8B5CF6; --section-color-bg:#F5F3FF;">
+        <div class="section-header">
+          <h2 class="section-title">AI</h2>
+          <span class="section-count">5 articles</span>
+        </div>
+        <div class="cards-grid">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Cybersecurity AI startup Corma reaches $1B valuation in about 3 months"
+              data-source="TechCrunch AI"
+              data-summary="Three months after introducing its product, AI cybersecurity startup Corma has raised a $125 million Series A round at a $1 billion valuation led by NEA, the company said. Corma offers AI models and agents trained for cybersecurity defense."
+              data-link="https://techcrunch.com/2026/11/16/cybersecurity-ai-startup-corma-reaches-1b-valuation-in-about-3-months/">
+              <span class="card-source">TechCrunch AI</span>
+              <span class="card-title">Cybersecurity AI startup Corma reaches $1B valuation in about 3 months</span>
+              <p class="card-summary">Three months after introducing its product, AI cybersecurity startup Corma has raised a $125 million Series A round at a $1 billion valuation led by NEA, the company said. Corma offers AI models and agents trained for cybersecurity defense.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="All the questions Nvidia should answer on Tuesday — but probably won’t"
+              data-source="TechCrunch AI"
+              data-summary="All the questions Nvidia should answer on Tuesday — but probably won’t Julie Bort 2:03 PM PST · November 16, 2026 Nvidia interim CEO and longtime CFO Colette Kress is about to have one of the biggest days of her career on Tuesday when the company reports its third-quarter results."
+              data-link="https://techcrunch.com/2026/11/16/all-the-questions-nvidia-should-answer-on-tuesday-but-probably-wont/">
+              <span class="card-source">TechCrunch AI</span>
+              <span class="card-title">All the questions Nvidia should answer on Tuesday — but probably won’t</span>
+              <p class="card-summary">All the questions Nvidia should answer on Tuesday — but probably won’t Julie Bort 2:03 PM PST · November 16, 2026 Nvidia interim CEO and longtime CFO Colette Kress is about to have one of the biggest days of her career on Tuesday when the company reports its third-quarter results.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="California state AG sues OpenAI over rogue agent incidents"
+              data-source="TechCrunch AI"
+              data-summary="California state AG sues OpenAI over rogue agent incidents Russell Brandom 12:07 PM PST · November 16, 2026 OpenAI is facing a new lawsuit from the California Attorney General’s office, alleging that the company’s training practices and lax security pose an ongoing danger to the public."
+              data-link="https://techcrunch.com/2026/11/16/california-state-ag-sues-openai-over-rogue-agent-incidents/">
+              <span class="card-source">TechCrunch AI</span>
+              <span class="card-title">California state AG sues OpenAI over rogue agent incidents</span>
+              <p class="card-summary">California state AG sues OpenAI over rogue agent incidents Russell Brandom 12:07 PM PST · November 16, 2026 OpenAI is facing a new lawsuit from the California Attorney General’s office, alleging that the company’s training practices and lax security pose an ongoing danger to the public.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Trump says ex-Nvidia CEO Jensen Huang’s affair with an alleged Chinese spy did not threaten national security"
+              data-source="TechCrunch AI"
+              data-summary="Trump contradicted his own government&#x27;s intelligence officials, who reportedly concluded that Alice Huang is a Chinese spy."
+              data-link="https://techcrunch.com/2026/11/16/trump-says-ex-nvidia-ceo-jensen-huangs-affair-with-an-alleged-chinese-spy-did-not-threaten-national-security/">
+              <span class="card-source">TechCrunch AI</span>
+              <span class="card-title">Trump says ex-Nvidia CEO Jensen Huang’s affair with an alleged Chinese spy did not threaten national security</span>
+              <p class="card-summary">Trump contradicted his own government&#x27;s intelligence officials, who reportedly concluded that Alice Huang is a Chinese spy.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Sam Altman on Nvidia without Jensen Huang: The industry will be ‘fine’"
+              data-source="TechCrunch AI"
+              data-summary="Sam Altman on Nvidia without Jensen Huang: The industry will be ‘fine’ Rebecca Bellan 10:11 AM PST · November 16, 2026 OpenAI CEO Sam Altman says the AI industry will be “fine” without Nvidia CEO Jensen Huang at the helm, even as he acknowledged the special role Huang has played"
+              data-link="https://techcrunch.com/2026/11/16/sam-altman-on-nvidia-without-jensen-huang-the-industry-will-be-fine/">
+              <span class="card-source">TechCrunch AI</span>
+              <span class="card-title">Sam Altman on Nvidia without Jensen Huang: The industry will be ‘fine’</span>
+              <p class="card-summary">Sam Altman on Nvidia without Jensen Huang: The industry will be ‘fine’ Rebecca Bellan 10:11 AM PST · November 16, 2026 OpenAI CEO Sam Altman says the AI industry will be “fine” without Nvidia CEO Jensen Huang at the helm, even as he acknowledged the special role Huang has played</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+          </div>
+      </section>
+      <section class="section-block" id="companies" style="--section-color:#F59E0B; --section-color-bg:#FFFBEB;">
+        <div class="section-header">
+          <h2 class="section-title">Companies</h2>
+          <span class="section-count">5 articles</span>
+        </div>
+        <div class="cards-grid">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Cyber giant Infoblox confirms security incident after hackers access ‘company information’"
+              data-source="TechCrunch"
+              data-summary="TechCrunch reports: Cyber giant Infoblox confirms security incident after hackers access ‘company information’."
+              data-link="https://techcrunch.com/2026/11/16/cyber-giant-infoblox-confirms-security-incident-after-hackers-access-company-information/">
+              <span class="card-source">TechCrunch</span>
+              <span class="card-title">Cyber giant Infoblox confirms security incident after hackers access ‘company information’</span>
+              <p class="card-summary">TechCrunch reports: Cyber giant Infoblox confirms security incident after hackers access ‘company information’.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Apple reveals new Mac security controls as AI agents raise privacy risks"
+              data-source="TechCrunch"
+              data-summary="Apple reveals new Mac security controls as AI agents raise privacy risks Sarah Perez 1:01 PM PST · November 16, 2026 As promised last month, Apple on Monday announced changes to Mac security controls designed to protect users’ data from the growing popularity of AI agents and their apps’ demand"
+              data-link="https://techcrunch.com/2026/11/16/apple-reveals-new-mac-security-controls-as-ai-agents-raise-privacy-risks/">
+              <span class="card-source">TechCrunch</span>
+              <span class="card-title">Apple reveals new Mac security controls as AI agents raise privacy risks</span>
+              <p class="card-summary">Apple reveals new Mac security controls as AI agents raise privacy risks Sarah Perez 1:01 PM PST · November 16, 2026 As promised last month, Apple on Monday announced changes to Mac security controls designed to protect users’ data from the growing popularity of AI agents and their apps’ demand</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="In The AI Era, Keep Hiring New College Grads — And Make Them Managers From Day One"
+              data-source="Crunchbase News"
+              data-summary="A few months ago, I was sitting lakeside with a neighbor. He is the head of AI for a pharmaceutical company, and he mentioned the truly incredible productivity his senior team is receiving from AI."
+              data-link="https://news.crunchbase.com/ai/new-college-grads-workforce-management-morse-strattam-quoia-kse/">
+              <span class="card-source">Crunchbase News</span>
+              <span class="card-title">In The AI Era, Keep Hiring New College Grads — And Make Them Managers From Day One</span>
+              <p class="card-summary">A few months ago, I was sitting lakeside with a neighbor. He is the head of AI for a pharmaceutical company, and he mentioned the truly incredible productivity his senior team is receiving from AI.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="VC Firm Plural Closes On $1.1B To Invest In European Startups With Potential For ‘GDP-Level Impact’"
+              data-source="Crunchbase News"
+              data-summary="Early-stage startup investor Plural says it has closed on its largest fund to date — just over $1.1 billion, or 1 billion euros — to lead early-stage investments across Europe."
+              data-link="https://news.crunchbase.com/venture/plural-closes-billion-euro-fund-european-ai-robotics-defense-startup-investment/">
+              <span class="card-source">Crunchbase News</span>
+              <span class="card-title">VC Firm Plural Closes On $1.1B To Invest In European Startups With Potential For ‘GDP-Level Impact’</span>
+              <p class="card-summary">Early-stage startup investor Plural says it has closed on its largest fund to date — just over $1.1 billion, or 1 billion euros — to lead early-stage investments across Europe.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Crunchbase Data: Nvidia’s Startup Funding Deals Hit A Record. What’s Next After Huang?"
+              data-source="Crunchbase News"
+              data-summary="Before it was thrust into crisis this week, Nvidia was steadily continuing its pace as one of the busiest startup investors around, including backing many of the biggest venture deals of 2026."
+              data-link="https://news.crunchbase.com/venture/huang-nvda-ai-startup-funding-record-2026/">
+              <span class="card-source">Crunchbase News</span>
+              <span class="card-title">Crunchbase Data: Nvidia’s Startup Funding Deals Hit A Record. What’s Next After Huang?</span>
+              <p class="card-summary">Before it was thrust into crisis this week, Nvidia was steadily continuing its pace as one of the busiest startup investors around, including backing many of the biggest venture deals of 2026.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+          </div>
+      </section>
+      <section class="section-block" id="product" style="--section-color:#EC4899; --section-color-bg:#FDF2F8;">
+        <div class="section-header">
+          <h2 class="section-title">Product</h2>
+          <span class="section-count">5 articles</span>
+        </div>
+        <div class="cards-grid">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Apple adds ‘face unlock’ to the iPhone Duo, but it’s not Face ID"
+              data-source="TechCrunch Apps"
+              data-summary="Apple adds ‘face unlock’ to the iPhone Duo, but it’s not Face ID Sarah Perez 11:26 AM PST · November 16, 2026 One of the top complaints from tech reviewers about Apple’s new foldable, the iPhone Duo, has been its reliance on Touch ID, a technology that’s been largely replaced"
+              data-link="https://techcrunch.com/2026/11/16/apple-adds-face-unlock-to-the-iphone-duo-but-its-not-face-id/">
+              <span class="card-source">TechCrunch Apps</span>
+              <span class="card-title">Apple adds ‘face unlock’ to the iPhone Duo, but it’s not Face ID</span>
+              <p class="card-summary">Apple adds ‘face unlock’ to the iPhone Duo, but it’s not Face ID Sarah Perez 11:26 AM PST · November 16, 2026 One of the top complaints from tech reviewers about Apple’s new foldable, the iPhone Duo, has been its reliance on Touch ID, a technology that’s been largely replaced</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Island is a new screen-time app that turns staying off your phone into a game"
+              data-source="TechCrunch Apps"
+              data-summary="Island is a new screen-time app that turns staying off your phone into a game Sarah Perez 10:54 AM PST · November 16, 2026 A new startup is taking a different approach to helping people manage their screen time."
+              data-link="https://techcrunch.com/2026/11/16/island-is-a-new-screen-time-app-that-turns-staying-off-your-phone-into-a-game/">
+              <span class="card-source">TechCrunch Apps</span>
+              <span class="card-title">Island is a new screen-time app that turns staying off your phone into a game</span>
+              <p class="card-summary">Island is a new screen-time app that turns staying off your phone into a game Sarah Perez 10:54 AM PST · November 16, 2026 A new startup is taking a different approach to helping people manage their screen time.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Instagram now lets creators add Amazon affiliate links in reels and feed posts"
+              data-source="TechCrunch Apps"
+              data-summary="Instagram now lets creators add Amazon affiliate links in reels and feed posts Aisha Malik 9:00 AM PST · November 16, 2026 Instagram announced on Monday that it’s launching an integration that will give creators a new way to earn by adding Amazon affiliate links directly in reels and feed"
+              data-link="https://techcrunch.com/2026/11/16/instagram-now-lets-creators-add-amazon-affiliate-links-in-reels-and-feed-posts/">
+              <span class="card-source">TechCrunch Apps</span>
+              <span class="card-title">Instagram now lets creators add Amazon affiliate links in reels and feed posts</span>
+              <p class="card-summary">Instagram now lets creators add Amazon affiliate links in reels and feed posts Aisha Malik 9:00 AM PST · November 16, 2026 Instagram announced on Monday that it’s launching an integration that will give creators a new way to earn by adding Amazon affiliate links directly in reels and feed</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="OpenAI releases a new image classifier and ChatGPT warnings to combat CSAM"
+              data-source="TechCrunch Apps"
+              data-summary="OpenAI releases a new image classifier and ChatGPT warnings to combat CSAM Ivan Mehta 9:00 AM PST · November 16, 2026 OpenAI today announced new tools to combat child sexual abuse material (CSAM) amid growing safety concerns around the use of AI tools."
+              data-link="https://techcrunch.com/2026/11/16/openai-releases-a-new-image-classifier-and-chatgpt-warnings-to-combat-csam/">
+              <span class="card-source">TechCrunch Apps</span>
+              <span class="card-title">OpenAI releases a new image classifier and ChatGPT warnings to combat CSAM</span>
+              <p class="card-summary">OpenAI releases a new image classifier and ChatGPT warnings to combat CSAM Ivan Mehta 9:00 AM PST · November 16, 2026 OpenAI today announced new tools to combat child sexual abuse material (CSAM) amid growing safety concerns around the use of AI tools.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="OpenBot"
+              data-source="Product Hunt"
+              data-summary="Grok Bot alternative: self-host, fully customize, any stack Discussion | Link"
+              data-link="https://www.producthunt.com/products/copilotkit">
+              <span class="card-source">Product Hunt</span>
+              <span class="card-title">OpenBot</span>
+              <p class="card-summary">Grok Bot alternative: self-host, fully customize, any stack Discussion | Link</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+          </div>
+      </section>
+      <section class="section-block" id="vocabulary" style="--section-color:#6366F1; --section-color-bg:#EEF2FF;">
+        <div class="section-header">
+          <h2 class="section-title">Vocabulary</h2>
+          <span class="section-count">5 terms today</span>
+        </div>
+        <div class="vocab-grid">
+          
+        <div class="vocab-card">
+          <p class="vocab-label">Term 1 of 5</p>
+          <h3 class="vocab-term">Smart Order Routing (SOR)</h3>
+          <p class="vocab-definition">Algorithms that scan multiple trading venues in real time — exchanges, dark pools, MTFs — and split or route orders to achieve best execution. SOR weighs price, size, speed, and fill probability simultaneously. Under MiFID II and similar regimes, brokers must demonstrate best execution to clients, making SOR infrastructure central to compliance as well as competitiveness. Latency (measured in microseconds) is the key battleground for institutional SOR systems.</p>
+        </div>
+        <div class="vocab-card">
+          <p class="vocab-label">Term 2 of 5</p>
+          <h3 class="vocab-term">Liquidity Coverage Ratio (LCR)</h3>
+          <p class="vocab-definition">A Basel III requirement that banks hold sufficient high-quality liquid assets (HQLA — cash, central bank reserves, government bonds) to cover 30 days of net cash outflows in a stress scenario. The minimum LCR is 100%. The March 2023 US regional banking crisis exposed the LCR&#x27;s limitations: Silicon Valley Bank was exempt as a mid-size bank, and uninsured depositor runs proved faster than the 30-day horizon assumed. LCR compliance is now a key metric for institutional counterparty assessment.</p>
+        </div>
+        <div class="vocab-card">
+          <p class="vocab-label">Term 3 of 5</p>
+          <h3 class="vocab-term">Algorithmic Market Making</h3>
+          <p class="vocab-definition">Automated quoting of two-sided markets (bid and ask) across many securities simultaneously, using statistical models to calibrate spread, size, and inventory targets. Algorithmic market makers earn the bid-ask spread while managing the risk of holding inventory during adverse price moves. Sophisticated models incorporate order-book dynamics, short-term momentum, and correlated assets. In equities and FX, algorithmic market making has essentially replaced human specialists, compressing spreads dramatically while creating new fragility under extreme conditions.</p>
+        </div>
+        <div class="vocab-card">
+          <p class="vocab-label">Term 4 of 5</p>
+          <h3 class="vocab-term">Alpha Decay</h3>
+          <p class="vocab-definition">The deterioration of a systematic trading signal&#x27;s predictive power over time as more capital exploits it. Once an academic paper documents a factor anomaly, assets flow in until arbitrage pressure eliminates the excess return. Quant funds track half-life of signals — the time for return to erode by half — when sizing positions and retiring strategies. Frequent rebalancing, transaction costs, and market impact all accelerate decay. Managing alpha decay is arguably the central operational challenge in quantitative asset management.</p>
+        </div>
+        <div class="vocab-card">
+          <p class="vocab-label">Term 5 of 5</p>
+          <h3 class="vocab-term">VWAP / TWAP</h3>
+          <p class="vocab-definition">Volume-Weighted Average Price and Time-Weighted Average Price are execution benchmarks and algorithmic trading strategies. VWAP weights the average price by volume, reflecting the &#x27;true&#x27; average trade price across a session. TWAP simply averages prices evenly over time. Institutional desks measure execution quality against VWAP — beating VWAP means buying below or selling above the session average. TWAP algorithms minimise market impact for illiquid securities by spreading large orders evenly over time, accepting price uncertainty in exchange for reduced signalling risk.</p>
+        </div>
+        </div>
+      </section>
+  </main>
+
+  <footer>
+    <p>Auto-generated daily at 8:00 AM IST</p>
+    <p style="margin-top:4px;">Sources: Economic Times · LiveMint · Bloomberg · TechCrunch · Crunchbase · FintechNews.ae · Arabian Business · Reuters · CNBC · CoinDesk · Cointelegraph · Kitco · BullionVault &amp; more</p>
+  </footer>
+
+  <!-- Article Modal -->
+  <div id="article-modal" class="modal-overlay" onclick="handleOverlayClick(event)">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeArticleModal()" aria-label="Close">&times;</button>
+      <span class="modal-source" id="modal-source"></span>
+      <h2 class="modal-title" id="modal-title"></h2>
+      <div class="modal-divider"></div>
+      <p class="modal-summary" id="modal-summary"></p>
+      <a class="modal-link" id="modal-link" href="#" target="_blank" rel="noopener noreferrer">
+        Read Full Article &rarr;
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // Dynamically pin nav below header and set scroll-margin-top on sections
+    function fixStickyOffsets() {
+      var headerH = document.querySelector('header').offsetHeight;
+      var nav = document.querySelector('nav');
+      nav.style.top = headerH + 'px';
+      var offset = headerH + nav.offsetHeight + 8;
+      document.querySelectorAll('.section-block').forEach(function(el) {
+        el.style.scrollMarginTop = offset + 'px';
+      });
+    }
+    fixStickyOffsets();
+    window.addEventListener('resize', fixStickyOffsets);
+
+    function openArticle(card) {
+      document.getElementById('modal-source').textContent = card.dataset.source;
+      document.getElementById('modal-title').textContent = card.dataset.title;
+      document.getElementById('modal-summary').textContent = card.dataset.summary || 'No summary available.';
+      document.getElementById('modal-link').href = card.dataset.link;
+      document.getElementById('article-modal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function handleOverlayClick(e) {
+      if (e.target === document.getElementById('article-modal')) closeArticleModal();
+    }
+    function closeArticleModal() {
+      document.getElementById('article-modal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeArticleModal();
+    });
+    document.querySelectorAll('.card').forEach(function(card) {
+      card.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openArticle(card); }
+      });
+    });
+  </script>
+
+</body>
+</html>
