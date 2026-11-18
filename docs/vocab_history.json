@@ -1,11 +1,4 @@
 {
-  "2026-08-19": [
-    "MEV \u2013 Maximal Extractable Value",
-    "DORA \u2013 Digital Operational Resilience Act",
-    "RegTech",
-    "Embedded Payments / Super App",
-    "Liquidity Pool (DeFi)"
-  ],
   "2026-08-20": [
     "Alpha Decay",
     "Repo Rate",
@@ -635,5 +628,12 @@
     "Algorithmic Market Making",
     "Alpha Decay",
     "VWAP / TWAP"
+  ],
+  "2026-11-18": [
+    "UCITS",
+    "Value at Risk (VaR)",
+    "ISO 20022",
+    "Algorithmic Market Making",
+    "Funding Rate (Crypto)"
   ]
 }
