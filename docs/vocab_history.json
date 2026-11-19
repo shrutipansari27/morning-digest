@@ -1,11 +1,4 @@
 {
-  "2026-08-20": [
-    "Alpha Decay",
-    "Repo Rate",
-    "Stress Testing / DFAST",
-    "Duration",
-    "Dispersion Trading"
-  ],
   "2026-08-21": [
     "Prime Brokerage",
     "Repo Rate",
@@ -635,5 +628,12 @@
     "ISO 20022",
     "Algorithmic Market Making",
     "Funding Rate (Crypto)"
+  ],
+  "2026-11-19": [
+    "Smart Order Routing (SOR)",
+    "Prime Brokerage",
+    "Payment for Order Flow (PFOF)",
+    "Collateral Transformation",
+    "Collateral Management"
   ]
 }
