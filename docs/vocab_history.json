@@ -1,11 +1,4 @@
 {
-  "2026-08-21": [
-    "Prime Brokerage",
-    "Repo Rate",
-    "Tokenisation of Real-World Assets (RWA)",
-    "Sharpe Ratio",
-    "Cross-Margining"
-  ],
   "2026-08-22": [
     "Securities Lending",
     "Repo / Reverse Repo",
@@ -634,6 +627,13 @@
     "Prime Brokerage",
     "Payment for Order Flow (PFOF)",
     "Collateral Transformation",
+    "Collateral Management"
+  ],
+  "2026-11-20": [
+    "UCITS",
+    "Sharpe Ratio",
+    "AUM \u2013 Assets Under Management",
+    "Transaction Cost Analysis (TCA)",
     "Collateral Management"
   ]
 }

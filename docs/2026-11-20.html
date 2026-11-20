@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Digest — Friday, 20 November 2026</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #F8FAFC;
+      --surface: #FFFFFF;
+      --border: #E2E8F0;
+      --text-primary: #0F172A;
+      --text-secondary: #475569;
+      --text-muted: #94A3B8;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-hover: 0 6px 20px rgba(0,0,0,0.10), 0 2px 6px rgba(0,0,0,0.06);
+      --radius: 12px;
+      --section-color: #64748B;
+      --section-color-bg: #F8FAFC;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Header */
+    header {
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .header-logo {
+      width: 34px;
+      height: 34px;
+      background: #0F172A;
+      color: #FFFFFF;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      flex-shrink: 0;
+    }
+    .header-title { font-size: 19px; font-weight: 700; color: #0F172A; letter-spacing: -0.4px; }
+    .header-date { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }
+
+    /* Navigation */
+    nav {
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      position: sticky;
+      top: 69px;
+      z-index: 99;
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .nav-inner::-webkit-scrollbar { display: none; }
+    .nav-inner a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 13px 14px;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .nav-inner a:hover {
+      color: #0F172A;
+      border-bottom-color: #CBD5E1;
+    }
+
+    /* Main */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 36px 24px 56px;
+    }
+
+    /* Section */
+    .section-block {
+      margin-bottom: 52px;
+      scroll-margin-top: 120px;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 14px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-title { font-size: 18px; font-weight: 700; color: #0F172A; letter-spacing: -0.3px; padding-left: 12px; border-left: 3px solid var(--section-color); }
+    .section-count {
+      margin-left: auto;
+      font-size: 11px;
+      color: var(--text-muted);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+
+    /* Subsections */
+    .subsection { margin-bottom: 28px; }
+    .subsection-title {
+      font-size: 10.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    /* Cards */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+      cursor: pointer;
+    }
+    .card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+    .card-source {
+      display: inline-flex;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      padding: 2px 8px;
+      border-radius: 4px;
+      width: fit-content;
+    }
+    .card-title {
+      font-size: 14.5px;
+      font-weight: 600;
+      color: #0F172A;
+      line-height: 1.45;
+      display: block;
+    }
+    .card:hover .card-title { color: var(--section-color); }
+    .card-summary {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      flex: 1;
+    }
+    .card-read-more {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--section-color);
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      margin-top: 2px;
+      opacity: 0.85;
+    }
+    .card:hover .card-read-more { opacity: 1; }
+    .empty-state { color: var(--text-muted); font-size: 14px; padding: 16px 0; }
+
+    /* Vocabulary */
+    .vocab-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 20px;
+    }
+    .vocab-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--section-color);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      box-shadow: var(--shadow);
+    }
+    .vocab-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--section-color);
+      margin-bottom: 8px;
+    }
+    .vocab-term { font-size: 17px; font-weight: 700; color: #0F172A; margin-bottom: 10px; letter-spacing: -0.3px; }
+    .vocab-definition { font-size: 13.5px; color: var(--text-secondary); line-height: 1.75; }
+
+    /* Footer */
+    footer {
+      background: #FFFFFF;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 22px 24px;
+      color: var(--text-muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    /* Article Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      backdrop-filter: blur(2px);
+    }
+    .modal-overlay.active { display: flex; }
+    .modal-content {
+      background: #FFFFFF;
+      border-radius: 16px;
+      padding: 40px 44px 36px;
+      max-width: 700px;
+      width: 100%;
+      max-height: 82vh;
+      overflow-y: auto;
+      position: relative;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.22), 0 4px 16px rgba(0,0,0,0.10);
+    }
+    .modal-close {
+      position: absolute;
+      top: 18px;
+      right: 22px;
+      background: none;
+      border: none;
+      font-size: 22px;
+      cursor: pointer;
+      color: var(--text-muted);
+      line-height: 1;
+      padding: 4px;
+      border-radius: 4px;
+      transition: color 0.15s;
+    }
+    .modal-close:hover { color: #0F172A; }
+    .modal-source {
+      display: inline-flex;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      padding: 2px 10px;
+      border-radius: 4px;
+      margin-bottom: 16px;
+    }
+    .modal-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #0F172A;
+      line-height: 1.45;
+      margin-bottom: 20px;
+      letter-spacing: -0.3px;
+    }
+    .modal-divider {
+      height: 1px;
+      background: var(--border);
+      margin-bottom: 20px;
+    }
+    .modal-summary {
+      font-size: 14.5px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
+    .modal-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #0F172A;
+      color: #FFFFFF;
+      padding: 11px 22px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      transition: background 0.15s;
+    }
+    .modal-link:hover { background: #1E293B; }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      header { padding: 12px 16px; }
+      nav { top: 61px; }
+      main { padding: 24px 16px 40px; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .vocab-card { padding: 20px; }
+      .section-title { font-size: 17px; }
+      .modal-content { padding: 28px 20px 24px; }
+      .modal-title { font-size: 17px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <div class="header-logo">MD</div>
+      <div>
+        <div class="header-title">Morning Digest</div>
+        <div class="header-date">Friday, 20 November 2026</div>
+      </div>
+    </div>
+  </header>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="#key-announcements">⚡ Key Announcements</a>
+      <a href="#wealth">Wealth</a>
+      <a href="#trade">Trade</a>
+      <a href="#ai">AI</a>
+      <a href="#companies">Companies</a>
+      <a href="#product">Product</a>
+      <a href="#vocabulary">Vocabulary</a>
+    </div>
+  </nav>
+
+  <main>
+    
+      <section class="section-block alert-section" id="key-announcements"
+               style="--section-color:#D97706; --section-color-bg:#FFFBEB;">
+        <div class="section-header">
+          <h2 class="section-title">⚡ Key Announcements</h2>
+          <span class="section-count">1 item</span>
+        </div>
+        <div class="cards-grid">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Bank of Jordan Names Mastercard as Its Sole Card Provider"
+              data-source="FintechNews UAE"
+              data-summary="Bank of Jordan (BOJ) has entered a strategic deal with Mastercard to grow digital payments in Jordan, Palestine and Iraq. Mastercard will be the sole provider of all the bank’s cards and payment services."
+              data-link="https://fintechnews.ae/34972/payments/mastercard-bank-of-jordan-partnership-cards/">
+              <span class="card-source">FintechNews UAE</span>
+              <span class="card-title">Bank of Jordan Names Mastercard as Its Sole Card Provider</span>
+              <p class="card-summary">Bank of Jordan (BOJ) has entered a strategic deal with Mastercard to grow digital payments in Jordan, Palestine and Iraq. Mastercard will be the sole provider of all the bank’s cards and payment services.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+          </div>
+      </section>
+      <section class="section-block" id="wealth" style="--section-color:#10B981; --section-color-bg:#ECFDF5;">
+        <div class="section-header">
+          <h2 class="section-title">Wealth</h2>
+          <span class="section-count">5 articles</span>
+        </div>
+        
+          <div class="subsection">
+            <h3 class="subsection-title">Wealth Management</h3>
+            <div class="cards-grid">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="How the middle class lose their savings to WhatsApp investment scams, and 5 red flags to spot early"
+              data-source="ET Wealth"
+              data-summary="ET Wealth reports: How the middle class lose their savings to WhatsApp investment scams, and 5 red flags to spot early."
+              data-link="https://economictimes.indiatimes.com/wealth/save/how-the-middle-class-lose-their-savings-to-whatsapp-investment-scams-and-5-red-flags-to-spot-early/slideshow/136013873.cms">
+              <span class="card-source">ET Wealth</span>
+              <span class="card-title">How the middle class lose their savings to WhatsApp investment scams, and 5 red flags to spot early</span>
+              <p class="card-summary">ET Wealth reports: How the middle class lose their savings to WhatsApp investment scams, and 5 red flags to spot early.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="India’s AI boom: 5 ways ordinary investors can invest in artificial intelligence"
+              data-source="ET Wealth"
+              data-summary="ET Wealth reports: India’s AI boom: 5 ways ordinary investors can invest in artificial intelligence."
+              data-link="https://economictimes.indiatimes.com/wealth/invest/indias-ai-boom-5-ways-ordinary-investors-can-invest-in-artificial-intelligence/slideshow/136013133.cms">
+              <span class="card-source">ET Wealth</span>
+              <span class="card-title">India’s AI boom: 5 ways ordinary investors can invest in artificial intelligence</span>
+              <p class="card-summary">ET Wealth reports: India’s AI boom: 5 ways ordinary investors can invest in artificial intelligence.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Understanding InvITs: How They Work, Generate Returns and Manage Risks"
+              data-source="ET Wealth"
+              data-summary="ListenInfrastructure investment trusts (InvITs) are not fixed deposits (FDs). They are not equities. So, what exactly are they?"
+              data-link="https://economictimes.indiatimes.com/wealth/invest/invits-are-not-fds-equities-or-reits-so-what-exactly-are-they-indigrids-harsh-shah-explains/articleshow/135985207.cms">
+              <span class="card-source">ET Wealth</span>
+              <span class="card-title">Understanding InvITs: How They Work, Generate Returns and Manage Risks</span>
+              <p class="card-summary">ListenInfrastructure investment trusts (InvITs) are not fixed deposits (FDs). They are not equities. So, what exactly are they?</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+          </div>
+          </div>
+          <div class="subsection">
+            <h3 class="subsection-title">Fintech &amp; UAE Market</h3>
+            <div class="cards-grid">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="UAE Platform du Pay Surpasses One Million Registered Customers"
+              data-source="FintechNews UAE"
+              data-summary="du Pay now has more than one million registered customers. The platform, which du launched two and a half years ago, has also processed over Dh10 billion in transactions. Employers such as Talabat and Maids.cc have brought du Pay to thousands of workers in the UAE, the company said."
+              data-link="https://fintechnews.ae/34995/payments/du-pay-one-million-customers-uae/">
+              <span class="card-source">FintechNews UAE</span>
+              <span class="card-title">UAE Platform du Pay Surpasses One Million Registered Customers</span>
+              <p class="card-summary">du Pay now has more than one million registered customers. The platform, which du launched two and a half years ago, has also processed over Dh10 billion in transactions. Employers such as Talabat and Maids.cc have brought du Pay to thousands of workers in the UAE, the company said.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Emirates NBD and State Street Explore Wealth Growth in New MOU"
+              data-source="FintechNews UAE"
+              data-summary="State Street and Emirates NBD have signed a memorandum of understanding (MOU) to explore closer ties. The two firms have worked together for more than ten years. In that time, State Street has handled custody and fund administration for Emirates NBD Asset Management."
+              data-link="https://fintechnews.ae/34989/wealthtech/state-street-emirates-nbd-mou-custody/">
+              <span class="card-source">FintechNews UAE</span>
+              <span class="card-title">Emirates NBD and State Street Explore Wealth Growth in New MOU</span>
+              <p class="card-summary">State Street and Emirates NBD have signed a memorandum of understanding (MOU) to explore closer ties. The two firms have worked together for more than ten years. In that time, State Street has handled custody and fund administration for Emirates NBD Asset Management.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+          </div>
+          </div>
+          <div class="subsection">
+            <h3 class="subsection-title">Funds &amp; ETFs</h3>
+            <p class="empty-state">No articles available right now.</p>
+          </div>
+      </section>
+      <section class="section-block" id="trade" style="--section-color:#3B82F6; --section-color-bg:#EFF6FF;">
+        <div class="section-header">
+          <h2 class="section-title">Trade</h2>
+          <span class="section-count">11 articles</span>
+        </div>
+        
+          <div class="subsection">
+            <h3 class="subsection-title">Global Indices (India · US · HKEX · LSE)</h3>
+            <div class="cards-grid">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Anthropic shares close 17% higher on first day of trading amid protest, arrests outside Nasdaq"
+              data-source="ET Markets"
+              data-summary="Choose your reason below and click on the Report button. This will alert our moderators to take action"
+              data-link="https://economictimes.indiatimes.com/markets/stocks/news/anthropic-shares-close-17-higher-on-first-day-of-trading-amid-protest-arrests-outside-nasdaq/videoshow/136013757.cms">
+              <span class="card-source">ET Markets</span>
+              <span class="card-title">Anthropic shares close 17% higher on first day of trading amid protest, arrests outside Nasdaq</span>
+              <p class="card-summary">Choose your reason below and click on the Report button. This will alert our moderators to take action</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="IndiGo, Tata Motors PV among 10 Nifty stocks facing earnings downgrades"
+              data-source="ET Markets"
+              data-summary="ET Markets reports: IndiGo, Tata Motors PV among 10 Nifty stocks facing earnings downgrades."
+              data-link="https://economictimes.indiatimes.com/markets/stocks/news/indigo-tata-motors-pv-among-10-nifty-stocks-facing-earnings-downgrades/slideshow/136012225.cms">
+              <span class="card-source">ET Markets</span>
+              <span class="card-title">IndiGo, Tata Motors PV among 10 Nifty stocks facing earnings downgrades</span>
+              <p class="card-summary">ET Markets reports: IndiGo, Tata Motors PV among 10 Nifty stocks facing earnings downgrades.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Axis Direct names 35 top stocks to buy; ICICI Bank, HUL and Maruti Suzuki feature in list"
+              data-source="ET Markets"
+              data-summary="Axis Direct has pinpointed 35 high-potential stocks spanning diverse sectors, including banking, cement, and pharmaceuticals, offering promising buying opportunities. Each stock features a target price indicating anticipated growth in the upcoming months."
+              data-link="https://economictimes.indiatimes.com/markets/stocks/news/axis-direct-names-35-top-stocks-to-buy-icici-bank-hul-and-maruti-suzuki-feature-in-list/slideshow/136011903.cms">
+              <span class="card-source">ET Markets</span>
+              <span class="card-title">Axis Direct names 35 top stocks to buy; ICICI Bank, HUL and Maruti Suzuki feature in list</span>
+              <p class="card-summary">Axis Direct has pinpointed 35 high-potential stocks spanning diverse sectors, including banking, cement, and pharmaceuticals, offering promising buying opportunities. Each stock features a target price indicating anticipated growth in the upcoming months.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+          </div>
+          </div>
+          <div class="subsection">
+            <h3 class="subsection-title">Commodities &amp; Precious Metals (Spot Gold/Silver LBMA)</h3>
+            <div class="cards-grid">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Silver demand is set to fall 5% in 2026 as jewellery buyers walk away"
+              data-source="Metals Focus"
+              data-summary="Most Read ByteDance opens its cheaper Seedance 2.5… Suno launches Visuals to turn AI… YouTube adds guessed TV co-viewers to… Anthropic&#x27;s $64 billion IPO lands in… ByteDance opens its cheaper Seedance 2.5… Suno launches Visuals to turn AI… YouTube adds guessed TV co-viewers to… Anthropic&#x27;s $64 billion IPO lands in…"
+              data-link="https://startupfortune.com/silver-demand-is-set-to-fall-5-in-2026-as-jewellery-buyers-walk-away/#new_tab">
+              <span class="card-source">Metals Focus</span>
+              <span class="card-title">Silver demand is set to fall 5% in 2026 as jewellery buyers walk away</span>
+              <p class="card-summary">Most Read ByteDance opens its cheaper Seedance 2.5… Suno launches Visuals to turn AI… YouTube adds guessed TV co-viewers to… Anthropic&#x27;s $64 billion IPO lands in… ByteDance opens its cheaper Seedance 2.5… Suno launches Visuals to turn AI… YouTube adds guessed TV co-viewers to… Anthropic&#x27;s $64 billion IPO lands in…</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Silver Demand Is Set To Slip In 2026"
+              data-source="Metals Focus"
+              data-summary="Metals Focus expects total demand to dip to 1.08 billion troy ounces in 2026 (from 1.132 billion in 2025). It sees industrial use down 3% as solar installations, especially in China, missed expectations and manufacturers used less silver per panel or swapped in alternatives after prices rose."
+              data-link="https://finimize.com/content/silver-demand-is-set-to-slip-in-2026#new_tab">
+              <span class="card-source">Metals Focus</span>
+              <span class="card-title">Silver Demand Is Set To Slip In 2026</span>
+              <p class="card-summary">Metals Focus expects total demand to dip to 1.08 billion troy ounces in 2026 (from 1.132 billion in 2025). It sees industrial use down 3% as solar installations, especially in China, missed expectations and manufacturers used less silver per panel or swapped in alternatives after prices rose.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Silver faces sixth annual deficit despite weaker solar demand"
+              data-source="Metals Focus"
+              data-summary="SILVER is heading for a sixth consecutive annual supply deficit in 2026, despite falling industrial demand from solar panel manufacturers, Bloomberg reported. Demand from manufacturers, jewellers and investors is forecast to decline 5% to 1.08 billion ounces this year, according to preliminary estimates from the Silver Institute."
+              data-link="https://miningmx.com/2026-11-13-silver-faces-sixth-annual-deficit-despite-weaker-solar-demand/#new_tab">
+              <span class="card-source">Metals Focus</span>
+              <span class="card-title">Silver faces sixth annual deficit despite weaker solar demand</span>
+              <p class="card-summary">SILVER is heading for a sixth consecutive annual supply deficit in 2026, despite falling industrial demand from solar panel manufacturers, Bloomberg reported. Demand from manufacturers, jewellers and investors is forecast to decline 5% to 1.08 billion ounces this year, according to preliminary estimates from the Silver Institute.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+          </div>
+          </div>
+          <div class="subsection">
+            <h3 class="subsection-title">Crypto</h3>
+            <div class="cards-grid">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Coinbase Entered Prediction Markets With Kalshi. Now It Plans to Become a Rival"
+              data-source="Finance Magnates"
+              data-summary="Coinbase Global Inc. is preparing to shift part of its prediction-market business onto its own infrastructure, to gain direct control over which markets it lists and to retain a larger share of trading revenue. The proprietary event contracts for U.S."
+              data-link="https://www.financemagnates.com/cryptocurrency/exchange/coinbase-entered-prediction-markets-with-kalshi-now-it-plans-to-become-a-rival/">
+              <span class="card-source">Finance Magnates</span>
+              <span class="card-title">Coinbase Entered Prediction Markets With Kalshi. Now It Plans to Become a Rival</span>
+              <p class="card-summary">Coinbase Global Inc. is preparing to shift part of its prediction-market business onto its own infrastructure, to gain direct control over which markets it lists and to retain a larger share of trading revenue. The proprietary event contracts for U.S.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Variational Hits $1.5B Valuation in $110M Round to Take on Robinhood and IBKR"
+              data-source="Finance Magnates"
+              data-summary="Crypto trading startup Variational raised $110 million at a $1.5 billion valuation in the Series B round to compete with brokerages like Robinhood Markets Inc. and Interactive Brokers LLC. The financing round was led by Bain Capital Crypto, an early-stage crypto-native fund, where Stefan Cohen is a partner."
+              data-link="https://www.financemagnates.com/cryptocurrency/variational-hits-15b-valuation-in-110m-round-to-take-on-robinhood-and-ibkr/">
+              <span class="card-source">Finance Magnates</span>
+              <span class="card-title">Variational Hits $1.5B Valuation in $110M Round to Take on Robinhood and IBKR</span>
+              <p class="card-summary">Crypto trading startup Variational raised $110 million at a $1.5 billion valuation in the Series B round to compete with brokerages like Robinhood Markets Inc. and Interactive Brokers LLC. The financing round was led by Bain Capital Crypto, an early-stage crypto-native fund, where Stefan Cohen is a partner.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Bullish Posts $576 Million Q3 Profit, but Adjusted Earnings Were Just $18.7 Million"
+              data-source="Finance Magnates"
+              data-summary="Bullish reported $576.3 million in third-quarter net income, including a $598.4 million gain from revaluing its digital assets. However, nearly all of the result came from balance-sheet accounting rather than core exchange growth. The cryptocurrency exchange and information services group reported net income of $18.5 million a year earlier."
+              data-link="https://www.financemagnates.com/cryptocurrency/exchange/bullish-posts-576-million-q3-profit-but-adjusted-earnings-were-just-187-million/">
+              <span class="card-source">Finance Magnates</span>
+              <span class="card-title">Bullish Posts $576 Million Q3 Profit, but Adjusted Earnings Were Just $18.7 Million</span>
+              <p class="card-summary">Bullish reported $576.3 million in third-quarter net income, including a $598.4 million gain from revaluing its digital assets. However, nearly all of the result came from balance-sheet accounting rather than core exchange growth. The cryptocurrency exchange and information services group reported net income of $18.5 million a year earlier.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+          </div>
+          </div>
+          <div class="subsection">
+            <h3 class="subsection-title">CFDs &amp; Margin</h3>
+            <div class="cards-grid">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="The Premier League&#x27;s Financial Backers: Brokers, Trading Firms Fill the Gambling Gap"
+              data-source="Finance Magnates"
+              data-summary="Finance Magnates reports: The Premier League&#x27;s Financial Backers: Brokers, Trading Firms Fill the Gambling Gap."
+              data-link="https://www.financemagnates.com/forex/the-premier-leagues-financial-backers-brokers-trading-firms-fill-the-gambling-gap/">
+              <span class="card-source">Finance Magnates</span>
+              <span class="card-title">The Premier League&#x27;s Financial Backers: Brokers, Trading Firms Fill the Gambling Gap</span>
+              <p class="card-summary">Finance Magnates reports: The Premier League&#x27;s Financial Backers: Brokers, Trading Firms Fill the Gambling Gap.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Two Million Followers and £3,072 Fine: FCA Sentences Illegal FX Finfluencer"
+              data-source="Finance Magnates"
+              data-summary="Aaron Chalmers, the Geordie Shore star with more than two million Instagram followers, has been fined £3,072 for illegally promoting an unauthorised foreign exchange trading scheme on social media."
+              data-link="https://www.financemagnates.com/forex/regulation/two-million-followers-and-3072-fine-fca-sentences-illegal-fx-finfluencer/">
+              <span class="card-source">Finance Magnates</span>
+              <span class="card-title">Two Million Followers and £3,072 Fine: FCA Sentences Illegal FX Finfluencer</span>
+              <p class="card-summary">Aaron Chalmers, the Geordie Shore star with more than two million Instagram followers, has been fined £3,072 for illegally promoting an unauthorised foreign exchange trading scheme on social media.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+          </div>
+          </div>
+      </section>
+      <section class="section-block" id="ai" style="--section-color:#8B5CF6; --section-color-bg:#F5F3FF;">
+        <div class="section-header">
+          <h2 class="section-title">AI</h2>
+          <span class="section-count">5 articles</span>
+        </div>
+        <div class="cards-grid">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Apple may be developing its own AI agent that runs your Mac"
+              data-source="TechCrunch AI"
+              data-summary="Apple may be developing its own AI agent that runs your Mac Lucas Ropek 4:56 PM PST · November 19, 2026 Apple appears to be working on its own AI agent to conduct computer work on behalf of users — including using apps, accessing websites, and coding, among other things."
+              data-link="https://techcrunch.com/2026/11/19/apple-may-be-developing-its-own-ai-agent-that-runs-your-mac/">
+              <span class="card-source">TechCrunch AI</span>
+              <span class="card-title">Apple may be developing its own AI agent that runs your Mac</span>
+              <p class="card-summary">Apple may be developing its own AI agent that runs your Mac Lucas Ropek 4:56 PM PST · November 19, 2026 Apple appears to be working on its own AI agent to conduct computer work on behalf of users — including using apps, accessing websites, and coding, among other things.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Anthropic’s 7 founders cashed out nearly $2B in record-breaking IPO"
+              data-source="TechCrunch AI"
+              data-summary="Anthropic’s 7 founders cashed out nearly $2B in record-breaking IPO Julie Bort 4:43 PM PST · November 19, 2026 Anthropic became a public company on Thursday, raising a total of $81.3 billion, including $1.95 billion for its seven founders."
+              data-link="https://techcrunch.com/2026/11/19/anthropics-7-founders-cashed-out-nearly-2b-in-record-breaking-ipo/">
+              <span class="card-source">TechCrunch AI</span>
+              <span class="card-title">Anthropic’s 7 founders cashed out nearly $2B in record-breaking IPO</span>
+              <p class="card-summary">Anthropic’s 7 founders cashed out nearly $2B in record-breaking IPO Julie Bort 4:43 PM PST · November 19, 2026 Anthropic became a public company on Thursday, raising a total of $81.3 billion, including $1.95 billion for its seven founders.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Meta’s new Muse Charm device may cost $300"
+              data-source="TechCrunch AI"
+              data-summary="Meta plans to charge $300 for Muse Charm, its upcoming Tamagotchi-like AI device that was teased at the company’s Connect event earlier this year, The Information has reported."
+              data-link="https://techcrunch.com/2026/11/19/metas-new-muse-charm-device-may-cost-300/">
+              <span class="card-source">TechCrunch AI</span>
+              <span class="card-title">Meta’s new Muse Charm device may cost $300</span>
+              <p class="card-summary">Meta plans to charge $300 for Muse Charm, its upcoming Tamagotchi-like AI device that was teased at the company’s Connect event earlier this year, The Information has reported.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="These tech outages are giving Y2K, AI agent style"
+              data-source="TechCrunch AI"
+              data-summary="These tech outages are giving Y2K, AI agent style Dominic-Madori Davis 1:42 PM PST · November 19, 2026 It’s going down, as the American rapper Yung Joc might say: the airline booking systems, banking platforms, and productivity platforms."
+              data-link="https://techcrunch.com/2026/11/19/these-tech-outages-are-giving-y2k-ai-agent-style/">
+              <span class="card-source">TechCrunch AI</span>
+              <span class="card-title">These tech outages are giving Y2K, AI agent style</span>
+              <p class="card-summary">These tech outages are giving Y2K, AI agent style Dominic-Madori Davis 1:42 PM PST · November 19, 2026 It’s going down, as the American rapper Yung Joc might say: the airline booking systems, banking platforms, and productivity platforms.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="The unfolding Jensen Huang scandal: a timeline"
+              data-source="TechCrunch AI"
+              data-summary="The unfolding Jensen Huang scandal: a timeline Amanda Silberling 12:18 PM PST · November 19, 2026 Nvidia co-founder and now former CEO Jensen Huang has never been as prone to controversy as AI leaders like OpenAI’s Sam Altman or SpaceXAI’s Elon Musk."
+              data-link="https://techcrunch.com/2026/11/19/nvidia-ceo-jensen-huangs-affair-with-alleged-chinese-spy-a-timeline/">
+              <span class="card-source">TechCrunch AI</span>
+              <span class="card-title">The unfolding Jensen Huang scandal: a timeline</span>
+              <p class="card-summary">The unfolding Jensen Huang scandal: a timeline Amanda Silberling 12:18 PM PST · November 19, 2026 Nvidia co-founder and now former CEO Jensen Huang has never been as prone to controversy as AI leaders like OpenAI’s Sam Altman or SpaceXAI’s Elon Musk.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+          </div>
+      </section>
+      <section class="section-block" id="companies" style="--section-color:#F59E0B; --section-color-bg:#FFFBEB;">
+        <div class="section-header">
+          <h2 class="section-title">Companies</h2>
+          <span class="section-count">5 articles</span>
+        </div>
+        <div class="cards-grid">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Anthropic rival says companies can (mostly) skip the pricey models"
+              data-source="TechCrunch"
+              data-summary="Anthropic rival says companies can (mostly) skip the pricey models Connie Loizos 4:26 PM PST · November 19, 2026 On the same day that Anthropic went public in the largest IPO on record, with investor enthusiasm for the AI lab through the roof, far away at the Slush startup conference"
+              data-link="https://techcrunch.com/2026/11/19/anthropic-rival-says-companies-can-mostly-skip-the-pricey-models/">
+              <span class="card-source">TechCrunch</span>
+              <span class="card-title">Anthropic rival says companies can (mostly) skip the pricey models</span>
+              <p class="card-summary">Anthropic rival says companies can (mostly) skip the pricey models Connie Loizos 4:26 PM PST · November 19, 2026 On the same day that Anthropic went public in the largest IPO on record, with investor enthusiasm for the AI lab through the roof, far away at the Slush startup conference</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Elon Musk says SpaceX has a plan to eliminate cell phone dead zones"
+              data-source="TechCrunch"
+              data-summary="Elon Musk says SpaceX has a plan to eliminate cell phone dead zones Kirsten Korosec 3:37 PM PST · November 19, 2026 CEO Elon Musk said SpaceX has completed the design of a miniature rooftop cell tower that could provide better coverage to mobile phones and eliminate dead zones inside"
+              data-link="https://techcrunch.com/2026/11/19/elon-musk-says-spacex-has-a-plan-to-eliminate-cell-phone-dead-zones/">
+              <span class="card-source">TechCrunch</span>
+              <span class="card-title">Elon Musk says SpaceX has a plan to eliminate cell phone dead zones</span>
+              <p class="card-summary">Elon Musk says SpaceX has a plan to eliminate cell phone dead zones Kirsten Korosec 3:37 PM PST · November 19, 2026 CEO Elon Musk said SpaceX has completed the design of a miniature rooftop cell tower that could provide better coverage to mobile phones and eliminate dead zones inside</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Want to see your live AI usage on your Mac’s icons? This clever new app lets you"
+              data-source="TechCrunch"
+              data-summary="Want to see your live AI usage on your Mac’s icons? This clever new app lets you Sarah Perez 2:33 PM PST · November 19, 2026 There’s a new way to keep an eye on your AI usage and when your limits reset: by using your Mac’s app icons."
+              data-link="https://techcrunch.com/2026/11/19/want-to-see-your-live-ai-usage-on-your-macs-icons-this-clever-new-app-lets-you/">
+              <span class="card-source">TechCrunch</span>
+              <span class="card-title">Want to see your live AI usage on your Mac’s icons? This clever new app lets you</span>
+              <p class="card-summary">Want to see your live AI usage on your Mac’s icons? This clever new app lets you Sarah Perez 2:33 PM PST · November 19, 2026 There’s a new way to keep an eye on your AI usage and when your limits reset: by using your Mac’s app icons.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="The Blue Economy: The World’s Quietest Economic Engine And Its Smartest Cities"
+              data-source="Crunchbase News"
+              data-summary="The “blue economy,” which encompasses industries built around oceans and coasts — from shipping and fisheries to offshore energy and marine biotechnology — is one of the largest, yet least visible, engines of the global economy."
+              data-link="https://news.crunchbase.com/startups/blue-economy-technology-defense-energy-onetti-mind-the-bridge/">
+              <span class="card-source">Crunchbase News</span>
+              <span class="card-title">The Blue Economy: The World’s Quietest Economic Engine And Its Smartest Cities</span>
+              <p class="card-summary">The “blue economy,” which encompasses industries built around oceans and coasts — from shipping and fisheries to offshore energy and marine biotechnology — is one of the largest, yet least visible, engines of the global economy.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="What’s Next For Recruiting, Job Hunting And HR? More AI, Of Course"
+              data-source="Crunchbase News"
+              data-summary="AI agents and humanoid robots may dominate the funding headlines. But even so, investors haven’t lost interest in startups focused on finding, filling and managing jobs for actual humans."
+              data-link="https://news.crunchbase.com/venture/data-recruiting-job-hunting-hr-ai-startups-mercor/">
+              <span class="card-source">Crunchbase News</span>
+              <span class="card-title">What’s Next For Recruiting, Job Hunting And HR? More AI, Of Course</span>
+              <p class="card-summary">AI agents and humanoid robots may dominate the funding headlines. But even so, investors haven’t lost interest in startups focused on finding, filling and managing jobs for actual humans.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+          </div>
+      </section>
+      <section class="section-block" id="product" style="--section-color:#EC4899; --section-color-bg:#FDF2F8;">
+        <div class="section-header">
+          <h2 class="section-title">Product</h2>
+          <span class="section-count">5 articles</span>
+        </div>
+        <div class="cards-grid">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Google gives Gemini the ability to use your Mac for you"
+              data-source="TechCrunch Apps"
+              data-summary="Google gives Gemini the ability to use your Mac for you Sarah Perez 10:09 AM PST · November 19, 2026 Google on Thursday announced that it is bringing computer use to its Gemini desktop application on macOS, allowing its AI to complete tasks on users’ behalf, navigating native Mac apps,"
+              data-link="https://techcrunch.com/2026/11/19/google-gives-gemini-the-ability-to-use-your-mac-for-you/">
+              <span class="card-source">TechCrunch Apps</span>
+              <span class="card-title">Google gives Gemini the ability to use your Mac for you</span>
+              <p class="card-summary">Google gives Gemini the ability to use your Mac for you Sarah Perez 10:09 AM PST · November 19, 2026 Google on Thursday announced that it is bringing computer use to its Gemini desktop application on macOS, allowing its AI to complete tasks on users’ behalf, navigating native Mac apps,</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Meta’s AI agent Muse is mixing up conversations and could be exposing private data, report says"
+              data-source="TechCrunch Apps"
+              data-summary="In some of these instances, employees said Muse surfaced messages about childcare requests they never made, career advice they never asked for, product orders they never placed, and bank account balances that didn&#x27;t belong to them."
+              data-link="https://techcrunch.com/2026/11/19/metas-ai-agent-muse-is-mixing-up-conversations-and-exposing-private-data-report-says/">
+              <span class="card-source">TechCrunch Apps</span>
+              <span class="card-title">Meta’s AI agent Muse is mixing up conversations and could be exposing private data, report says</span>
+              <p class="card-summary">In some of these instances, employees said Muse surfaced messages about childcare requests they never made, career advice they never asked for, product orders they never placed, and bank account balances that didn&#x27;t belong to them.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Superhuman pushes its Go assistant everywhere"
+              data-source="TechCrunch Apps"
+              data-summary="Superhuman pushes its Go assistant everywhere Ivan Mehta 6:00 AM PST · November 19, 2026 Productivity apps are simultaneously trying to feed more context to their AI tools while also making those AI assistants available in every nook and corner of their products."
+              data-link="https://techcrunch.com/2026/11/19/superhuman-pushes-its-go-assistant-everywhere/">
+              <span class="card-source">TechCrunch Apps</span>
+              <span class="card-title">Superhuman pushes its Go assistant everywhere</span>
+              <p class="card-summary">Superhuman pushes its Go assistant everywhere Ivan Mehta 6:00 AM PST · November 19, 2026 Productivity apps are simultaneously trying to feed more context to their AI tools while also making those AI assistants available in every nook and corner of their products.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Snapchat now lets developers build AR Lenses with AI assistants like Claude Code and Cursor"
+              data-source="TechCrunch Apps"
+              data-summary="Lens creators can describe the Lens they want in plain language, and their AI assistant handles the process from start to finish, Snapchat says."
+              data-link="https://techcrunch.com/2026/11/18/snapchat-now-lets-developers-build-ar-lenses-with-ai-coding-assistants-like-claude-code-and-cursor/">
+              <span class="card-source">TechCrunch Apps</span>
+              <span class="card-title">Snapchat now lets developers build AR Lenses with AI assistants like Claude Code and Cursor</span>
+              <p class="card-summary">Lens creators can describe the Lens they want in plain language, and their AI assistant handles the process from start to finish, Snapchat says.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Verse Engine by Ctruh"
+              data-source="Product Hunt"
+              data-summary="Blender, Unity or Unreal to a live 3D link in one click Discussion | Link"
+              data-link="https://www.producthunt.com/products/verse-engine-by-ctruh">
+              <span class="card-source">Product Hunt</span>
+              <span class="card-title">Verse Engine by Ctruh</span>
+              <p class="card-summary">Blender, Unity or Unreal to a live 3D link in one click Discussion | Link</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+          </div>
+      </section>
+      <section class="section-block" id="vocabulary" style="--section-color:#6366F1; --section-color-bg:#EEF2FF;">
+        <div class="section-header">
+          <h2 class="section-title">Vocabulary</h2>
+          <span class="section-count">5 terms today</span>
+        </div>
+        <div class="vocab-grid">
+          
+        <div class="vocab-card">
+          <p class="vocab-label">Term 1 of 5</p>
+          <h3 class="vocab-term">UCITS</h3>
+          <p class="vocab-definition">Undertakings for Collective Investment in Transferable Securities — the EU&#x27;s gold-standard fund wrapper that grants a single authorisation passport across all member states. Strict rules on eligible assets, concentration limits (5/10/40 rule), daily liquidity, and mandatory KIIDs make UCITS the default vehicle for cross-border retail fund distribution. Most ETFs listed on Euronext, Xetra, and LSE are UCITS-compliant, making it the dominant framework for European and increasingly global fund launches.</p>
+        </div>
+        <div class="vocab-card">
+          <p class="vocab-label">Term 2 of 5</p>
+          <h3 class="vocab-term">Sharpe Ratio</h3>
+          <p class="vocab-definition">A risk-adjusted return metric calculated as (Portfolio Return − Risk-Free Rate) ÷ Standard Deviation of Returns. A ratio above 1 is considered solid; above 2 is exceptional and rare at scale. It rewards high returns while penalising volatility, making it the standard tool for comparing strategies with different risk profiles. Critical limitations: it treats upside and downside volatility equally, and it can be gamed by strategies that produce steady gains with occasional catastrophic losses (short volatility, carry). The Sortino Ratio addresses this by penalising only downside deviation.</p>
+        </div>
+        <div class="vocab-card">
+          <p class="vocab-label">Term 3 of 5</p>
+          <h3 class="vocab-term">AUM – Assets Under Management</h3>
+          <p class="vocab-definition">The total market value of all capital a manager oversees on behalf of clients, encompassing discretionary and advisory mandates. AUM is the primary scale metric in asset management — it drives management fee revenue (typically 0.03–2% annually depending on strategy) and signals market standing. Global AUM surpassed $120 trillion in 2024. Paradoxically, AUM growth can destroy alpha: a $100M hedge fund can exploit small opportunities invisible to a $10B fund, which moves markets when it trades — illustrating the capacity constraints that erode performance at scale.</p>
+        </div>
+        <div class="vocab-card">
+          <p class="vocab-label">Term 4 of 5</p>
+          <h3 class="vocab-term">Transaction Cost Analysis (TCA)</h3>
+          <p class="vocab-definition">A quantitative framework for measuring the total cost of executing a trade, covering explicit costs (commission, taxes) and implicit costs (market impact, timing risk, opportunity cost). Implementation Shortfall — the difference between the decision price and average execution price — is the most comprehensive TCA metric. Regulators under MiFID II require investment firms to report on execution quality annually. Sophisticated TCA systems decompose costs by broker, venue, algorithm, and market conditions, enabling continuous improvement in trading desk performance.</p>
+        </div>
+        <div class="vocab-card">
+          <p class="vocab-label">Term 5 of 5</p>
+          <h3 class="vocab-term">Collateral Management</h3>
+          <p class="vocab-definition">The operational and strategic process of allocating, monitoring, and optimising assets pledged against financial obligations — margin calls, repo transactions, derivatives exposure, and securities lending. Post-2008 clearing mandates tripled the demand for high-quality collateral globally. Collateral management systems track eligibility, haircuts, substitution rights, and cross-border legal enforceability in real-time. Collateral optimisation — routing the cheapest-to-deliver eligible asset to each obligation — is a multi-billion-dollar savings opportunity for large institutions with diverse collateral pools.</p>
+        </div>
+        </div>
+      </section>
+  </main>
+
+  <footer>
+    <p>Auto-generated daily at 8:00 AM IST</p>
+    <p style="margin-top:4px;">Sources: Economic Times · LiveMint · Bloomberg · TechCrunch · Crunchbase · FintechNews.ae · Arabian Business · Reuters · CNBC · CoinDesk · Cointelegraph · Kitco · BullionVault &amp; more</p>
+  </footer>
+
+  <!-- Article Modal -->
+  <div id="article-modal" class="modal-overlay" onclick="handleOverlayClick(event)">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeArticleModal()" aria-label="Close">&times;</button>
+      <span class="modal-source" id="modal-source"></span>
+      <h2 class="modal-title" id="modal-title"></h2>
+      <div class="modal-divider"></div>
+      <p class="modal-summary" id="modal-summary"></p>
+      <a class="modal-link" id="modal-link" href="#" target="_blank" rel="noopener noreferrer">
+        Read Full Article &rarr;
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // Dynamically pin nav below header and set scroll-margin-top on sections
+    function fixStickyOffsets() {
+      var headerH = document.querySelector('header').offsetHeight;
+      var nav = document.querySelector('nav');
+      nav.style.top = headerH + 'px';
+      var offset = headerH + nav.offsetHeight + 8;
+      document.querySelectorAll('.section-block').forEach(function(el) {
+        el.style.scrollMarginTop = offset + 'px';
+      });
+    }
+    fixStickyOffsets();
+    window.addEventListener('resize', fixStickyOffsets);
+
+    function openArticle(card) {
+      document.getElementById('modal-source').textContent = card.dataset.source;
+      document.getElementById('modal-title').textContent = card.dataset.title;
+      document.getElementById('modal-summary').textContent = card.dataset.summary || 'No summary available.';
+      document.getElementById('modal-link').href = card.dataset.link;
+      document.getElementById('article-modal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function handleOverlayClick(e) {
+      if (e.target === document.getElementById('article-modal')) closeArticleModal();
+    }
+    function closeArticleModal() {
+      document.getElementById('article-modal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeArticleModal();
+    });
+    document.querySelectorAll('.card').forEach(function(card) {
+      card.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openArticle(card); }
+      });
+    });
+  </script>
+
+</body>
+</html>
