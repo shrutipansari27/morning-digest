@@ -1,11 +1,4 @@
 {
-  "2026-08-22": [
-    "Securities Lending",
-    "Repo / Reverse Repo",
-    "BaaS \u2013 Banking as a Service",
-    "Cross-Margining",
-    "Regulatory Capital / CET1"
-  ],
   "2026-08-23": [
     "UCITS",
     "Prime Brokerage",
@@ -634,6 +627,13 @@
     "Sharpe Ratio",
     "AUM \u2013 Assets Under Management",
     "Transaction Cost Analysis (TCA)",
+    "Collateral Management"
+  ],
+  "2026-11-21": [
+    "Information Ratio (IR)",
+    "Drawdown",
+    "Liquidity Pool (DeFi)",
+    "Open Banking / PSD3",
     "Collateral Management"
   ]
 }
