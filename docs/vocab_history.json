@@ -1,11 +1,4 @@
 {
-  "2026-08-23": [
-    "UCITS",
-    "Prime Brokerage",
-    "Sharpe Ratio",
-    "VWAP / TWAP",
-    "Funding Rate (Crypto)"
-  ],
   "2026-08-24": [
     "Repo / Reverse Repo",
     "ISO 20022",
@@ -635,5 +628,12 @@
     "Liquidity Pool (DeFi)",
     "Open Banking / PSD3",
     "Collateral Management"
+  ],
+  "2026-11-22": [
+    "Perpetual Futures (Perps)",
+    "MEV \u2013 Maximal Extractable Value",
+    "Drawdown",
+    "Regulatory Capital / CET1",
+    "Dispersion Trading"
   ]
 }
