@@ -1,11 +1,4 @@
 {
-  "2026-08-24": [
-    "Repo / Reverse Repo",
-    "ISO 20022",
-    "Repo Rate",
-    "Impermanent Loss",
-    "Open Banking / PSD3"
-  ],
   "2026-08-25": [
     "Implied Volatility Surface",
     "MEV \u2013 Maximal Extractable Value",
@@ -635,5 +628,12 @@
     "Drawdown",
     "Regulatory Capital / CET1",
     "Dispersion Trading"
+  ],
+  "2026-11-23": [
+    "CCP \u2013 Central Counterparty Clearing",
+    "Stress Testing / DFAST",
+    "SWIFT gpi \u2013 Global Payments Innovation",
+    "VWAP / TWAP",
+    "Regulatory Capital / CET1"
   ]
 }
