@@ -1,11 +1,4 @@
 {
-  "2026-08-25": [
-    "Implied Volatility Surface",
-    "MEV \u2013 Maximal Extractable Value",
-    "Repo / Reverse Repo",
-    "Prime of Prime (PoP)",
-    "Dispersion Trading"
-  ],
   "2026-08-26": [
     "Delta Hedging",
     "Contango vs Backwardation",
@@ -635,5 +628,12 @@
     "SWIFT gpi \u2013 Global Payments Innovation",
     "VWAP / TWAP",
     "Regulatory Capital / CET1"
+  ],
+  "2026-11-24": [
+    "Algorithmic Market Making",
+    "Alpha Decay",
+    "Drawdown",
+    "Market Microstructure",
+    "Transaction Cost Analysis (TCA)"
   ]
 }
