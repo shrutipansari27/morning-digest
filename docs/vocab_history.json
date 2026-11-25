@@ -1,11 +1,4 @@
 {
-  "2026-08-26": [
-    "Delta Hedging",
-    "Contango vs Backwardation",
-    "Implied Volatility Surface",
-    "ISO 20022",
-    "Transaction Cost Analysis (TCA)"
-  ],
   "2026-08-27": [
     "Smart Order Routing (SOR)",
     "Implied Volatility Surface",
@@ -635,5 +628,12 @@
     "Drawdown",
     "Market Microstructure",
     "Transaction Cost Analysis (TCA)"
+  ],
+  "2026-11-25": [
+    "Prime Brokerage",
+    "CBDC \u2013 Central Bank Digital Currency",
+    "RegTech",
+    "Market Microstructure",
+    "Funding Rate (Crypto)"
   ]
 }
