@@ -1,11 +1,4 @@
 {
-  "2026-08-27": [
-    "Smart Order Routing (SOR)",
-    "Implied Volatility Surface",
-    "Liquidity Coverage Ratio (LCR)",
-    "Information Ratio (IR)",
-    "Open Banking / PSD3"
-  ],
   "2026-08-28": [
     "Yield Curve Control (YCC)",
     "CCP \u2013 Central Counterparty Clearing",
@@ -635,5 +628,12 @@
     "RegTech",
     "Market Microstructure",
     "Funding Rate (Crypto)"
+  ],
+  "2026-11-26": [
+    "MEV \u2013 Maximal Extractable Value",
+    "Liquidity Coverage Ratio (LCR)",
+    "Carry Trade",
+    "Basis Points (bps)",
+    "Liquidity Pool (DeFi)"
   ]
 }

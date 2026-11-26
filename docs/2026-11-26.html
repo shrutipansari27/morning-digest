@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morning Digest — Thursday, 26 November 2026</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #F8FAFC;
+      --surface: #FFFFFF;
+      --border: #E2E8F0;
+      --text-primary: #0F172A;
+      --text-secondary: #475569;
+      --text-muted: #94A3B8;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-hover: 0 6px 20px rgba(0,0,0,0.10), 0 2px 6px rgba(0,0,0,0.06);
+      --radius: 12px;
+      --section-color: #64748B;
+      --section-color-bg: #F8FAFC;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Header */
+    header {
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .header-logo {
+      width: 34px;
+      height: 34px;
+      background: #0F172A;
+      color: #FFFFFF;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      flex-shrink: 0;
+    }
+    .header-title { font-size: 19px; font-weight: 700; color: #0F172A; letter-spacing: -0.4px; }
+    .header-date { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }
+
+    /* Navigation */
+    nav {
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      position: sticky;
+      top: 69px;
+      z-index: 99;
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .nav-inner::-webkit-scrollbar { display: none; }
+    .nav-inner a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 13px 14px;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .nav-inner a:hover {
+      color: #0F172A;
+      border-bottom-color: #CBD5E1;
+    }
+
+    /* Main */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 36px 24px 56px;
+    }
+
+    /* Section */
+    .section-block {
+      margin-bottom: 52px;
+      scroll-margin-top: 120px;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 14px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-title { font-size: 18px; font-weight: 700; color: #0F172A; letter-spacing: -0.3px; padding-left: 12px; border-left: 3px solid var(--section-color); }
+    .section-count {
+      margin-left: auto;
+      font-size: 11px;
+      color: var(--text-muted);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+
+    /* Subsections */
+    .subsection { margin-bottom: 28px; }
+    .subsection-title {
+      font-size: 10.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    /* Cards */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+      cursor: pointer;
+    }
+    .card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+    .card-source {
+      display: inline-flex;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      padding: 2px 8px;
+      border-radius: 4px;
+      width: fit-content;
+    }
+    .card-title {
+      font-size: 14.5px;
+      font-weight: 600;
+      color: #0F172A;
+      line-height: 1.45;
+      display: block;
+    }
+    .card:hover .card-title { color: var(--section-color); }
+    .card-summary {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      flex: 1;
+    }
+    .card-read-more {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--section-color);
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      margin-top: 2px;
+      opacity: 0.85;
+    }
+    .card:hover .card-read-more { opacity: 1; }
+    .empty-state { color: var(--text-muted); font-size: 14px; padding: 16px 0; }
+
+    /* Vocabulary */
+    .vocab-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 20px;
+    }
+    .vocab-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--section-color);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      box-shadow: var(--shadow);
+    }
+    .vocab-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--section-color);
+      margin-bottom: 8px;
+    }
+    .vocab-term { font-size: 17px; font-weight: 700; color: #0F172A; margin-bottom: 10px; letter-spacing: -0.3px; }
+    .vocab-definition { font-size: 13.5px; color: var(--text-secondary); line-height: 1.75; }
+
+    /* Footer */
+    footer {
+      background: #FFFFFF;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 22px 24px;
+      color: var(--text-muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    /* Article Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      backdrop-filter: blur(2px);
+    }
+    .modal-overlay.active { display: flex; }
+    .modal-content {
+      background: #FFFFFF;
+      border-radius: 16px;
+      padding: 40px 44px 36px;
+      max-width: 700px;
+      width: 100%;
+      max-height: 82vh;
+      overflow-y: auto;
+      position: relative;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.22), 0 4px 16px rgba(0,0,0,0.10);
+    }
+    .modal-close {
+      position: absolute;
+      top: 18px;
+      right: 22px;
+      background: none;
+      border: none;
+      font-size: 22px;
+      cursor: pointer;
+      color: var(--text-muted);
+      line-height: 1;
+      padding: 4px;
+      border-radius: 4px;
+      transition: color 0.15s;
+    }
+    .modal-close:hover { color: #0F172A; }
+    .modal-source {
+      display: inline-flex;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      padding: 2px 10px;
+      border-radius: 4px;
+      margin-bottom: 16px;
+    }
+    .modal-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #0F172A;
+      line-height: 1.45;
+      margin-bottom: 20px;
+      letter-spacing: -0.3px;
+    }
+    .modal-divider {
+      height: 1px;
+      background: var(--border);
+      margin-bottom: 20px;
+    }
+    .modal-summary {
+      font-size: 14.5px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
+    .modal-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #0F172A;
+      color: #FFFFFF;
+      padding: 11px 22px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      transition: background 0.15s;
+    }
+    .modal-link:hover { background: #1E293B; }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      header { padding: 12px 16px; }
+      nav { top: 61px; }
+      main { padding: 24px 16px 40px; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .vocab-card { padding: 20px; }
+      .section-title { font-size: 17px; }
+      .modal-content { padding: 28px 20px 24px; }
+      .modal-title { font-size: 17px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <div class="header-logo">MD</div>
+      <div>
+        <div class="header-title">Morning Digest</div>
+        <div class="header-date">Thursday, 26 November 2026</div>
+      </div>
+    </div>
+  </header>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="#wealth">Wealth</a>
+      <a href="#trade">Trade</a>
+      <a href="#ai">AI</a>
+      <a href="#companies">Companies</a>
+      <a href="#product">Product</a>
+      <a href="#vocabulary">Vocabulary</a>
+    </div>
+  </nav>
+
+  <main>
+    
+      <section class="section-block" id="wealth" style="--section-color:#10B981; --section-color-bg:#ECFDF5;">
+        <div class="section-header">
+          <h2 class="section-title">Wealth</h2>
+          <span class="section-count">9 articles</span>
+        </div>
+        
+          <div class="subsection">
+            <h3 class="subsection-title">Wealth Management</h3>
+            <div class="cards-grid">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="I am retired and live on rent. Am I eligible for any income tax deduction or exemption like HRA?"
+              data-source="ET Wealth"
+              data-summary="ET Wealth Reader&#x27;s Query: I am a retired defence pensioner living in a rented house. Are pensioners eligible for any income tax deduction or exemption for rent paid, similar to the House Rent Allowance (HRA) exemption available to salaried employees?"
+              data-link="https://economictimes.indiatimes.com/wealth/tax/i-am-retired-and-live-on-rent-am-i-eligible-for-any-income-tax-deduction-or-exemption-like-hra/articleshow/136179997.cms">
+              <span class="card-source">ET Wealth</span>
+              <span class="card-title">I am retired and live on rent. Am I eligible for any income tax deduction or exemption like HRA?</span>
+              <p class="card-summary">ET Wealth Reader&#x27;s Query: I am a retired defence pensioner living in a rented house. Are pensioners eligible for any income tax deduction or exemption for rent paid, similar to the House Rent Allowance (HRA) exemption available to salaried employees?</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Forget gold! Can solar panels become India&#x27;s next generational wealth asset?"
+              data-source="ET Wealth"
+              data-summary="ET Wealth reports: Forget gold! Can solar panels become India&#x27;s next generational wealth asset?."
+              data-link="https://economictimes.indiatimes.com/wealth/invest/forget-gold-can-solar-panels-become-indias-next-generational-wealth-asset/slideshow/136178169.cms">
+              <span class="card-source">ET Wealth</span>
+              <span class="card-title">Forget gold! Can solar panels become India&#x27;s next generational wealth asset?</span>
+              <p class="card-summary">ET Wealth reports: Forget gold! Can solar panels become India&#x27;s next generational wealth asset?.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Does customer loyalty affect gold loan interest rates?"
+              data-source="ET Wealth"
+              data-summary="ListenTwo borrowers may pledge jewellery of similar purity and value, ask for the same amount, and still receive different rates."
+              data-link="https://economictimes.indiatimes.com/wealth/borrow/loan/headline-does-customer-loyalty-affect-gold-loan-interest-rates/articleshow/136155633.cms">
+              <span class="card-source">ET Wealth</span>
+              <span class="card-title">Does customer loyalty affect gold loan interest rates?</span>
+              <p class="card-summary">ListenTwo borrowers may pledge jewellery of similar purity and value, ask for the same amount, and still receive different rates.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+          </div>
+          </div>
+          <div class="subsection">
+            <h3 class="subsection-title">Fintech &amp; UAE Market</h3>
+            <div class="cards-grid">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Digital Payments to Drive Qatar’s Fintech Growth Through 2028"
+              data-source="FintechNews UAE"
+              data-summary="Digital payments are expected to continue driving Qatar’s fintech industry through 2028, remaining the industry’s largest segment over the next two years, according to estimates from the Investment Promotion Agency Qatar (Invest Qatar)."
+              data-link="https://fintechnews.ae/35132/qatar/digital-payments-to-drive-qatars-fintech-growth-through-2028/">
+              <span class="card-source">FintechNews UAE</span>
+              <span class="card-title">Digital Payments to Drive Qatar’s Fintech Growth Through 2028</span>
+              <p class="card-summary">Digital payments are expected to continue driving Qatar’s fintech industry through 2028, remaining the industry’s largest segment over the next two years, according to estimates from the Investment Promotion Agency Qatar (Invest Qatar).</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="NEOPAY Expands ACI Worldwide Partnership with AI-Powered Fraud Detection"
+              data-source="FintechNews UAE"
+              data-summary="NEOPAY has expanded its partnership with ACI Worldwide to add AI-powered fraud detection to its UAE acquiring business. The relationship began in 2007 with Mashreq’s merchant acquiring business, which later became NEOPAY. The expansion aims to address increasingly sophisticated fraud threats across card-present and card-not-present transactions."
+              data-link="https://fintechnews.ae/35146/ai/aci-worldwide-neopay-ai-fraud-uae/">
+              <span class="card-source">FintechNews UAE</span>
+              <span class="card-title">NEOPAY Expands ACI Worldwide Partnership with AI-Powered Fraud Detection</span>
+              <p class="card-summary">NEOPAY has expanded its partnership with ACI Worldwide to add AI-powered fraud detection to its UAE acquiring business. The relationship began in 2007 with Mashreq’s merchant acquiring business, which later became NEOPAY. The expansion aims to address increasingly sophisticated fraud threats across card-present and card-not-present transactions.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Strategic Investment Group Enters DIFC with Newly Licensed Subsidiary"
+              data-source="FintechNews UAE"
+              data-summary="Strategic Investment Group has received a licence to operate from the Dubai International Financial Centre (DIFC). The Dubai Financial Services Authority (DFSA) granted the Category 4 licence to SIG International (DIFC) Limited. The new unit was formed to do business from the DIFC. Strategic is based in Arlington, Virginia."
+              data-link="https://fintechnews.ae/35112/wealthtech/strategic-investment-group-difc-dfsa-licence/">
+              <span class="card-source">FintechNews UAE</span>
+              <span class="card-title">Strategic Investment Group Enters DIFC with Newly Licensed Subsidiary</span>
+              <p class="card-summary">Strategic Investment Group has received a licence to operate from the Dubai International Financial Centre (DIFC). The Dubai Financial Services Authority (DFSA) granted the Category 4 licence to SIG International (DIFC) Limited. The new unit was formed to do business from the DIFC. Strategic is based in Arlington, Virginia.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+          </div>
+          </div>
+          <div class="subsection">
+            <h3 class="subsection-title">Funds &amp; ETFs</h3>
+            <div class="cards-grid">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Nvidia&#x27;s billion-dollar board bet: Who&#x27;s protected as lawsuits mount?"
+              data-source="CNBC Investing"
+              data-summary="Jensen Huang is back as CEO of Nvidia, after President Donald Trump urged the company&#x27;s board to rehire Huang. But investigations into the company, its executive leadership and its board continue as outside criticism mounts."
+              data-link="https://www.cnbc.com/2026/11/25/nvidias-billion-dollar-board-bet-whos-protected-as-lawsuits-mount.html">
+              <span class="card-source">CNBC Investing</span>
+              <span class="card-title">Nvidia&#x27;s billion-dollar board bet: Who&#x27;s protected as lawsuits mount?</span>
+              <p class="card-summary">Jensen Huang is back as CEO of Nvidia, after President Donald Trump urged the company&#x27;s board to rehire Huang. But investigations into the company, its executive leadership and its board continue as outside criticism mounts.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Nvidia surge: What investors should do with the stock and the AI trade now"
+              data-source="CNBC Investing"
+              data-summary="Nvidia shares gapped higher at the open by more than 30%, on pace for its biggest one-day gain in 23 years on Monday, following the news just before the bell that former Nvidia CEO Jensen Huang is going to be reinstated."
+              data-link="https://www.cnbc.com/2026/11/23/nvidia-stock-jensen-huang-ai-trade.html">
+              <span class="card-source">CNBC Investing</span>
+              <span class="card-title">Nvidia surge: What investors should do with the stock and the AI trade now</span>
+              <p class="card-summary">Nvidia shares gapped higher at the open by more than 30%, on pace for its biggest one-day gain in 23 years on Monday, following the news just before the bell that former Nvidia CEO Jensen Huang is going to be reinstated.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Beware higher correlation but nab high U.S. credit yields, fund managers say"
+              data-source="CNBC Finance"
+              data-summary="The artificial intelligence boom could lead to a recession, whether through a collapse in AI investment or widespread job losses as the technology advances, a hedge fund manager said."
+              data-link="https://www.cnbc.com/2026/11/26/mispricing-risk-fund-managers-ai-volatility.html">
+              <span class="card-source">CNBC Finance</span>
+              <span class="card-title">Beware higher correlation but nab high U.S. credit yields, fund managers say</span>
+              <p class="card-summary">The artificial intelligence boom could lead to a recession, whether through a collapse in AI investment or widespread job losses as the technology advances, a hedge fund manager said.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+          </div>
+          </div>
+      </section>
+      <section class="section-block" id="trade" style="--section-color:#3B82F6; --section-color-bg:#EFF6FF;">
+        <div class="section-header">
+          <h2 class="section-title">Trade</h2>
+          <span class="section-count">12 articles</span>
+        </div>
+        
+          <div class="subsection">
+            <h3 class="subsection-title">Global Indices (India · US · HKEX · LSE)</h3>
+            <div class="cards-grid">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Eternal, Adani Enterprises among 10 stocks with highest FII buying in Q2. How many do you have?"
+              data-source="ET Markets"
+              data-summary="In the September 2026 quarter, Foreign Institutional Investors (FIIs) boosted their stakes in various firms, notably in Eternal and Adani Enterprises, despite facing mixed performance trends in stock values."
+              data-link="https://economictimes.indiatimes.com/markets/stocks/news/eternal-adani-enterprises-among-10-stocks-with-highest-fii-buying-in-q2-how-many-do-you-have/slideshow/136178864.cms">
+              <span class="card-source">ET Markets</span>
+              <span class="card-title">Eternal, Adani Enterprises among 10 stocks with highest FII buying in Q2. How many do you have?</span>
+              <p class="card-summary">In the September 2026 quarter, Foreign Institutional Investors (FIIs) boosted their stakes in various firms, notably in Eternal and Adani Enterprises, despite facing mixed performance trends in stock values.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Jupiter Wagons among 8 stocks showing White Marubozu pattern"
+              data-source="ET Markets"
+              data-summary="Eight Nifty500 stocks, including Jupiter Wagons, Dabur India and Hindustan Unilever, featured on StockEdge&#x27;s White Marubozu bullish scanner. The candlestick pattern indicates strong buying momentum, with stocks closing at or near their session highs. Jupiter Wagons led the list with a 20% gain, followed by Dabur India at 7.77%."
+              data-link="https://economictimes.indiatimes.com/markets/stocks/news/jupiter-wagons-among-8-stocks-showing-white-marubozu-pattern/slideshow/136177975.cms">
+              <span class="card-source">ET Markets</span>
+              <span class="card-title">Jupiter Wagons among 8 stocks showing White Marubozu pattern</span>
+              <p class="card-summary">Eight Nifty500 stocks, including Jupiter Wagons, Dabur India and Hindustan Unilever, featured on StockEdge&#x27;s White Marubozu bullish scanner. The candlestick pattern indicates strong buying momentum, with stocks closing at or near their session highs. Jupiter Wagons led the list with a 20% gain, followed by Dabur India at 7.77%.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Britannia Industries among 4 stocks closing above VWAP"
+              data-source="ET Markets"
+              data-summary="Four Nifty500 stocks closed more than 2% above their respective volume-weighted average prices on November 25, according to StockEdge’s technical scan, indicating that they ended the session above their average traded levels."
+              data-link="https://economictimes.indiatimes.com/markets/stocks/news/britannia-industries-among-4-stocks-closing-above-vwap/slideshow/136177856.cms">
+              <span class="card-source">ET Markets</span>
+              <span class="card-title">Britannia Industries among 4 stocks closing above VWAP</span>
+              <p class="card-summary">Four Nifty500 stocks closed more than 2% above their respective volume-weighted average prices on November 25, according to StockEdge’s technical scan, indicating that they ended the session above their average traded levels.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+          </div>
+          </div>
+          <div class="subsection">
+            <h3 class="subsection-title">Commodities &amp; Precious Metals (Spot Gold/Silver LBMA)</h3>
+            <div class="cards-grid">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Silver demand is set to fall 5% in 2026 as jewellery buyers walk away"
+              data-source="Metals Focus"
+              data-summary="Most Read GoViral.im Launches AI Video Generator That… Tesla starts FSD v15 rollout to… Anthropic ANT Stock Takes a Nose… Microsoft puts OpenAI&#x27;s GPT-6.2 Sol in… GoViral.im Launches AI Video Generator That… Tesla starts FSD v15 rollout to… Anthropic ANT Stock Takes a Nose… Microsoft puts OpenAI&#x27;s GPT-6.2 Sol in…"
+              data-link="https://startupfortune.com/silver-demand-is-set-to-fall-5-in-2026-as-jewellery-buyers-walk-away/#new_tab">
+              <span class="card-source">Metals Focus</span>
+              <span class="card-title">Silver demand is set to fall 5% in 2026 as jewellery buyers walk away</span>
+              <p class="card-summary">Most Read GoViral.im Launches AI Video Generator That… Tesla starts FSD v15 rollout to… Anthropic ANT Stock Takes a Nose… Microsoft puts OpenAI&#x27;s GPT-6.2 Sol in… GoViral.im Launches AI Video Generator That… Tesla starts FSD v15 rollout to… Anthropic ANT Stock Takes a Nose… Microsoft puts OpenAI&#x27;s GPT-6.2 Sol in…</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Silver Demand Is Set To Slip In 2026"
+              data-source="Metals Focus"
+              data-summary="Metals Focus expects total demand to dip to 1.08 billion troy ounces in 2026 (from 1.132 billion in 2025). It sees industrial use down 3% as solar installations, especially in China, missed expectations and manufacturers used less silver per panel or swapped in alternatives after prices rose."
+              data-link="https://finimize.com/content/silver-demand-is-set-to-slip-in-2026#new_tab">
+              <span class="card-source">Metals Focus</span>
+              <span class="card-title">Silver Demand Is Set To Slip In 2026</span>
+              <p class="card-summary">Metals Focus expects total demand to dip to 1.08 billion troy ounces in 2026 (from 1.132 billion in 2025). It sees industrial use down 3% as solar installations, especially in China, missed expectations and manufacturers used less silver per panel or swapped in alternatives after prices rose.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Silver faces sixth annual deficit despite weaker solar demand"
+              data-source="Metals Focus"
+              data-summary="SILVER is heading for a sixth consecutive annual supply deficit in 2026, despite falling industrial demand from solar panel manufacturers, Bloomberg reported. Demand from manufacturers, jewellers and investors is forecast to decline 5% to 1.08 billion ounces this year, according to preliminary estimates from the Silver Institute."
+              data-link="https://miningmx.com/2026-11-13-silver-faces-sixth-annual-deficit-despite-weaker-solar-demand/#new_tab">
+              <span class="card-source">Metals Focus</span>
+              <span class="card-title">Silver faces sixth annual deficit despite weaker solar demand</span>
+              <p class="card-summary">SILVER is heading for a sixth consecutive annual supply deficit in 2026, despite falling industrial demand from solar panel manufacturers, Bloomberg reported. Demand from manufacturers, jewellers and investors is forecast to decline 5% to 1.08 billion ounces this year, according to preliminary estimates from the Silver Institute.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+          </div>
+          </div>
+          <div class="subsection">
+            <h3 class="subsection-title">Crypto</h3>
+            <div class="cards-grid">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Why Crypto Investors Still Face Questions After Selling Through Regulated Platforms"
+              data-source="Finance Magnates"
+              data-summary="Finance Magnates reports: Why Crypto Investors Still Face Questions After Selling Through Regulated Platforms."
+              data-link="https://www.financemagnates.com/cryptocurrency/why-crypto-investors-still-face-questions-after-selling-through-regulated-platforms/">
+              <span class="card-source">Finance Magnates</span>
+              <span class="card-title">Why Crypto Investors Still Face Questions After Selling Through Regulated Platforms</span>
+              <p class="card-summary">Finance Magnates reports: Why Crypto Investors Still Face Questions After Selling Through Regulated Platforms.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="SEC Investor Panel to Examine Broker-Free Trading of Tokenised US Stocks"
+              data-source="Finance Magnates"
+              data-summary="Finance Magnates reports: SEC Investor Panel to Examine Broker-Free Trading of Tokenised US Stocks."
+              data-link="https://www.financemagnates.com/cryptocurrency/regulation/sec-investor-panel-to-examine-broker-free-trading-of-tokenised-us-stocks/">
+              <span class="card-source">Finance Magnates</span>
+              <span class="card-title">SEC Investor Panel to Examine Broker-Free Trading of Tokenised US Stocks</span>
+              <p class="card-summary">Finance Magnates reports: SEC Investor Panel to Examine Broker-Free Trading of Tokenised US Stocks.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Ukraine Approves Crypto Rules After Disagreements Between Regulators"
+              data-source="Finance Magnates"
+              data-summary="Ukraine’s parliament has approved legislation establishing a regulatory framework for cryptocurrencies, introducing authorization requirements for service providers and setting rules for taxation and consumer protection.The Verkhovna Rada passed the Virtual Assets Bill on November 25, with 271 lawmakers voting in favour and eight against.The legislation establishes the legal status of"
+              data-link="https://www.financemagnates.com/cryptocurrency/ukraine-approves-crypto-rules-after-disagreements-between-regulators/">
+              <span class="card-source">Finance Magnates</span>
+              <span class="card-title">Ukraine Approves Crypto Rules After Disagreements Between Regulators</span>
+              <p class="card-summary">Ukraine’s parliament has approved legislation establishing a regulatory framework for cryptocurrencies, introducing authorization requirements for service providers and setting rules for taxation and consumer protection.The Verkhovna Rada passed the Virtual Assets Bill on November 25, with 271 lawmakers voting in favour and eight against.The legislation establishes the legal status of</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+          </div>
+          </div>
+          <div class="subsection">
+            <h3 class="subsection-title">CFDs &amp; Margin</h3>
+            <div class="cards-grid">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="The Brokers and Prop Firms Leading Their National Markets in 2026"
+              data-source="Finance Magnates"
+              data-summary="The Finance Magnates Awards 2026 have announced this year&#x27;s national B2C winners, recognising companies across the online brokerage, trading technology and proprietary trading sectors.The national awards cover Colombia, Indonesia, Malaysia, Japan, the Philippines, the UAE, the USA and Germany, with categories spanning trading platform innovation, brokerage services, transparency, customer support,"
+              data-link="https://www.financemagnates.com/thought-leadership/the-brokers-and-prop-firms-leading-their-national-markets-in-2026/">
+              <span class="card-source">Finance Magnates</span>
+              <span class="card-title">The Brokers and Prop Firms Leading Their National Markets in 2026</span>
+              <p class="card-summary">The Finance Magnates Awards 2026 have announced this year&#x27;s national B2C winners, recognising companies across the online brokerage, trading technology and proprietary trading sectors.The national awards cover Colombia, Indonesia, Malaysia, Japan, the Philippines, the UAE, the USA and Germany, with categories spanning trading platform innovation, brokerage services, transparency, customer support,</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Why GCC Brokers Need More Than Just a Liquidity Provider"
+              data-source="Finance Magnates"
+              data-summary="There is so much more to choosing a liquidity provider than some may think. It is not just a case of comparing spreads, instrument coverage and technical infrastructure."
+              data-link="https://www.financemagnates.com/thought-leadership/why-gcc-brokers-need-more-than-just-a-liquidity-provider/">
+              <span class="card-source">Finance Magnates</span>
+              <span class="card-title">Why GCC Brokers Need More Than Just a Liquidity Provider</span>
+              <p class="card-summary">There is so much more to choosing a liquidity provider than some may think. It is not just a case of comparing spreads, instrument coverage and technical infrastructure.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Polymarket Turns GPU Price Bets into a Compute Forward Curve"
+              data-source="Finance Magnates"
+              data-summary="Through 2028 Polymarket has launched a page for betting on the cost of AI computing capacity. It uses separate binary markets to build a forward-style curve of rental prices for three Nvidia chips."
+              data-link="https://www.financemagnates.com/fintech/polymarket-turns-gpu-price-bets-into-a-compute-forward-curve/">
+              <span class="card-source">Finance Magnates</span>
+              <span class="card-title">Polymarket Turns GPU Price Bets into a Compute Forward Curve</span>
+              <p class="card-summary">Through 2028 Polymarket has launched a page for betting on the cost of AI computing capacity. It uses separate binary markets to build a forward-style curve of rental prices for three Nvidia chips.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+          </div>
+          </div>
+      </section>
+      <section class="section-block" id="ai" style="--section-color:#8B5CF6; --section-color-bg:#F5F3FF;">
+        <div class="section-header">
+          <h2 class="section-title">AI</h2>
+          <span class="section-count">5 articles</span>
+        </div>
+        <div class="cards-grid">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="S&amp;P considers Nvidia credit downgrade over governance and ‘key man’ risks"
+              data-source="TechCrunch AI"
+              data-summary="S&amp;P Global Ratings, one of the three major credit rating agencies, is considering downgrading Nvidia’s rating, citing concerns about the company’s management and governance practices."
+              data-link="https://techcrunch.com/2026/11/25/sp-considers-nvidia-credit-downgrade-over-governance-and-key-man-risks/">
+              <span class="card-source">TechCrunch AI</span>
+              <span class="card-title">S&amp;P considers Nvidia credit downgrade over governance and ‘key man’ risks</span>
+              <p class="card-summary">S&amp;P Global Ratings, one of the three major credit rating agencies, is considering downgrading Nvidia’s rating, citing concerns about the company’s management and governance practices.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="OpenAI says heavy ChatGPT users may hit limits sooner as it merges Chat and Work"
+              data-source="TechCrunch AI"
+              data-summary="OpenAI will introduce a single usage meter across ChatGPT as it combines the Chat and Work experiences."
+              data-link="https://techcrunch.com/2026/11/25/openai-says-heavy-chatgpt-users-may-hit-limits-sooner-as-it-merges-chat-and-work/">
+              <span class="card-source">TechCrunch AI</span>
+              <span class="card-title">OpenAI says heavy ChatGPT users may hit limits sooner as it merges Chat and Work</span>
+              <p class="card-summary">OpenAI will introduce a single usage meter across ChatGPT as it combines the Chat and Work experiences.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Jensen Huang broke Nvidia’s code of conduct, and his employees may not forget it"
+              data-source="TechCrunch AI"
+              data-summary="Jensen Huang broke Nvidia’s code of conduct, and his employees may not forget it Russell Brandom 11:54 AM PST · November 25, 2026 When Jensen Huang gave his first all-hands address since returning as CEO, there was an odd emphasis on Nvidia’s code of conduct."
+              data-link="https://techcrunch.com/2026/11/25/jensen-huang-broke-nvidias-code-of-conduct-and-his-employees-may-not-forget-it/">
+              <span class="card-source">TechCrunch AI</span>
+              <span class="card-title">Jensen Huang broke Nvidia’s code of conduct, and his employees may not forget it</span>
+              <p class="card-summary">Jensen Huang broke Nvidia’s code of conduct, and his employees may not forget it Russell Brandom 11:54 AM PST · November 25, 2026 When Jensen Huang gave his first all-hands address since returning as CEO, there was an odd emphasis on Nvidia’s code of conduct.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Anthropic’s Dario Amodei calls accusations of surrendering human control to AI ‘absurd’"
+              data-source="TechCrunch AI"
+              data-summary="Anthropic CEO Dario Amodei pushes back against rivals’ accusations that he favors surrendering human agency to AI, even as leading AI companies increasingly automate their own research and model development."
+              data-link="https://techcrunch.com/2026/11/25/anthropics-dario-amodei-calls-accusations-of-surrendering-human-control-to-ai-absurd/">
+              <span class="card-source">TechCrunch AI</span>
+              <span class="card-title">Anthropic’s Dario Amodei calls accusations of surrendering human control to AI ‘absurd’</span>
+              <p class="card-summary">Anthropic CEO Dario Amodei pushes back against rivals’ accusations that he favors surrendering human agency to AI, even as leading AI companies increasingly automate their own research and model development.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Want to buy your kid an AI toy this Christmas? Not in New York"
+              data-source="TechCrunch AI"
+              data-summary="Want to buy your kid an AI toy this Christmas? Not in New York Rebecca Bellan 10:11 AM PST · November 25, 2026 Santa won’t be delivering any AI chatbot toys to New York kids this Christmas. Gov."
+              data-link="https://techcrunch.com/2026/11/25/want-to-buy-your-kid-an-ai-toy-this-christmas-not-in-new-york/">
+              <span class="card-source">TechCrunch AI</span>
+              <span class="card-title">Want to buy your kid an AI toy this Christmas? Not in New York</span>
+              <p class="card-summary">Want to buy your kid an AI toy this Christmas? Not in New York Rebecca Bellan 10:11 AM PST · November 25, 2026 Santa won’t be delivering any AI chatbot toys to New York kids this Christmas. Gov.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+          </div>
+      </section>
+      <section class="section-block" id="companies" style="--section-color:#F59E0B; --section-color-bg:#FFFBEB;">
+        <div class="section-header">
+          <h2 class="section-title">Companies</h2>
+          <span class="section-count">5 articles</span>
+        </div>
+        <div class="cards-grid">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="FCC approves SpaceX plan to put AI data centers in space"
+              data-source="TechCrunch"
+              data-summary="FCC approves SpaceX plan to put AI data centers in space Kirsten Korosec 12:56 PM PST · November 25, 2026 SpaceX was given conditional approval by the Federal Communications Commission on Wednesday to deploy and operate a constellation of up to 1 million satellites for its orbital data center business,"
+              data-link="https://techcrunch.com/2026/11/25/fcc-approves-spacex-plan-to-put-ai-data-centers-in-space/">
+              <span class="card-source">TechCrunch</span>
+              <span class="card-title">FCC approves SpaceX plan to put AI data centers in space</span>
+              <p class="card-summary">FCC approves SpaceX plan to put AI data centers in space Kirsten Korosec 12:56 PM PST · November 25, 2026 SpaceX was given conditional approval by the Federal Communications Commission on Wednesday to deploy and operate a constellation of up to 1 million satellites for its orbital data center business,</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="The canceled Tesla Cybertruck is the fastest-selling used truck in America"
+              data-source="TechCrunch"
+              data-summary="The canceled Tesla Cybertruck is the fastest-selling used truck in America Kirsten Korosec 11:54 AM PST · November 25, 2026 Tesla Cybertruck sales never reached the lofty heights CEO Elon Musk predicted when it launched."
+              data-link="https://techcrunch.com/2026/11/25/the-canceled-tesla-cybertruck-is-the-fastest-selling-used-truck-in-america/">
+              <span class="card-source">TechCrunch</span>
+              <span class="card-title">The canceled Tesla Cybertruck is the fastest-selling used truck in America</span>
+              <p class="card-summary">The canceled Tesla Cybertruck is the fastest-selling used truck in America Kirsten Korosec 11:54 AM PST · November 25, 2026 Tesla Cybertruck sales never reached the lofty heights CEO Elon Musk predicted when it launched.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="The Art of The Terrible Startup Name"
+              data-source="Crunchbase News"
+              data-summary="When thinking of startup names, the usual question is how one identifies a great one. But perhaps equally crucial is the reverse consideration: What makes for a truly awful startup name? It’s a somewhat subjective exercise."
+              data-link="https://news.crunchbase.com/startups/bad-startup-name-examples-advice-grok/">
+              <span class="card-source">Crunchbase News</span>
+              <span class="card-title">The Art of The Terrible Startup Name</span>
+              <p class="card-summary">When thinking of startup names, the usual question is how one identifies a great one. But perhaps equally crucial is the reverse consideration: What makes for a truly awful startup name? It’s a somewhat subjective exercise.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Your AI Startup’s Exit Is Being Shaped By The Deals You Sign Today"
+              data-source="Crunchbase News"
+              data-summary="Valuations for AI companies have soared, and the companies are moving faster than ever. In the financings our firm has worked on so far in 2026, AI companies raised at median pre-money valuations up to 2.5 times those of non-AI companies from seed through Series C."
+              data-link="https://news.crunchbase.com/ma/your-ai-startups-exit-is-being-shaped-by-the-deals-you-sign-today/">
+              <span class="card-source">Crunchbase News</span>
+              <span class="card-title">Your AI Startup’s Exit Is Being Shaped By The Deals You Sign Today</span>
+              <p class="card-summary">Valuations for AI companies have soared, and the companies are moving faster than ever. In the financings our firm has worked on so far in 2026, AI companies raised at median pre-money valuations up to 2.5 times those of non-AI companies from seed through Series C.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="AI Bias In HR: Why Polished Work Gets Overrated And What to Do About It"
+              data-source="Crunchbase News"
+              data-summary="In today’s world, all professional employees use AI, whether it’s candidates submitting highly polished CVs with 100% perfect fit with your job description to AI-generated work."
+              data-link="https://news.crunchbase.com/workplace/ai-bias-in-hr-hiring-job-applications/">
+              <span class="card-source">Crunchbase News</span>
+              <span class="card-title">AI Bias In HR: Why Polished Work Gets Overrated And What to Do About It</span>
+              <p class="card-summary">In today’s world, all professional employees use AI, whether it’s candidates submitting highly polished CVs with 100% perfect fit with your job description to AI-generated work.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+          </div>
+      </section>
+      <section class="section-block" id="product" style="--section-color:#EC4899; --section-color-bg:#FDF2F8;">
+        <div class="section-header">
+          <h2 class="section-title">Product</h2>
+          <span class="section-count">5 articles</span>
+        </div>
+        <div class="cards-grid">
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="X’s latest update for creators focuses on vertical video"
+              data-source="TechCrunch Apps"
+              data-summary="The tools are designed to help creators make professional-quality vertical videos, share original content more easily, and earn more. They also give creators more ways to record, edit, and publish content directly on the platform without relying on third-party apps."
+              data-link="https://techcrunch.com/2026/11/25/xs-latest-update-for-creators-focuses-on-vertical-video/">
+              <span class="card-source">TechCrunch Apps</span>
+              <span class="card-title">X’s latest update for creators focuses on vertical video</span>
+              <p class="card-summary">The tools are designed to help creators make professional-quality vertical videos, share original content more easily, and earn more. They also give creators more ways to record, edit, and publish content directly on the platform without relying on third-party apps.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="WhatsApp now lets you schedule messages in group and individual chats"
+              data-source="TechCrunch Apps"
+              data-summary="Users can schedule messages from 10 minutes later to after 14 days."
+              data-link="https://techcrunch.com/2026/11/25/whatsapp-now-lets-you-schedule-messages-in-group-and-individual-chats/">
+              <span class="card-source">TechCrunch Apps</span>
+              <span class="card-title">WhatsApp now lets you schedule messages in group and individual chats</span>
+              <p class="card-summary">Users can schedule messages from 10 minutes later to after 14 days.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Threads comes to iPad and takes a page from X’s playbook with cashtags"
+              data-source="TechCrunch Apps"
+              data-summary="Threads comes to iPad and takes a page from X’s playbook with cashtags Sarah Perez 9:44 AM PST · November 24, 2026 It may have taken 15 years for Instagram to launch on the iPad, but Instagram’s other app, Threads, has taken a slightly faster path to the Apple tablet."
+              data-link="https://techcrunch.com/2026/11/24/threads-comes-to-ipad-and-takes-a-page-from-xs-playbook-with-cashtags/">
+              <span class="card-source">TechCrunch Apps</span>
+              <span class="card-title">Threads comes to iPad and takes a page from X’s playbook with cashtags</span>
+              <p class="card-summary">Threads comes to iPad and takes a page from X’s playbook with cashtags Sarah Perez 9:44 AM PST · November 24, 2026 It may have taken 15 years for Instagram to launch on the iPad, but Instagram’s other app, Threads, has taken a slightly faster path to the Apple tablet.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Meta brings its Muse AI assistant directly into Instagram DMs"
+              data-source="TechCrunch Apps"
+              data-summary="Meta brings its Muse AI assistant directly into Instagram DMs Aisha Malik 9:00 AM PST · November 24, 2026 Instagram users can now chat with Meta’s AI agent Muse in a DM thread, the company announced on Tuesday."
+              data-link="https://techcrunch.com/2026/11/24/meta-brings-its-muse-ai-assistant-directly-into-instagram-dms/">
+              <span class="card-source">TechCrunch Apps</span>
+              <span class="card-title">Meta brings its Muse AI assistant directly into Instagram DMs</span>
+              <p class="card-summary">Meta brings its Muse AI assistant directly into Instagram DMs Aisha Malik 9:00 AM PST · November 24, 2026 Instagram users can now chat with Meta’s AI agent Muse in a DM thread, the company announced on Tuesday.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+            <article class="card" onclick="openArticle(this)" role="button" tabindex="0"
+              data-title="Tidal to ban and remove millions of AI-generated tracks as AI slop inundates music streaming"
+              data-source="TechCrunch Apps"
+              data-summary="The company said it will still accept songs that were made with AI assistance, but not fully generated."
+              data-link="https://techcrunch.com/2026/11/24/tidal-to-ban-and-remove-millions-of-ai-generated-tracks-as-ai-slop-inundates-music-streaming/">
+              <span class="card-source">TechCrunch Apps</span>
+              <span class="card-title">Tidal to ban and remove millions of AI-generated tracks as AI slop inundates music streaming</span>
+              <p class="card-summary">The company said it will still accept songs that were made with AI assistance, but not fully generated.</p>
+              <span class="card-read-more">Read more →</span>
+            </article>
+          </div>
+      </section>
+      <section class="section-block" id="vocabulary" style="--section-color:#6366F1; --section-color-bg:#EEF2FF;">
+        <div class="section-header">
+          <h2 class="section-title">Vocabulary</h2>
+          <span class="section-count">5 terms today</span>
+        </div>
+        <div class="vocab-grid">
+          
+        <div class="vocab-card">
+          <p class="vocab-label">Term 1 of 5</p>
+          <h3 class="vocab-term">MEV – Maximal Extractable Value</h3>
+          <p class="vocab-definition">Profit that miners (in Proof-of-Work) or validators (in Proof-of-Stake) can extract beyond standard block rewards by selectively including, reordering, or censoring transactions within a block. MEV strategies include front-running (inserting a buy before a large trade), sandwich attacks (bracketing a victim transaction), and liquidation racing. Ethereum&#x27;s MEV ecosystem, mediated by Flashbots, redistributes hundreds of millions of dollars annually and has prompted architectural debates about fairness and protocol design.</p>
+        </div>
+        <div class="vocab-card">
+          <p class="vocab-label">Term 2 of 5</p>
+          <h3 class="vocab-term">Liquidity Coverage Ratio (LCR)</h3>
+          <p class="vocab-definition">A Basel III requirement that banks hold sufficient high-quality liquid assets (HQLA — cash, central bank reserves, government bonds) to cover 30 days of net cash outflows in a stress scenario. The minimum LCR is 100%. The March 2023 US regional banking crisis exposed the LCR&#x27;s limitations: Silicon Valley Bank was exempt as a mid-size bank, and uninsured depositor runs proved faster than the 30-day horizon assumed. LCR compliance is now a key metric for institutional counterparty assessment.</p>
+        </div>
+        <div class="vocab-card">
+          <p class="vocab-label">Term 3 of 5</p>
+          <h3 class="vocab-term">Carry Trade</h3>
+          <p class="vocab-definition">Borrowing in a low-interest-rate currency (e.g., Japanese yen) and investing in a higher-yielding currency or asset. Profit equals the interest rate differential minus financing and hedging costs. The key risk: adverse currency moves can swiftly erase accumulated carry, particularly during risk-off episodes when high-yield currencies depreciate sharply against funding currencies. The unwinding of massive yen carry trades triggered a global equity flash crash in August 2024, illustrating how leverage embedded in the FX carry trade can transmit shocks across asset classes.</p>
+        </div>
+        <div class="vocab-card">
+          <p class="vocab-label">Term 4 of 5</p>
+          <h3 class="vocab-term">Basis Points (bps)</h3>
+          <p class="vocab-definition">A unit equal to 0.01 percentage point, the universal language of rate and spread changes in fixed income, FX, and derivatives. 100 bps equals 1%. Using bps avoids percentage-of-percentage confusion — a spread widening from 2% to 2.5% is &#x27;50 bps&#x27;, not &#x27;25%&#x27;. Central bank communications, swap pricing, and credit spread analysis all use bps as the default unit. When traders say a bond &#x27;moved 5 bps&#x27;, they mean the yield changed by 0.05 percentage points, which translates to a specific price move depending on duration.</p>
+        </div>
+        <div class="vocab-card">
+          <p class="vocab-label">Term 5 of 5</p>
+          <h3 class="vocab-term">Liquidity Pool (DeFi)</h3>
+          <p class="vocab-definition">A smart-contract-held reserve of two or more tokens that enables decentralised trading without a traditional order book. Traders swap directly against the pool; the price adjusts automatically via a bonding curve (e.g., x × y = k in Uniswap v2). Liquidity providers deposit both tokens and earn a proportional share of trading fees. Concentrated liquidity (Uniswap v3) lets providers focus capital around a price range, earning higher fees but requiring active management. Total value locked (TVL) in liquidity pools across DeFi exceeded $80B at peak and serves as the sector&#x27;s headline size metric.</p>
+        </div>
+        </div>
+      </section>
+  </main>
+
+  <footer>
+    <p>Auto-generated daily at 8:00 AM IST</p>
+    <p style="margin-top:4px;">Sources: Economic Times · LiveMint · Bloomberg · TechCrunch · Crunchbase · FintechNews.ae · Arabian Business · Reuters · CNBC · CoinDesk · Cointelegraph · Kitco · BullionVault &amp; more</p>
+  </footer>
+
+  <!-- Article Modal -->
+  <div id="article-modal" class="modal-overlay" onclick="handleOverlayClick(event)">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeArticleModal()" aria-label="Close">&times;</button>
+      <span class="modal-source" id="modal-source"></span>
+      <h2 class="modal-title" id="modal-title"></h2>
+      <div class="modal-divider"></div>
+      <p class="modal-summary" id="modal-summary"></p>
+      <a class="modal-link" id="modal-link" href="#" target="_blank" rel="noopener noreferrer">
+        Read Full Article &rarr;
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // Dynamically pin nav below header and set scroll-margin-top on sections
+    function fixStickyOffsets() {
+      var headerH = document.querySelector('header').offsetHeight;
+      var nav = document.querySelector('nav');
+      nav.style.top = headerH + 'px';
+      var offset = headerH + nav.offsetHeight + 8;
+      document.querySelectorAll('.section-block').forEach(function(el) {
+        el.style.scrollMarginTop = offset + 'px';
+      });
+    }
+    fixStickyOffsets();
+    window.addEventListener('resize', fixStickyOffsets);
+
+    function openArticle(card) {
+      document.getElementById('modal-source').textContent = card.dataset.source;
+      document.getElementById('modal-title').textContent = card.dataset.title;
+      document.getElementById('modal-summary').textContent = card.dataset.summary || 'No summary available.';
+      document.getElementById('modal-link').href = card.dataset.link;
+      document.getElementById('article-modal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function handleOverlayClick(e) {
+      if (e.target === document.getElementById('article-modal')) closeArticleModal();
+    }
+    function closeArticleModal() {
+      document.getElementById('article-modal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeArticleModal();
+    });
+    document.querySelectorAll('.card').forEach(function(card) {
+      card.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openArticle(card); }
+      });
+    });
+  </script>
+
+</body>
+</html>
