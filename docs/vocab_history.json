@@ -1,11 +1,4 @@
 {
-  "2026-08-28": [
-    "Yield Curve Control (YCC)",
-    "CCP \u2013 Central Counterparty Clearing",
-    "Market Microstructure",
-    "Funding Rate (Crypto)",
-    "Momentum Factor"
-  ],
   "2026-08-29": [
     "Information Ratio (IR)",
     "Dark Pool",
@@ -635,5 +628,12 @@
     "Carry Trade",
     "Basis Points (bps)",
     "Liquidity Pool (DeFi)"
+  ],
+  "2026-11-27": [
+    "Contango vs Backwardation",
+    "CBDC \u2013 Central Bank Digital Currency",
+    "DORA \u2013 Digital Operational Resilience Act",
+    "Open Interest",
+    "Basis Points (bps)"
   ]
 }
