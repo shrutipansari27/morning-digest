@@ -1,11 +1,4 @@
 {
-  "2026-08-29": [
-    "Information Ratio (IR)",
-    "Dark Pool",
-    "VWAP / TWAP",
-    "Liquidity Pool (DeFi)",
-    "Transaction Cost Analysis (TCA)"
-  ],
   "2026-08-30": [
     "Contango vs Backwardation",
     "Perpetual Futures (Perps)",
@@ -635,5 +628,12 @@
     "DORA \u2013 Digital Operational Resilience Act",
     "Open Interest",
     "Basis Points (bps)"
+  ],
+  "2026-11-28": [
+    "CCP \u2013 Central Counterparty Clearing",
+    "Carry Trade",
+    "Sharpe Ratio",
+    "Prime of Prime (PoP)",
+    "Regulatory Capital / CET1"
   ]
 }
